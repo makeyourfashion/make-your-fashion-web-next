@@ -20,7 +20,7 @@ function getCanvasImgUrl() {
   return resizedCanvas.toDataURL();
 }
 
-@inject('productDetailStore', 'cartStore', 'identityStore') @observer
+@inject('productDetailStore', 'cartStore', 'identityStore', 'designStore') @observer
 export default class CreateView extends React.Component {
   state = {
     editable: true,
@@ -68,7 +68,41 @@ export default class CreateView extends React.Component {
     }, 4000);
   }
 
+  handleUpdateCart = (cartItem) => {
+    this.setState({
+      showSuccessMessage: true,
+    });
+    this.setState({
+      editable: false,
+    }, () => {
+      window.setTimeout(() => {
+        this.props.cartStore.updateCartItem({
+          id: +this.props.cartId,
+          ...cartItem,
+          imgUrl: getCanvasImgUrl(),
+        });
+      }, 500);
+    });
+    window.setTimeout(() => {
+      this.setState({
+        showSuccessMessage: false,
+      });
+    }, 4000);
+  }
+
   render() {
+    let productId;
+    if (this.props.productId) {
+      productId = this.props.productId;
+    } else {
+      const cartItem = this.props.cartStore.getCartItem(this.props.cartId);
+      if (cartItem) {
+        productId = cartItem.productId;
+      }
+    }
+
+    const product = this.props.productDetailStore.getProductDetail(productId);
+
     return (
       <div>
         <style global jsx>{`
@@ -103,17 +137,23 @@ export default class CreateView extends React.Component {
                   预览
                 </button>
               </div>
-              <Design
-                editable={this.state.editable}
-                product={this.props.productDetailStore.getProductDetail(this.props.productId)}
-              />
+              {
+                product ? <Design
+                  editable={this.state.editable}
+                  product={product}
+                /> : null
+              }
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
-              <OrderForm
-                onAddCartItem={this.handleAddToCart}
-                editable={this.state.editable}
-                product={this.props.productDetailStore.getProductDetail(this.props.productId)}
-              />
+              {
+                product ? <OrderForm
+                  onAddCartItem={this.handleAddToCart}
+                  onUpdateCart={this.handleUpdateCart}
+                  editable={this.state.editable}
+                  product={product}
+                  cartId={this.props.cartId}
+                /> : null
+              }
             </div>
           </div>
           <Snackbar

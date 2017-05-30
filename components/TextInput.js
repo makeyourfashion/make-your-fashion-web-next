@@ -58,7 +58,7 @@ export default class TextInput extends React.Component {
             }
           </label>
           {
-            displayError ? <p className="mdc-textfield-helptext mdc-textfield-helptext--persistent mdc-textfield-helptext--validation-msg">
+            displayError ? <p className="error-msg">
               {displayError}
             </p> : null
           }

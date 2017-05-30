@@ -48,7 +48,7 @@ export default class ShoppingCart extends React.Component {
             width: 34%;
           }
           img {
-            background-color: rgb(240,240,240);
+            background-color: rgb(245, 245, 245);
           }
           .cart-des {
             width: 66%;

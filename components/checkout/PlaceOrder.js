@@ -10,9 +10,6 @@ export default class PlaceOrder extends React.Component {
     return (
       <div>
         <style jsx>{`
-          .payment-form {
-            max-width: 400px;
-          }
           .cart-list {
             border-bottom: 1px solid #dedede;
           }
@@ -70,63 +67,59 @@ export default class PlaceOrder extends React.Component {
             padding-bottom: 5px;
           }
         `}</style>
-        <div className="payment-form">
-          <h3>总结</h3>
-          <div className="address-info">
-            <h4>邮寄地址</h4>
-            <div>{this.props.address.name}</div>
-            <div>{this.props.address.email}</div>
-            <div>{this.props.address.adress}</div>
-            <div>{this.props.address.zipcode}</div>
-            <div>{this.props.address.phone}</div>
-          </div>
-          <div>
-            <h4>商品信息</h4>
-            {
-              cartItems.map((item) => {
-                const productDetail = this.props.productDetailStore
-                  .getProductDetail(item.productId) || {};
-                return (
-                  <ul className="cart-list" key={item.id}>
-                    <div className="cart-item">
-                      <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
-                      <div className="cart-des">
-                        <div className="product-name">{productDetail.name}</div>
-                        <div className="label">¥100</div>
-                        <div className="label label-list">
-                          <div>尺码：</div>
-                          <div>{item.size}</div>
-                        </div>
-                        <div className="label label-list">
-                          <div>数量：</div>
-                          <div>{item.qty}</div>
-                        </div>
+        <h3>总结</h3>
+        <div className="address-info">
+          <h4>邮寄地址</h4>
+          <div>{this.props.address.name}</div>
+          <div>{this.props.address.address}</div>
+          <div>{this.props.address.phone}</div>
+        </div>
+        <div>
+          <h4>商品信息</h4>
+          {
+            cartItems.map((item) => {
+              const productDetail = this.props.productDetailStore
+                .getProductDetail(item.productId) || {};
+              return (
+                <ul className="cart-list" key={item.id}>
+                  <div className="cart-item">
+                    <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
+                    <div className="cart-des">
+                      <div className="product-name">{productDetail.name}</div>
+                      <div className="label">¥100</div>
+                      <div className="label label-list">
+                        <div>尺码：</div>
+                        <div>{item.size}</div>
+                      </div>
+                      <div className="label label-list">
+                        <div>数量：</div>
+                        <div>{item.qty}</div>
                       </div>
                     </div>
-                  </ul>
-                );
-              })
-            }
-            <div className="summary">
-              <div className="label-list">
-                <div>商品总价：</div>
-                <div>¥100</div>
-              </div>
-              <div className="label-list">
-                <div>运费：</div>
-                <div>0</div>
-              </div>
-              <div className="label-list">
-                <div>总计</div>
-                <div>¥100</div>
-              </div>
+                  </div>
+                </ul>
+              );
+            })
+          }
+          <div className="summary">
+            <div className="label-list">
+              <div>商品总价：</div>
+              <div>¥100</div>
+            </div>
+            <div className="label-list">
+              <div>运费：</div>
+              <div>¥0</div>
+            </div>
+            <div className="label-list">
+              <div>总计：</div>
+              <div>¥100</div>
             </div>
           </div>
-          <div className="next-step">
-            <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
-              下单
-            </button>
-          </div>
+        </div>
+        <div className="next-step">
+          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+            确认无误，下单
+          </button>
         </div>
       </div>
     );

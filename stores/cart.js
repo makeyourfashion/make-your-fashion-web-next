@@ -25,6 +25,17 @@ class CartStore {
     window.localStorage.setItem('cart', JSON.stringify(this.cartItems.slice()));
   }
 
+  @action updateCartItem(newItem) {
+    const index = this.cartItems.findIndex(item => newItem.id === item.id);
+    this.cartItems[index] = newItem;
+    window.localStorage.setItem('cart', JSON.stringify(this.cartItems.slice()));
+  }
+
+  @action removeCartItem(id) {
+    this.cartItems = this.cartItems.filter(item => item.id !== id);
+    window.localStorage.setItem('cart', JSON.stringify(this.cartItems.slice()));
+  }
+
   @action clearCart() {
     this.cartItems = [];
     window.localStorage.setItem('cart', JSON.stringify(this.cartItems.slice()));

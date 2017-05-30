@@ -115,6 +115,9 @@ export default class EditTextPanel extends React.Component {
             width: 45%;
             margin-right: 5%;
           }
+          [title~="#fff"] {
+            border: 1px solid #000;
+          }
         `}</style>
         <div className="form-field">
           <TextInput

@@ -39,12 +39,38 @@ export default class ShopView extends React.Component {
             flex-wrap: wrap;
             justify-content: flex-start;
           }
+          .category {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 600;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dedede;
+            letter-spacing: 5px;
+          }
+          .sub-category {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 400;
+            font-size: 1.1em;
+            color: #333;
+            letter-spacing: 2px;
+          }
         `}</style>
         <AppBar />
         <div className="container">
+          <h1 className="category">
+            {
+              this.props.productStore.getCategory(this.props.category).name
+            }
+          </h1>
+          <h2 className="sub-category">
+            {
+              this.state.subCat ? this.props.productStore.getSubCategories(this.props.category)
+                .find(c => c.id === +this.state.subCat).name : ''
+            }
+          </h2>
           <div className="mdc-layout-grid">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
-              <h1>{this.props.productStore.getCategory(+this.props.category).name}</h1>
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 left-menu">
               <div className="label">类别</div>
               <ul>
                 {
@@ -61,7 +87,7 @@ export default class ShopView extends React.Component {
                   ))
                 }
               </ul>
-              <div className="label">过滤器</div>
+              <div className="label">产品分类</div>
               <ul>
                 {
                   this.props.productStore.getSubCategories(this.props.category).map(cat => (
@@ -80,14 +106,16 @@ export default class ShopView extends React.Component {
                 }
               </ul>
             </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10 product-list">
-              {
-                this.props.productStore
-                  .getProductsByCategory(this.props.category, this.state.subCat)
-                  .map(product => (
-                    <ProductCard key={product.id} product={product} />
-                  ))
-              }
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+              <div className="product-list">
+                {
+                  this.props.productStore
+                    .getProductsByCategory(this.props.category, this.state.subCat)
+                    .map(product => (
+                      <ProductCard key={product.id} product={product} />
+                    ))
+                }
+              </div>
             </div>
           </div>
         </div>

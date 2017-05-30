@@ -1,12 +1,13 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
+import Router from 'next/router';
+import Link from 'next/link';
 import AppBar from '../AppBar';
 import Footer from '../Footer';
 import ShippingDetail from './ShippingDetail';
 import Payment from './Payment';
 import PlaceOrder from './PlaceOrder';
 import Snackbar from '../Snackbar';
-import Router from 'next/router';
 
 @inject('cartStore', 'productDetailStore', 'identityStore') @observer
 export default class Checkout extends React.Component {
@@ -14,6 +15,8 @@ export default class Checkout extends React.Component {
     step: 0,
     address: {},
     showSuccessMessage: false,
+    paySuccess: false,
+    addressEntered: false,
   }
 
   componentDidMount() {
@@ -26,12 +29,14 @@ export default class Checkout extends React.Component {
     this.setState({
       step: 1,
       address,
+      addressEntered: true,
     });
   }
 
   handleGotoReview = () => {
     this.setState({
       step: 2,
+      paySuccess: true,
     });
   }
 
@@ -43,6 +48,31 @@ export default class Checkout extends React.Component {
     window.setTimeout(() => {
       Router.push('/shop?category=2');
     }, 4000);
+  }
+
+  goToShipping = (e) => {
+    e.preventDefault();
+    this.setState({
+      step: 0,
+    });
+  }
+
+  goToPayment = (e) => {
+    e.preventDefault();
+    this.setState({
+      step: 1,
+    });
+  }
+
+  goToPlaceOrder = (e) => {
+    e.preventDefault();
+    this.setState({
+      step: 2,
+    });
+  }
+
+  handleRemoveCartItem = (e) => {
+    this.props.cartStore.removeCartItem(+e.target.getAttribute('data-cart-id'));
   }
 
   render() {
@@ -110,6 +140,18 @@ export default class Checkout extends React.Component {
           .active-step {
             color: #000;
           }
+          .des-line1 {
+            display: flex;
+            justify-content: space-between;
+          }
+          .edit-link {
+            color: var(--mdc-theme-accent);
+            border: none;
+            background-color: #fdfdf9;
+          }
+          .edit-link:hover {
+            cursor: pointer;
+          }
         `}</style>
         <AppBar />
         <div className="container">
@@ -117,11 +159,17 @@ export default class Checkout extends React.Component {
             <div className="main-form mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
               <h2>结账</h2>
               <div className="steps">
-                <div className={this.state.step === 0 ? 'active-step' : ''}>邮寄地址</div>
+                <a href="/checkout" onClick={this.goToShipping} className={this.state.step === 0 ? 'active-step' : ''}>邮寄地址</a>
                 <div>&gt;</div>
-                <div className={this.state.step === 1 ? 'active-step' : ''}>支付</div>
+                {
+                  this.state.addressEntered ? <a href="/checkout" onClick={this.goToPayment} className={this.state.step === 1 ? 'active-step' : ''}>支付</a>
+                    : <div className={this.state.step === 1 ? 'active-step' : ''}>支付</div>
+                }
                 <div>&gt;</div>
-                <div className={this.state.step === 2 ? 'active-step' : ''}>下单</div>
+                {
+                  this.state.paySuccess ? <a href="/checkout" onClick={this.goToPlaceOrder} className={this.state.step === 2 ? 'active-step' : ''}>下单</a>
+                    : <div className={this.state.step === 2 ? 'active-step' : ''}>下单</div>
+                }
               </div>
               {
                 (() => {
@@ -131,6 +179,7 @@ export default class Checkout extends React.Component {
                       <ShippingDetail
                         onNext={this.handleGotoPayment}
                         phone={phone}
+                        {...this.state.address}
                       />
                     ) : null;
                   } else if (this.state.step === 1) {
@@ -153,7 +202,16 @@ export default class Checkout extends React.Component {
                       <div className="cart-item">
                         <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
                         <div className="cart-des">
-                          <div className="product-name">{productDetail.name}</div>
+                          <div className="des-line1">
+                            <div className="product-name">{productDetail.name}</div>
+                            <div>
+                              <Link href={`/create?cart=${item.id}`}>
+                                <a className="edit-link">编辑</a>
+                              </Link>
+                              &nbsp;/&nbsp;
+                              <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+                            </div>
+                          </div>
                           <div className="label">¥100</div>
                           <div className="label label-list">
                             <div>尺码：</div>
@@ -176,10 +234,10 @@ export default class Checkout extends React.Component {
                 </div>
                 <div className="label-list">
                   <div>运费：</div>
-                  <div>0</div>
+                  <div>¥0</div>
                 </div>
                 <div className="label-list">
-                  <div>总计</div>
+                  <div>总计：</div>
                   <div>¥100</div>
                 </div>
               </div>

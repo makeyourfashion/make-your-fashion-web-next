@@ -11,16 +11,22 @@ class DesignStore {
   @observable activeImageId = null
   @observable activeTextId = null
 
-  constructor(productId) {
+  constructor(productId, images = [], texts = []) {
     this.design.productId = productId;
     if (typeof window !== 'undefined') {
-      const designJson = window.localStorage.getItem('design');
-      if (designJson) {
-        const originalDesign = JSON.parse(designJson);
-        if (originalDesign.productId === this.design.productId) {
-          this.design = originalDesign;
-        } else {
-          window.localStorage.setItem('design', JSON.stringify(this.design));
+      if (images.length || texts.length) {
+        this.design.images = images;
+        this.design.texts = texts;
+        window.localStorage.setItem('design', JSON.stringify(this.design));
+      } else {
+        const designJson = window.localStorage.getItem('design');
+        if (designJson) {
+          const originalDesign = JSON.parse(designJson);
+          if (originalDesign.productId === this.design.productId) {
+            this.design = originalDesign;
+          } else {
+            window.localStorage.setItem('design', JSON.stringify(this.design));
+          }
         }
       }
     }
@@ -119,9 +125,9 @@ class DesignStore {
   }
 }
 
-export default function init(productId) {
+export default function init(productId, designs, texts) {
   if (store === null || typeof window === 'undefined') {
-    store = new DesignStore(productId);
+    store = new DesignStore(productId, designs, texts);
   }
   return store;
 }

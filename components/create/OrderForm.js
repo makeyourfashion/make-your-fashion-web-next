@@ -4,13 +4,27 @@ import { inject, observer } from 'mobx-react';
 import { SelectField, SelectItem } from '../SelectField';
 import EditTextPanel from './EditTextPanel';
 
-@inject('designStore') @observer
+@inject('designStore', 'cartStore') @observer
 export default class OrderForm extends React.Component {
-  state = {
-    size: null,
-    qty: null,
-    sizeError: null,
-    qtyError: null,
+
+  constructor(props) {
+    super(props);
+    if (this.props.cartId) {
+      const { size, qty } = this.props.cartStore.getCartItem(this.props.cartId);
+      this.state = {
+        size,
+        qty,
+        sizeError: '',
+        qtyError: '',
+      };
+    } else {
+      this.state = {
+        size: '',
+        qty: '',
+        sizeError: '',
+        qtyError: '',
+      };
+    }
   }
 
   handleSelectQty = (value) => {
@@ -55,6 +69,18 @@ export default class OrderForm extends React.Component {
     this.props.onAddCartItem(newCartItem);
   }
 
+  handleUpdateCart = (e) => {
+    e.preventDefault();
+    const { size, qty } = this.state;
+    const newCartItem = {
+      size,
+      qty: +qty,
+      ...this.props.designStore.design,
+    };
+
+    this.props.onUpdateCart(newCartItem);
+  }
+
   render() {
     const product = this.props.product;
     return (
@@ -87,7 +113,7 @@ export default class OrderForm extends React.Component {
           <span>单价：</span>
           <span>¥100</span>
         </div>
-        <form noValidate onSubmit={this.addToCart} >
+        <form noValidate>
           <div className="form-field select-list">
             <div className="select">
               <label htmlFor="select-size">选择尺码：</label><br />
@@ -112,7 +138,7 @@ export default class OrderForm extends React.Component {
                 onChange={this.handleSelectQty}
               >
                 {
-                  range(0, 12).map(n =>
+                  range(1, 12).map(n =>
                     <SelectItem key={n} value={n}>{n}</SelectItem>,
                   )
                 }
@@ -123,9 +149,13 @@ export default class OrderForm extends React.Component {
           {
             this.props.editable ? <EditTextPanel /> : null
           }
-          <button type="submit" className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
-            添加到购物车
-          </button>
+          {
+            this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+              更新购物车
+            </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+              添加到购物车
+            </button>
+          }
         </form>
       </div>
     );

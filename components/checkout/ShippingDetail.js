@@ -1,31 +1,21 @@
 import React from 'react';
 import TextInput from '../TextInput';
-import { validateEmail, validateZipcode, validatePhone } from '../../utils';
+import { validatePhone } from '../../utils';
 
 export default class ShippingDetail extends React.Component {
-  state = {
-    email: '',
-    emailError: '',
+  static defaultProps = {
     name: '',
-    nameError: '',
     address: '',
+    phone: '',
+  }
+
+  state = {
+    name: this.props.name,
+    nameError: '',
+    address: this.props.address,
     addressError: '',
-    zipcode: '',
-    zipcodeError: '',
     phone: this.props.phone,
     phoneError: '',
-  }
-
-  handleEmailChange = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
-  }
-
-  handleEmailValidation = (e) => {
-    this.setState({
-      emailError: validateEmail(e.target.value),
-    });
   }
 
   handleNameChange = (e) => {
@@ -52,18 +42,6 @@ export default class ShippingDetail extends React.Component {
     });
   }
 
-  handleZipcodeChange = (e) => {
-    this.setState({
-      zipcode: e.target.value,
-    });
-  }
-
-  handleZipcodeValidation = (e) => {
-    this.setState({
-      zipcodeError: validateZipcode(e.target.value),
-    });
-  }
-
   handlePhoneChange = (e) => {
     this.setState({
       phone: e.target.value,
@@ -79,10 +57,8 @@ export default class ShippingDetail extends React.Component {
   handleNext = (e) => {
     e.preventDefault();
     const errors = {};
-    errors.emailError = validateEmail(this.state.email);
     errors.nameError = this.state.name ? '' : '请输入姓名';
     errors.addressError = this.state.address ? '' : '请输入详细地址';
-    errors.zipcodeError = validateZipcode(this.state.zipcode);
     errors.phoneError = validatePhone(this.state.phone);
 
     if (Object.values(errors).filter(v => v).length) {
@@ -92,19 +68,16 @@ export default class ShippingDetail extends React.Component {
       return;
     }
 
-    const { email, name, address, phone, zipcode } = this.state;
+    const { name, address, phone } = this.state;
     this.props.onNext({
-      email, name, address, phone, zipcode,
+      name, address, phone,
     });
   }
 
   render() {
     return (
-      <div className="shipping-form">
+      <div >
         <style jsx>{`
-          .shipping-form {
-            max-width: 400px;
-          }
           .short-input {
             max-width: 200px;
           }
@@ -119,13 +92,6 @@ export default class ShippingDetail extends React.Component {
         <div>
           <h3>请输入您的邮寄地址：</h3>
           <form noValidate onSubmit={this.handleNext}>
-            <TextInput
-              label="邮箱地址："
-              displayError={this.state.emailError}
-              onChange={this.handleEmailChange}
-              onBlur={this.handleEmailValidation}
-              value={this.state.email}
-            />
             <div className="short-input">
               <TextInput
                 label="姓名："
@@ -151,15 +117,6 @@ export default class ShippingDetail extends React.Component {
                 onChange={this.handlePhoneChange}
                 onBlur={this.handlePhoneValidation}
                 value={this.state.phone}
-              />
-            </div>
-            <div className="short-input">
-              <TextInput
-                label="邮编："
-                displayError={this.state.zipcodeError}
-                onChange={this.handleZipcodeChange}
-                onBlur={this.handleZipcodeValidation}
-                value={this.state.zipcode}
               />
             </div>
             <div className="short-input">
