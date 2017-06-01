@@ -114,6 +114,7 @@ export default class OrderForm extends React.Component {
           <span>¥100</span>
         </div>
         <form noValidate>
+          <EditTextPanel />
           <div className="form-field select-list">
             <div className="select">
               <label htmlFor="select-size">选择尺码：</label><br />
@@ -147,12 +148,9 @@ export default class OrderForm extends React.Component {
             </div>
           </div>
           {
-            this.props.editable ? <EditTextPanel /> : null
-          }
-          {
-            this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+            this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
               更新购物车
-            </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+            </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
               添加到购物车
             </button>
           }

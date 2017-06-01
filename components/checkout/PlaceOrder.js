@@ -117,7 +117,7 @@ export default class PlaceOrder extends React.Component {
           </div>
         </div>
         <div className="next-step">
-          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
             确认无误，下单
           </button>
         </div>

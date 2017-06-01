@@ -31,7 +31,7 @@ export default class Payment extends React.Component {
           </button>
         </div>
         <div className="short-input">
-          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
             下一步
           </button>
         </div>

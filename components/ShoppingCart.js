@@ -106,7 +106,7 @@ export default class ShoppingCart extends React.Component {
                 <h4>总计：¥100</h4>
                 <button
                   onClick={this.handleCheckout}
-                  className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width"
+                  className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width"
                 >
                   结账
                 </button>

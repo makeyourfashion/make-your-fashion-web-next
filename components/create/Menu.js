@@ -85,20 +85,20 @@ export default class Menu extends React.Component {
             </button>
           </li>
           <li className="mdc-list-item">
-            <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">collections</i>
+            <i className="material-icons" aria-hidden="true">collections</i>
             <button onClick={this.handleSelectPicture} className="icon-button">
               选择设计
             </button>
           </li>
           <li className="mdc-list-item">
-            <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">text_fields</i>
+            <i className="material-icons" aria-hidden="true">text_fields</i>
             <button onClick={this.handleAddText} className="icon-button">
               添加文字
             </button>
           </li>
           <li className="mdc-list-item">
             <input type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
-            <i className="mdc-list-item__start-detail material-icons">file_upload</i>
+            <i className="material-icons">file_upload</i>
             <button onClick={this.handleOpenFileUploadDialog} className="icon-button">
               上传图片
             </button>

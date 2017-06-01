@@ -120,7 +120,7 @@ export default class ShippingDetail extends React.Component {
               />
             </div>
             <div className="short-input">
-              <button type="submit" className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+              <button type="submit" className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
                 下一步
               </button>
             </div>
