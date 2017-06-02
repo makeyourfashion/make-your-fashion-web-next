@@ -70,7 +70,7 @@ export default class ShopView extends React.Component {
           <h2 className="sub-category">
             {
               this.state.subCat ? this.props.productStore.getSubCategories(this.props.category)
-                .find(c => c.id === +this.state.subCat).name : ''
+                .find(c => c.id === +this.state.subCat).name : '全部产品'
             }
           </h2>
           <div className="mdc-layout-grid">
