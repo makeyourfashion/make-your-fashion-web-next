@@ -33,6 +33,7 @@ export default class ShopView extends React.Component {
           .label {
             font-weight: bold;
             font-size: 1.1em;
+            border-bottom: 2px solid #000;
           }
           .product-list {
             display: flex;
@@ -55,6 +56,9 @@ export default class ShopView extends React.Component {
             color: #333;
             letter-spacing: 2px;
           }
+          .category-list {
+            margin-bottom: 10px;
+          }
         `}</style>
         <AppBar />
         <div className="container">
@@ -71,11 +75,11 @@ export default class ShopView extends React.Component {
           </h2>
           <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 left-menu">
-              <div className="label">类别</div>
+              <div><span className="label">类别</span></div>
               <ul>
                 {
                   this.props.productStore.categories.slice().map(cat => (
-                    <li key={cat.id}>
+                    <li className="category-list" key={cat.id}>
                       <Link href={`/shop?category=${cat.id}`}>
                         <a
                           style={{
@@ -87,11 +91,11 @@ export default class ShopView extends React.Component {
                   ))
                 }
               </ul>
-              <div className="label">产品分类</div>
+              <div><span className="label">产品分类</span></div>
               <ul>
                 {
                   this.props.productStore.getSubCategories(this.props.category).map(cat => (
-                    <li key={cat.id}>
+                    <li className="category-list" key={cat.id}>
                       <a
                         href={`#${cat.id}`}
                         data-catId={cat.id}
