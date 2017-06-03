@@ -208,7 +208,6 @@ export default class Checkout extends React.Component {
                               <Link href={`/create?cart=${item.id}`}>
                                 <a className="edit-link">编辑</a>
                               </Link>
-                              &nbsp;/&nbsp;
                               <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
                             </div>
                           </div>

@@ -74,3 +74,7 @@ select {
   line-height: 12px;
   color: rgb(244, 67, 54);
 }
+button.button-full-width {
+  font-size: 1.1em !important;
+  height: 40px !important;
+}

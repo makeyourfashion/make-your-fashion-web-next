@@ -2,38 +2,6 @@ import React from 'react';
 import { Image, Text as KonvaText, Group, Rect } from 'react-konva';
 import { inject, observer } from 'mobx-react';
 import { toCanvasPx, fromCanvasPx, toCanvasWidth } from './canvasUtil';
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  RECT_WIDTH,
-  RECT_HEIGHT,
-} from './consts';
-
-function getDragBound(pos, minx, miny, maxx, maxy) {
-  let x;
-  let y;
-
-  if (pos.x < minx) {
-    x = minx;
-  } else if (pos.x > maxx) {
-    x = maxx;
-  } else {
-    x = pos.x;
-  }
-
-  if (pos.y < miny) {
-    y = miny;
-  } else if (pos.y > maxy) {
-    y = maxy;
-  } else {
-    y = pos.y;
-  }
-
-  return {
-    x,
-    y,
-  };
-}
 
 @inject('designStore', 'pictureStore') @observer
 export default class Text extends React.Component {
@@ -44,20 +12,34 @@ export default class Text extends React.Component {
 
   state = {
     removeImg: null,
+    offsetY: 0,
   };
   componentDidMount() {
-    this.rect.setWidth(this.text.getWidth());
-    this.rect.setHeight(this.text.getHeight());
+    const { x, y } = this.props.text;
+    const canvasXY = toCanvasPx(x, y);
+    const width = this.text.getWidth();
+    const height = this.text.getHeight();
+    this.group.setY(canvasXY.y + (height / 2));
+    this.group.setOffsetY(height / 2);
+    this.rect.setWidth(width);
+    this.rect.setHeight(height);
     if (!this.props.editible) {
       this.rect.hide();
       this.deleteButton.hide();
-      // this.props.toggleEditTextPanel(false);
+      this.rotateBtn.hide();
     }
     const removeImg = new window.Image();
     removeImg.src = '/static/image/delete.svg';
     removeImg.onload = () => {
       this.setState({
         removeImg,
+      });
+    };
+    const rotateImg = new window.Image();
+    rotateImg.src = '/static/image/rotate.svg';
+    rotateImg.onload = () => {
+      this.setState({
+        rotateImg,
       });
     };
     this.deleteButton.setY((this.text.getHeight() - 30) / 2);
@@ -67,24 +49,23 @@ export default class Text extends React.Component {
     if (!nextProps.editible) {
       this.rect.hide();
       this.deleteButton.hide();
-      // this.props.toggleEditTextPanel(false);
+      this.rotateBtn.hide();
     } else {
       this.deleteButton.show();
       this.rect.show();
+      this.rotateBtn.show();
     }
   }
 
   componentDidUpdate() {
-    this.rect.setWidth(this.text.getWidth());
-    this.rect.setHeight(this.text.getHeight());
-  }
-
-  handleDragBound = (pos) => {
-    const minx = (CANVAS_WIDTH - RECT_WIDTH) / 2;
-    const miny = (CANVAS_HEIGHT - RECT_HEIGHT) / 2;
-    const maxx = (minx + RECT_WIDTH) - this.text.getWidth();
-    const maxy = (miny + RECT_HEIGHT) - this.text.getHeight();
-    return getDragBound(pos, minx, miny, maxx, maxy);
+    const { x, y } = this.props.text;
+    const canvasXY = toCanvasPx(x, y);
+    const width = this.text.getWidth();
+    const height = this.text.getHeight();
+    this.group.setY(canvasXY.y + (height / 2));
+    this.group.setOffsetY(height / 2);
+    this.rect.setWidth(width);
+    this.rect.setHeight(height);
   }
 
   handleRemoveText = () => {
@@ -92,7 +73,8 @@ export default class Text extends React.Component {
   }
 
   handleDragEnd = () => {
-    const { x, y } = fromCanvasPx(this.group.attrs.x, this.group.attrs.y);
+    const { x, y } = fromCanvasPx(this.group.attrs.x - this.group.attrs.offsetX
+      , this.group.attrs.y - this.group.attrs.offsetY);
     this.props.designStore.updateText({ x, y, id: this.props.text.id });
     this.props.onDragEnd();
   }
@@ -100,8 +82,24 @@ export default class Text extends React.Component {
   handleClick = () => {
     if (this.props.editible) {
       this.props.designStore.setActiveTextId(this.props.text.id);
-      // this.props.toggleEditTextPanel(true);
     }
+  }
+
+  handleRotate = () => {
+    const { x, y } = this.rotateBtn.attrs;
+    const degree = (((Math.atan((y - this.group.attrs.y) / (x - this.group.attrs.x))) * 180)
+      / Math.PI) - 39;
+      // Magic number 39, don't know where it comes from!
+    this.group.rotate(degree);
+    this.rotateBtn.setX(-10);
+    this.rotateBtn.setY(-10);
+  }
+
+  handleRotateEnd = () => {
+    this.props.designStore.updateText({
+      id: this.props.text.id,
+      rotation: this.group.attrs.rotation,
+    });
   }
 
   handleMouseOver = () => {
@@ -128,31 +126,56 @@ export default class Text extends React.Component {
     return (
       <Group
         ref={(r) => { this.group = r; }}
-        x={canvasXY.x}
-        y={canvasXY.y}
+        x={canvasXY.x + (canvasWidth / 2)}
+        offsetX={(canvasWidth / 2)}
         draggable={this.props.editible}
         onDragMove={this.handleDrag}
         onDragEnd={this.handleDragEnd}
-        dragBoundFunc={this.handleDragBound}
+        rotation={this.props.text.rotation}
       >
         <Group
-          x={-30}
+          x={canvasWidth - 10}
+          y={-10}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
           ref={(r) => { this.deleteButton = r; }}
           onClick={this.handleRemoveText}
           onTouchStart={this.handleRemoveText}
         >
           <Rect
+            strokeWidth={1}
             fill="white"
-            x={2.5}
+            stroke="grey"
             height={20}
-            width={15}
+            width={20}
           />
           <Image
             height={20}
             width={20}
-            onMouseOver={this.handleMouseOver}
-            onMouseOut={this.handleMouseOut}
             image={this.state.removeImg}
+          />
+        </Group>
+        <Group
+          x={-10}
+          y={-10}
+          draggable={this.props.editible}
+          onDragMove={this.handleRotate}
+          onDragEnd={this.handleRotateEnd}
+          onMouseOver={this.handleMouseOver}
+          onMouseOut={this.handleMouseOut}
+          ref={(r) => { this.rotateBtn = r; }}
+        >
+          <Rect
+            strokeWidth={1}
+            fill="white"
+            stroke="grey"
+            height={20}
+            width={20}
+          />
+          <Image
+            height={20}
+            width={20}
+            image={this.state.rotateImg}
           />
         </Group>
         <Rect

@@ -89,6 +89,7 @@ class DesignStore {
       width: 500,
       x: 250,
       y: 625,
+      rotation: 0,
       picId: this.activeImageId,
     };
     this.design.images.push(newImage);
@@ -102,6 +103,7 @@ class DesignStore {
       width: 950,
       x: 25,
       y: 625,
+      rotation: 0,
       fontSize: 30,
       fontFamily: 'Arial',
       color: '#000',
