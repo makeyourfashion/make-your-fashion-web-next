@@ -28,10 +28,12 @@ export default class CreateView extends React.Component {
 
   componentDidMount() {
     document.addEventListener('click', this.handleToggleEditable);
+    document.addEventListener('touchstart', this.handleToggleEditable);
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleToggleEditable);
+    document.removeEventListener('touchstart', this.handleToggleEditable);
   }
 
   handleToggleEditable = (e) => {
@@ -115,10 +117,10 @@ export default class CreateView extends React.Component {
         <AppBar />
         <div className="container">
           <div className="mdc-layout-grid">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
               <Menu />
             </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-6-tablet">
               {
                 product ? <Design
                   editable={this.state.editable}
@@ -126,7 +128,7 @@ export default class CreateView extends React.Component {
                 /> : null
               }
             </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-6-tablet">
               {
                 product ? <OrderForm
                   onAddCartItem={this.handleAddToCart}

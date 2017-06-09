@@ -11,11 +11,11 @@ export default class ProductCard extends React.Component {
       <div className="product-card" onClick={this.handleProductSelect}>
         <style jsx>{`
           .product-card {
-            width: 33%;
+            width: 50%;
             max-width: 350px;
-            min-width: 150px;
+            min-width: 100px;
             margin-bottom: 40px;
-            padding-right: 20px;
+            padding-right: 10px;
           }
           .product-card:hover {
             cursor: pointer;
@@ -33,6 +33,12 @@ export default class ProductCard extends React.Component {
           }
           .price-label {
             font-weight: 300;
+          }
+          @media (max-width: 599px) {
+            .product-card {
+              width: 49%;
+              padding-right: 1%;
+            }
           }
         `}</style>
         <div>

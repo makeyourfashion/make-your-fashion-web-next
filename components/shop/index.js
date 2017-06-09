@@ -59,6 +59,11 @@ export default class ShopView extends React.Component {
           .category-list {
             margin-bottom: 10px;
           }
+          @media (max-width: 599px) {
+            .left-menu {
+              text-align: center;
+            }
+          }
         `}</style>
         <AppBar />
         <div className="container">
@@ -74,7 +79,7 @@ export default class ShopView extends React.Component {
             }
           </h2>
           <div className="mdc-layout-grid">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 left-menu">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone left-menu">
               <div><span className="label">类别</span></div>
               <ul>
                 {

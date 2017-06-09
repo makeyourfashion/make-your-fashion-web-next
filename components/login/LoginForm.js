@@ -84,6 +84,7 @@ export default class LoginForm extends React.Component {
           <form noValidate onSubmit={this.handleLogin}>
             <TextInput
               label="手机号"
+              type="tel"
               displayError={this.state.phoneError}
               onChange={this.handlePhoneChange}
               onBlur={this.handlePhoneValidation}

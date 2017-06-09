@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Rect, Group, Circle } from 'react-konva';
+import { Image, Rect, Group } from 'react-konva';
 import { inject, observer } from 'mobx-react';
 import {
   toCanvasPx,

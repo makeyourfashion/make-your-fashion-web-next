@@ -15,8 +15,10 @@ function AppBar() {
           font-size: 1.25rem;
           font-weight: 500;
         }
-        .login-button {
-          margin-right: 20px;
+        @media (min-width: 600px) {
+          .login-button {
+            margin-right: 20px;
+          }
         }
       `}</style>
       <div className="app-bar">
@@ -48,10 +50,10 @@ function AppBar() {
               }`}
             >设计</a>
           </Link>
-          <Link prefetch href="/sell">
+          <Link prefetch href="/admin/designs">
             <a
               className={`mdc-tab ${
-                typeof window !== 'undefined' && window.location.pathname.startsWith('/sell') ? 'mdc-tab--active' : ''
+                typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') ? 'mdc-tab--active' : ''
               }`}
             >销售</a>
           </Link>

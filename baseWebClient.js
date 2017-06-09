@@ -11,6 +11,7 @@ function getSpecs(catalogId) {
       des: product.des,
       imgUrl: product.baseUrl,
       category: product.catalogId,
+      cost: product.cost,
     })));
 }
 

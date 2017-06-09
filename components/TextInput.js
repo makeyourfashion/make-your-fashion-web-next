@@ -34,6 +34,7 @@ export default class TextInput extends React.Component {
             margin-bottom: 2px;
           }
           textarea {
+            max-width: 80%;
             line-height: 1em;
             letter-spacing: .1em;
             border: 1px solid #ccc;

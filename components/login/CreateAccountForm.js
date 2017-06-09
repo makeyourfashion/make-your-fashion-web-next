@@ -98,6 +98,7 @@ export default class CreateAccountForm extends React.Component {
           <form noValidate onSubmit={this.handleCreateAccount}>
             <TextInput
               label="手机号"
+              type="tel"
               displayError={this.state.phoneError}
               onChange={this.handlePhoneChange}
               onBlur={this.handlePhoneValidation}

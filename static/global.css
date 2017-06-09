@@ -5,7 +5,7 @@ body, h1, button, input, select, textarea {
 body {
   background-color: #fdfdf9;
   --mdc-theme-primary: rgb(33, 33, 33);
-  --mdc-theme-accent: rgb(0, 178, 165);
+  --mdc-theme-accent: #ff5a5f;;
   --page-width: 1280px;
 }
 
@@ -77,4 +77,14 @@ select {
 button.button-full-width {
   font-size: 1.1em !important;
   height: 40px !important;
+}
+
+a, button {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .mdc-layout-grid {
+    padding: 0 0 0 0;
+  }
 }

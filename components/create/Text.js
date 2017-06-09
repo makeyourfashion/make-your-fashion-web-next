@@ -88,7 +88,7 @@ export default class Text extends React.Component {
   handleRotate = () => {
     const { x, y } = this.rotateBtn.attrs;
     const degree = (((Math.atan((y - this.group.attrs.y) / (x - this.group.attrs.x))) * 180)
-      / Math.PI) - 39;
+      / Math.PI) - 54.1;
       // Magic number 39, don't know where it comes from!
     this.group.rotate(degree);
     this.rotateBtn.setX(-10);
