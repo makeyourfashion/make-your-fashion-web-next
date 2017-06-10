@@ -1,10 +1,10 @@
 import React from 'react';
 import Router from 'next/router';
+import { MDCSimpleMenu } from '@material/menu/dist/mdc.menu';
 import { inject, observer } from 'mobx-react';
 import ShirtIcon from './ShirtIcon';
 import SelectPictureModal from './SelectPictureModal';
 import AddTextModal from './AddTextModal';
-import { MDCSimpleMenu } from '@material/menu/dist/mdc.menu';
 
 @inject('designStore') @observer
 export default class Menu extends React.Component {

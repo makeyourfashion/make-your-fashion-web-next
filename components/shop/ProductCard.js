@@ -11,7 +11,7 @@ export default class ProductCard extends React.Component {
       <div className="product-card" onClick={this.handleProductSelect}>
         <style jsx>{`
           .product-card {
-            width: 50%;
+            width: 32%;
             max-width: 350px;
             min-width: 100px;
             margin-bottom: 40px;

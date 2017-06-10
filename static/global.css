@@ -6,7 +6,6 @@ body {
   background-color: #fdfdf9;
   --mdc-theme-primary: rgb(33, 33, 33);
   --mdc-theme-accent: #ff5a5f;;
-  --page-width: 1280px;
 }
 
 a {
@@ -42,7 +41,7 @@ ul {
 .container {
   margin: auto;
   margin-top: 20px;
-  max-width: var(--page-width);
+  max-width: 1280px;
 }
 
 .button-full-width {
@@ -56,12 +55,7 @@ ul {
   margin: auto;
   background-color: rgb(245, 245, 245);
 }
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-}
+
 .subtitle {
   color: #999;
 }
