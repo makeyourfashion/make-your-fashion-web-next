@@ -145,13 +145,22 @@ export default class Designs extends React.Component {
             border-top: 1px solid #dedede;
           }
           select {
-            min-width: 150px;
+            width: 150px;
           }
           @media (max-width: 599px) {
             .image-card {
               width: 48%;
               margin-right: 2%;
               height: 250px;
+            }
+            .form-field {
+              width: 100%;
+            }
+            select {
+              max-width: 70%;
+            }
+            input {
+              max-width: 50%;
             }
           }
         `}</style>
