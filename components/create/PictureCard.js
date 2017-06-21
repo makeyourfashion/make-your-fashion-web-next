@@ -13,11 +13,11 @@ export default class PictureCard extends React.Component {
       <div ref={(r) => { this.card = r; }} className="picture-card">
         <style jsx>{`
           .picture-card {
-            width: 25%;
+            width: 24%;
             max-width: 180px;
             min-width: 120px;
             margin-bottom: 20px;
-            padding-right: 20px;
+            padding-right: 1%;
           }
           .picture-card:hover {
             cursor: pointer;

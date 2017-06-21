@@ -1,10 +1,9 @@
-import Link from 'next/link';
 import { Provider } from 'mobx-react';
 import Head from '../components/Head';
-import AppBar from '../components/AppBar';
 import initCartStore from '../stores/cart';
 import initIdentityStore from '../stores/identity';
 import initProductDetailStore from '../stores/productDetail';
+import LandingView from '../components/landing';
 
 const Landing = () => (
   <div>
@@ -102,59 +101,7 @@ const Landing = () => (
       identityStore={initIdentityStore()}
       productDetailStore={initProductDetailStore()}
     >
-      <div>
-        <div className="promotion-bar">
-          <div>开业大吉，全体商品最低八折！</div>
-        </div>
-        <AppBar />
-        <div className="container">
-          <div className="landing-background">
-            <div className="welcome">
-              <h2>开启你的时尚之旅</h2>
-              <Link href="/create?product=1">
-                <a className="mdc-button mdc-button--raised mdc-button--accent">设计</a>
-              </Link>
-              <span style={{ margin: '0 15px 0 15px' }}>或</span>
-              <Link prefetch href="/shop?category=2">
-                <a className="mdc-button mdc-button--raised mdc-button--accent">购物</a>
-              </Link>
-            </div>
-          </div>
-          <h2 className="campaign-title">近期活动</h2>
-          <div className="campaign-list landing-category">
-            <div className="campaign-card mdc-card--theme-dark campaign1 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">父亲节</h1>
-              </div>
-            </div>
-            <div className="campaign-card mdc-card--theme-dark campaign2 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">母亲节</h1>
-              </div>
-            </div>
-            <div className="campaign-card mdc-card--theme-dark campaign3 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">星球大战</h1>
-              </div>
-            </div>
-            <div className="campaign-card mdc-card--theme-dark campaign4 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">NBA</h1>
-              </div>
-            </div>
-            <div className="campaign-card mdc-card--theme-dark campaign5 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">儿童节</h1>
-              </div>
-            </div>
-            <div className="campaign-card mdc-card--theme-dark campaign6 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">神奇女侠</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <LandingView />
     </Provider>
   </div>
 );

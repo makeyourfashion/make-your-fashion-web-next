@@ -41,6 +41,7 @@ ul {
 .container {
   margin: auto;
   margin-top: 20px;
+  padding: 0 8px 0 8px;
   max-width: 1280px;
 }
 

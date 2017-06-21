@@ -60,11 +60,14 @@ export default class ShoppingCart extends React.Component {
           .checkout {
             margin: 0 10px 20px 10px;
           }
+          .cart-icon {
+            vertical-align: middle;
+          }
         `}</style>
         <button
           onClick={this.handleToggleCartMenu}
           className="icon-button"
-        ><i className="material-icons">shopping_cart</i></button>
+        ><i className="material-icons cart-icon">shopping_cart</i></button>
         <div className="mdc-simple-menu" ref={(r) => { this.menuDom = r; }}>
           {
             <ul className="mdc-simple-menu__items mdc-list cart-list" role="menu" aria-hidden="true">

@@ -17,11 +17,11 @@ class PictureStore {
   }
 
   @computed get allTags() {
-    return this.picturesByTag.map((id, name) => ({ id, name }));
+    return this.picturesByTag.map(({ id, name }) => ({ id, name }));
   }
 
   getPicturesByTag(tagId) {
-    return this.picturesByTag.find(byTag => byTag.id === tagId).designs;
+    return this.picturesByTag.find(byTag => byTag.id === +tagId).designs;
   }
 
   getPicture(id) {

@@ -20,12 +20,15 @@ function AppBar() {
             margin-right: 20px;
           }
         }
+        .align-center {
+          align-items: center;
+        }
       `}</style>
       <div className="app-bar">
         <div className="mdc-toolbar__row">
           <div className="mdc-toolbar__section" />
           <div className="mdc-toolbar__section title">T舍网</div>
-          <div className="mdc-toolbar__section mdc-toolbar__section--align-end" data-badge="1">
+          <div className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
             {
               this.props.identityStore.phone ? <a href="/login" className="login-button">退出</a>
                 : <Link prefetch href="/login">

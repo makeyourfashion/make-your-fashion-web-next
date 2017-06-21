@@ -1,18 +1,32 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
+import { observable } from 'mobx';
 import Modal from '../Modal';
 import PictureCard from './PictureCard';
 
 @inject('pictureStore', 'designStore') @observer
 export default class SelectPictureModal extends React.Component {
-  state = {
-    tag: null,
+  componentDidMount() {
+    this.categories.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.tag = e.target.getAttribute('href');
+    });
+  }
+
+  @observable tag = null;
+
+  handleTagClick = (e) => {
+    e.preventDefault();
+    if (e.target.className === 'category-button') {
+      e.preventDefault();
+      this.tag = e.target.getAttribute('href');
+    }
   }
 
   render() {
     let pictures;
-    if (this.state.tag) {
-      pictures = this.props.pictureStore.getPicturesByTag(this.state.tag);
+    if (this.tag) {
+      pictures = this.props.pictureStore.getPicturesByTag(this.tag);
     } else {
       pictures = this.props.pictureStore.allDesigns;
     }
@@ -26,7 +40,37 @@ export default class SelectPictureModal extends React.Component {
             flex-wrap: wrap;
             justify-content: flex-start;
           }
+          .category-button {
+            margin-right: 10px;
+            padding: 0 5px 0 5px;
+          }
+          .category-list {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .active-category {
+            background-color: #00b2a6;
+            color: #fff;
+          }
+          @media (max-width: 599px) {
+            .picture-list {
+              justify-content: space-between;
+            }
+          }
         `}</style>
+        <div ref={(r) => { this.categories = r; }} className="category-list">
+          {
+            this.props.pictureStore.allTags.map(tag => (
+              <a
+                className={`category-button ${tag.id === +this.tag ? 'active-category' : ''}`}
+                href={tag.id}
+                key={tag.id}
+              >
+                {tag.name}
+              </a>
+            ))
+          }
+        </div>
         <div className="picture-list">
           {
             pictures.map(pic => (
