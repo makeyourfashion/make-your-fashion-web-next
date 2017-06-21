@@ -9,7 +9,6 @@ import initIdentityStore from '../stores/identity';
 import initDesignStore from '../stores/design';
 import initPictureStore from '../stores/picture';
 
-
 export default class Create extends React.Component {
   static async getInitialProps({ query }) {
     const productDetailStore = initProductDetailStore();

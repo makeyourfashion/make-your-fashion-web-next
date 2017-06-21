@@ -165,86 +165,88 @@ export default class Designs extends React.Component {
           }
         `}</style>
         <AppBar />
-        <div className="container mdc-layout-grid">
-          <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-9 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
-            <h2>您的设计</h2>
-            <h3>上传新设计</h3>
-            <div className="img-list">
-              <div className="image-card mdc-elevation--z2">
-                <input style={{ display: 'none' }} type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
-                <button onClick={this.handleOpenFileUploadDialog} className="icon-button">
-                  <i className="material-icons upload-icon">file_upload</i>
-                  <span className="upload-label">上传新图片</span>
+        <div className="container">
+          <div className="mdc-layout-grid">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-9 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
+              <h2>您的设计</h2>
+              <h3>上传新设计</h3>
+              <div className="img-list">
+                <div className="image-card mdc-elevation--z2">
+                  <input style={{ display: 'none' }} type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
+                  <button onClick={this.handleOpenFileUploadDialog} className="icon-button">
+                    <i className="material-icons upload-icon">file_upload</i>
+                    <span className="upload-label">上传新图片</span>
+                  </button>
+                </div>
+                {
+                  this.newImages.map((img, i) => (
+                    <div key={i} className="image-card mdc-elevation--z2">
+                      <img alt="图片" className="uploaded-image" src={img.src} />
+                      <div className="form-field">
+                        <label>
+                          <span>类别：</span>
+                          <select
+                            data-index={i}
+                            value={img.category}
+                            onChange={this.handleSelectCategory}
+                          >
+                            <option value="" />
+                            <option value="sport">体育</option>
+                            <option value="game">游戏</option>
+                            <option value="geek">极客</option>
+                            <option value="celebrity">明星</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div className="form-field">
+                        <label>
+                          <span>描述：</span>
+                          <input
+                            data-index={i}
+                            label=""
+                            onChange={this.handleDesChange}
+                            value={img.des}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+              <h3>已经上传的设计</h3>
+              <div className="img-list">
+                {
+                  this.images.map((img, i) => (
+                    <div key={i} className="image-card mdc-elevation--z2">
+                      <img alt="图片" className="uploaded-image" src={img.src} />
+                      <div>使用次数: <span>{img.count}</span></div>
+                      <div>状态: <span>{img.status}</span></div>
+                    </div>
+                  ))
+                }
+              </div>
+              <div className="action-area">
+                <button onClick={this.handleSaveImages} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                  确认保存图片
                 </button>
               </div>
-              {
-                this.newImages.map((img, i) => (
-                  <div key={i} className="image-card mdc-elevation--z2">
-                    <img alt="图片" className="uploaded-image" src={img.src} />
-                    <div className="form-field">
-                      <label>
-                        <span>类别：</span>
-                        <select
-                          data-index={i}
-                          value={img.category}
-                          onChange={this.handleSelectCategory}
-                        >
-                          <option value="" />
-                          <option value="sport">体育</option>
-                          <option value="game">游戏</option>
-                          <option value="geek">极客</option>
-                          <option value="celebrity">明星</option>
-                        </select>
-                      </label>
-                    </div>
-                    <div className="form-field">
-                      <label>
-                        <span>描述：</span>
-                        <input
-                          data-index={i}
-                          label=""
-                          onChange={this.handleDesChange}
-                          value={img.des}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                ))
-              }
             </div>
-            <h3>已经上传的设计</h3>
-            <div className="img-list">
-              {
-                this.images.map((img, i) => (
-                  <div key={i} className="image-card mdc-elevation--z2">
-                    <img alt="图片" className="uploaded-image" src={img.src} />
-                    <div>使用次数: <span>{img.count}</span></div>
-                    <div>状态: <span>{img.status}</span></div>
-                  </div>
-                ))
-              }
-            </div>
-            <div className="action-area">
-              <button onClick={this.handleSaveImages} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                确认保存图片
-              </button>
-            </div>
-          </div>
-          <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
-            <h2>总结</h2>
-            <div className="summary">
-              <div className="label-list">
-                <div>设计分成：</div>
-                <div>¥134.12</div>
-              </div>
-              <div className="label-list">
-                <div>服装分成：</div>
-                <div>¥110.44</div>
-              </div>
-              <div className="sum-income">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
+              <h2>总结</h2>
+              <div className="summary">
                 <div className="label-list">
-                  <div>总计：</div>
-                  <div>¥244.56</div>
+                  <div>设计分成：</div>
+                  <div>¥134.12</div>
+                </div>
+                <div className="label-list">
+                  <div>服装分成：</div>
+                  <div>¥110.44</div>
+                </div>
+                <div className="sum-income">
+                  <div className="label-list">
+                    <div>总计：</div>
+                    <div>¥244.56</div>
+                  </div>
                 </div>
               </div>
             </div>
