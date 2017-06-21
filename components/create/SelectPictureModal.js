@@ -45,6 +45,7 @@ export default class SelectPictureModal extends React.Component {
             padding: 0 5px 0 5px;
           }
           .category-list {
+            margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
           }
