@@ -63,6 +63,12 @@ export default class ShoppingCart extends React.Component {
           .cart-icon {
             vertical-align: middle;
           }
+          @media (max-width: 600px) {
+            .icon-button {
+              margin-right: 0;
+              padding: 0;
+            }
+          }
         `}</style>
         <button
           onClick={this.handleToggleCartMenu}

@@ -40,8 +40,12 @@ export default class MyAccount extends React.Component {
             margin-left: 10px;
             text-align: center;
           }
-          .icon-button {
-            margin-right: 0;
+
+          @media (max-width: 600px) {
+            .icon-button {
+              margin-right: 0;
+              padding: 2px;
+            }
           }
         `}</style>
         <button

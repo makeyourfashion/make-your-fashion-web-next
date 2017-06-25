@@ -88,6 +88,11 @@ export default class ShippingDetail extends React.Component {
             border-bottom: 1px solid #000;
             padding-bottom: 5px;
           }
+          @media (max-width: 600px) {
+            .short-input {
+              max-width: 100%;
+            }
+          }
         `}</style>
         <div>
           <h3>请输入您的邮寄地址：</h3>

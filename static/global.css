@@ -90,3 +90,6 @@ body {
 .mdc-dialog--open {
   z-index: 99999999;
 }
+.mdc-simple-menu--open {
+  z-index: 99999999;
+}

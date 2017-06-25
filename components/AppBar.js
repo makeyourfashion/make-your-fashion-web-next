@@ -66,7 +66,7 @@ export default class AppBar extends React.Component {
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section" />
             <div className="mdc-toolbar__section title">意栈网</div>
-            <div className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
+            <div style={{ zIndex: 99999999 }} className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
               {
                 this.props.identityStore.isLoggedIn ? <MyAccount />
                   : <Link prefetch href="/login">
