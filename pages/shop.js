@@ -16,6 +16,7 @@ export default class Shop extends React.Component {
       categories: productStore.categories,
       products: productStore.products,
       category: query.category,
+      tag: query.tag,
     };
   }
 
@@ -34,7 +35,7 @@ export default class Shop extends React.Component {
           identityStore={initIdentityStore()}
           productDetailStore={initProductDetailStore()}
         >
-          <ShopView category={this.props.category} />
+          <ShopView category={this.props.category} tag={this.props.tag} />
         </Provider>
       </div>
     );

@@ -114,6 +114,13 @@ const Landing = () => (
         </div>
         <h2 className="campaign-title">近期活动</h2>
         <div className="campaign-list landing-category">
+          <Link href="/shop?tag=2">
+            <a className="campaign-card mdc-card--theme-dark campaign4 mdc-card demo-card demo-card--bg-demo">
+              <div className="mdc-card__primary campaign-card-content">
+                <h1 className="mdc-card__title mdc-card__title--large">NBA</h1>
+              </div>
+            </a>
+          </Link>
           <div className="campaign-card mdc-card--theme-dark campaign1 mdc-card demo-card demo-card--bg-demo">
             <div className="mdc-card__primary campaign-card-content">
               <h1 className="mdc-card__title mdc-card__title--large">父亲节</h1>
@@ -127,11 +134,6 @@ const Landing = () => (
           <div className="campaign-card mdc-card--theme-dark campaign3 mdc-card demo-card demo-card--bg-demo">
             <div className="mdc-card__primary campaign-card-content">
               <h1 className="mdc-card__title mdc-card__title--large">星球大战</h1>
-            </div>
-          </div>
-          <div className="campaign-card mdc-card--theme-dark campaign4 mdc-card demo-card demo-card--bg-demo">
-            <div className="mdc-card__primary campaign-card-content">
-              <h1 className="mdc-card__title mdc-card__title--large">NBA</h1>
             </div>
           </div>
           <div className="campaign-card mdc-card--theme-dark campaign5 mdc-card demo-card demo-card--bg-demo">

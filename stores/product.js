@@ -9,6 +9,47 @@ class ProductStore {
   @observable products = {}
   @observable categories = {}
   @observable isLoading = false
+  @observable tags = [
+    {
+      id: 0,
+      name: '父亲节',
+    },
+    {
+      id: 1,
+      name: '母亲节',
+    },
+    {
+      id: 2,
+      name: 'NBA',
+    },
+    {
+      id: 3,
+      name: '神奇女侠',
+    },
+  ]
+  @observable productsByTags = observable.map({
+    0: [],
+    1: [],
+    2: [
+      {
+        id: 100,
+        name: 'stephen curry',
+        des: '大幅度辅导费多发点',
+        imgUrl: '/static/image/100.png',
+        category: 3,
+        cost: null,
+      },
+      {
+        id: 101,
+        name: 'james harden',
+        des: '大幅度辅导费多发点',
+        imgUrl: '/static/image/101.png',
+        category: 3,
+        cost: null,
+      },
+    ],
+    3: [],
+  })
 
   constructor(state = intialState) {
     this.products = state.products;
@@ -67,12 +108,20 @@ class ProductStore {
     return this.products[id].slice().find(subCat => subCat.id === +subCatId).products;
   }
 
+  getProductByTag(id) {
+    return this.productsByTags.get(+id);
+  }
+
   getSubCategories(categoryId) {
     return this.products[categoryId].slice().map(({ name, id }) => ({ name, id }));
   }
 
   getCategory(id) {
     return this.categories.slice().find(c => c.id === +id);
+  }
+
+  getTag(id) {
+    return this.tags.slice().find(c => c.id === +id);
   }
 }
 

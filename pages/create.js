@@ -33,7 +33,9 @@ export default class Create extends React.Component {
         return;
       }
     }
-    this.designStore = initDesignStore(this.props.productId);
+    const design = this.productDetailStore.getProductDetail(this.props.productId).design;
+    this.designStore = initDesignStore(this.props.productId,
+      design ? design.images : undefined, design ? design.texts : undefined);
   }
 
   render() {

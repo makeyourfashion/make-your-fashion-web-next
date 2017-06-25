@@ -127,9 +127,20 @@ class DesignStore {
   }
 }
 
-export default function init(productId, designs, texts) {
+export default function init(productId, images, texts) {
   if (store === null || typeof window === 'undefined') {
-    store = new DesignStore(productId, designs, texts);
+    store = new DesignStore(productId, images, texts);
+  }
+  if (store) {
+    if (productId) {
+      store.design.productId = productId;
+    }
+    if (images) {
+      store.design.images = images;
+    }
+    if (texts) {
+      store.design.texts = texts;
+    }
   }
   return store;
 }

@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import { getSpec } from '../baseWebClient';
+import mockProduct from './mock.json';
 
 let store = null;
 class ProductDetailStore {
@@ -9,15 +10,17 @@ class ProductDetailStore {
 
   constructor(productDetails = []) {
     this.isServer = typeof window === 'undefined';
-    this.productDetails = productDetails;
+    this.productDetails = [
+      ...mockProduct,
+      ...productDetails,
+    ];
   }
 
   getProductDetail(id) {
     return this.productDetails.find(detail => +id === detail.id);
   }
 
-  @action
-  async fetchProductDetail(id) {
+  @action async fetchProductDetail(id) {
     if (this.getProductDetail(id)) {
       return;
     }

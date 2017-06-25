@@ -69,7 +69,9 @@ export default class ShopView extends React.Component {
         <div className="container">
           <h1 className="category">
             {
-              this.props.productStore.getCategory(this.props.category).name
+              this.props.tag
+                ? this.props.productStore.getTag(this.props.tag).name
+                : this.props.productStore.getCategory(this.props.category).name
             }
           </h1>
           <h2 className="sub-category">
@@ -80,6 +82,22 @@ export default class ShopView extends React.Component {
           </h2>
           <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone left-menu">
+              <div><span className="label">热门主题</span></div>
+              <ul>
+                {
+                  this.props.productStore.tags.map(tag => (
+                    <li key={tag.id} className="category-list">
+                      <Link href={`/shop?tag=${tag.id}`}>
+                        <a
+                          style={{
+                            color: `${tag.id === +this.props.tag ? '#00b2a6' : '#737373'}`,
+                          }}
+                        >{tag.name}</a>
+                      </Link>
+                    </li>
+                  ))
+                }
+              </ul>
               <div><span className="label">类别</span></div>
               <ul>
                 {
@@ -99,7 +117,7 @@ export default class ShopView extends React.Component {
               <div><span className="label">产品分类</span></div>
               <ul>
                 {
-                  this.props.productStore.getSubCategories(this.props.category).map(cat => (
+                  !this.props.tag ? this.props.productStore.getSubCategories(this.props.category).map(cat => (
                     <li className="category-list" key={cat.id}>
                       <a
                         href={`#${cat.id}`}
@@ -111,18 +129,23 @@ export default class ShopView extends React.Component {
                         }}
                       >{cat.name}</a>
                     </li>
-                  ))
+                  )) : null
                 }
               </ul>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
               <div className="product-list">
                 {
-                  this.props.productStore
-                    .getProductsByCategory(this.props.category, this.state.subCat)
-                    .map(product => (
-                      <ProductCard key={product.id} product={product} />
-                    ))
+                  this.props.tag
+                    ? this.props.productStore.getProductByTag(this.props.tag)
+                      .map(product => (
+                        <ProductCard key={product.id} product={product} />
+                      ))
+                    : this.props.productStore
+                      .getProductsByCategory(this.props.category, this.state.subCat)
+                      .map(product => (
+                        <ProductCard key={product.id} product={product} />
+                      ))
                 }
               </div>
             </div>
