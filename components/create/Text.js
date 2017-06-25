@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Text as KonvaText, Group, Rect } from 'react-konva';
 import { inject, observer } from 'mobx-react';
-import { toCanvasPx, fromCanvasPx, toCanvasWidth } from './canvasUtil';
+import { toCanvasPx, fromCanvasPx, toCanvasWidth, getAdjFontSize } from './canvasUtil';
 
 @inject('designStore', 'pictureStore') @observer
 export default class Text extends React.Component {
@@ -121,6 +121,7 @@ export default class Text extends React.Component {
 
   render() {
     const { text, x, y, fontSize, fontFamily, color, width, align, bold, italic } = this.props.text;
+    const adjFontSize = getAdjFontSize(fontSize);
     const canvasWidth = toCanvasWidth(width);
     const canvasXY = toCanvasPx(x, y);
     return (
@@ -189,7 +190,7 @@ export default class Text extends React.Component {
           onTouchStart={this.handleClick}
           ref={(r) => { this.text = r; }}
           fill={color}
-          fontSize={fontSize}
+          fontSize={adjFontSize}
           fontFamily={fontFamily}
           text={text}
           align={align}

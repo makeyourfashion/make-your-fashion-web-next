@@ -1,6 +1,7 @@
 import {
   RECT_WIDTH,
   RECT_HEIGHT,
+  CANVAS_WIDTH,
 } from './consts';
 
 const BASE_WIDTH = 1000;
@@ -28,6 +29,10 @@ function toCanvasWidth(width) {
   return (width / BASE_WIDTH) * RECT_WIDTH;
 }
 
+function getAdjFontSize(fontSize) {
+  return (fontSize * CANVAS_WIDTH) / 500;
+}
+
 function fromCanvasHeight(height) {
   return (height / RECT_HEIGHT) * BASE_HEIGHT;
 }
@@ -43,4 +48,5 @@ export {
   toCanvasWidth,
   fromCanvasHeight,
   fromCanvasWidth,
+  getAdjFontSize,
 };
