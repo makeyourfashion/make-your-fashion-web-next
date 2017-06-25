@@ -4,6 +4,7 @@ import 'isomorphic-fetch';
 let store = null;
 class IdentityStore {
   @observable phone = null
+  @observable name = null
   @observable isLoading = null
   @observable error = null
 
@@ -20,6 +21,7 @@ class IdentityStore {
     try {
       const user = await res.json();
       this.phone = user.phone;
+      this.name = user.name;
       this.error = null;
     } catch (e) {
       this.error = 'server error';
@@ -43,6 +45,7 @@ class IdentityStore {
       });
       const user = await res.json();
       this.phone = user.phone;
+      this.name = user.name;
       this.error = null;
     } catch (e) {
       this.error = 'server error';
@@ -64,6 +67,7 @@ class IdentityStore {
       });
       const user = await res.json();
       this.phone = user.phone;
+      this.name = user.name;
       this.error = null;
     } catch (e) {
       this.error = 'server error';

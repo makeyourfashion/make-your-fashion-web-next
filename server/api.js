@@ -45,7 +45,7 @@ router.get('/designs', (req, res) => {
 
 router.get('/account', (req, res) => {
   if (req.cookies.myf_token) {
-    res.json({ phone: '13685312558' });
+    res.json({ phone: '13685312558', name: 'Puxuan' });
   } else {
     res.status(401).send('unauthorized');
   }
@@ -58,7 +58,7 @@ router.post('/login', (req, res) => {
       maxAge: rememberPassword ? TEN_DAYS : null,
       httpOnly: true,
     });
-    res.json({ phone: '13685312558' });
+    res.json({ phone: '13685312558', name: 'Puxuan' });
   } else {
     res.status(400).send('bad request');
   }
@@ -68,7 +68,7 @@ router.post('/account', (req, res) => {
   const { phone, password, passwordConfirm } = req.body;
   if (phone && password && password === passwordConfirm) {
     res.cookie('myf_token', '1234', { maxAge: TEN_DAYS, httpOnly: false });
-    res.json({ phone: '13685312558' });
+    res.json({ phone: '13685312558', name: 'Puxuan' });
   } else {
     res.status(400).send('bad request');
   }

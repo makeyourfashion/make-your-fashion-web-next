@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import ShoppingCart from './ShoppingCart';
+import MyAccount from './MyAccount';
 
 @inject('identityStore') @observer
 export default class AppBar extends React.Component {
@@ -67,7 +68,7 @@ export default class AppBar extends React.Component {
             <div className="mdc-toolbar__section title">意栈网</div>
             <div className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
               {
-                this.props.identityStore.phone ? <a href="/login" className="login-button">退出</a>
+                this.props.identityStore.isLoggedIn ? <MyAccount />
                   : <Link prefetch href="/login">
                     <a className="login-button">登陆</a>
                   </Link>
