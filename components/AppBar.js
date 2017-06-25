@@ -64,7 +64,7 @@ export default class AppBar extends React.Component {
         <div className="app-bar">
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section" />
-            <div className="mdc-toolbar__section title">意栈</div>
+            <div className="mdc-toolbar__section title">意栈网</div>
             <div className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
               {
                 this.props.identityStore.phone ? <a href="/login" className="login-button">退出</a>

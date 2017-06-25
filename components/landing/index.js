@@ -42,7 +42,7 @@ const Landing = () => (
         flex-wrap: wrap;
       }
       .campaign-card {
-        width: 49%;
+        width: 32%;
         height: 400px;
         background-size: cover;
         background-repeat: no-repeat;
