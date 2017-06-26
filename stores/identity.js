@@ -1,5 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import 'isomorphic-fetch';
+import { getHistories } from '../baseWebClient';
 
 let store = null;
 class IdentityStore {
@@ -7,11 +8,14 @@ class IdentityStore {
   @observable name = null
   @observable isLoading = null
   @observable error = null
+  @observable histories = []
 
-  constructor() {
-    if (typeof window !== 'undefined') {
+  constructor(histories = []) {
+    this.isServer = typeof window === 'undefined';
+    if (!this.isServer) {
       this.initSession();
     }
+    this.histories = histories;
   }
 
   async initSession() {
@@ -54,6 +58,25 @@ class IdentityStore {
     this.isLoading = false;
   }
 
+  @action async fetchHistories() {
+    if (!this.histories.length) {
+      if (this.isServer) {
+        this.histories = await getHistories();
+        return;
+      }
+      this.isLoading = true;
+      try {
+        const res = await fetch('/api/account/histories', {
+          credentials: 'include',
+        });
+        this.histories = await res.json();
+      } catch (e) {
+        this.error = 'server error';
+      }
+    }
+    this.isLoading = false;
+  }
+
   @action async createAccount(account) {
     this.isLoading = true;
     try {
@@ -77,9 +100,9 @@ class IdentityStore {
   }
 }
 
-export default function init() {
+export default function init(histories) {
   if (store === null || typeof window === 'undefined') {
-    store = new IdentityStore();
+    store = new IdentityStore(histories);
   }
   return store;
 }

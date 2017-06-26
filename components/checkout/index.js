@@ -46,7 +46,7 @@ export default class Checkout extends React.Component {
     });
     this.props.cartStore.clearCart();
     window.setTimeout(() => {
-      Router.push('/shop?category=2');
+      Router.push('/account/history');
     }, 4000);
   }
 
@@ -244,7 +244,7 @@ export default class Checkout extends React.Component {
           </div>
           <Snackbar
             open={this.state.showSuccessMessage}
-            message="成功下单，即将跳转至购物页面"
+            message="成功下单"
           />
         </div>
         <Footer />

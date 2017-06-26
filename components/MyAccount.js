@@ -2,7 +2,6 @@ import React from 'react';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { MDCSimpleMenu } from '@material/menu/dist/mdc.menu';
-import Link from 'next/link';
 
 @inject('identityStore') @observer
 export default class MyAccount extends React.Component {
@@ -21,7 +20,7 @@ export default class MyAccount extends React.Component {
   handleGotoHistory = (e) => {
     if (e.target.className === 'mdc-list-item') {
       e.preventDefault();
-      Router.push('/account/history');
+      Router.push(e.target.querySelector('a').getAttribute('href'));
     }
   }
 
@@ -65,10 +64,10 @@ export default class MyAccount extends React.Component {
           </div>
           <ul className="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
             <li className="mdc-list-item" role="menuitem">
-              <a onClick={this.handleGotoHistory}>我的订单</a>
+              <a href="/account/history" onClick={this.handleGotoHistory}>我的订单</a>
             </li>
             <li className="mdc-list-item" role="menuitem">
-              <a onClick={this.handleGotoHistory}>我的账号</a>
+              <a href="/account/details" onClick={this.handleGotoHistory}>我的账号</a>
             </li>
           </ul>
         </div>

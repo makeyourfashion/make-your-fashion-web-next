@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCatalog, getSpec, getDesigns, getProductsByCatalog } = require('../baseWebClient');
+const { getCatalog, getSpec, getDesigns, getProductsByCatalog, getHistories } = require('../baseWebClient');
 
 const router = express.Router();
 const TEN_DAYS = 10 * 24 * 60 * 60 * 1000;
@@ -46,6 +46,14 @@ router.get('/designs', (req, res) => {
 router.get('/account', (req, res) => {
   if (req.cookies.myf_token) {
     res.json({ phone: '13685312558', name: 'Puxuan' });
+  } else {
+    res.status(401).send('unauthorized');
+  }
+});
+
+router.get('/account/histories', (req, res) => {
+  if (req.cookies.myf_token) {
+    res.json(getHistories());
   } else {
     res.status(401).send('unauthorized');
   }

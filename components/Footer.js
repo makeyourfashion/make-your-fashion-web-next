@@ -33,6 +33,8 @@ function Footer() {
             margin: 0 0 20px 0;
             text-align: center;
             letter-spacing: .1rem;
+            font-weight: bold;
+            font-size: 1.125em;
           }
         }
         .footer-icon {
@@ -43,7 +45,7 @@ function Footer() {
       `}</style>
       <div className="footer">
         <div className="contact-list">
-          <h3 className="contact-info contact-label">联系我们:</h3>
+          <div className="contact-info contact-label">联系我们:</div>
           <div className="contact-info">
             <i className="material-icons footer-icon">phone</i>
             <span>12345678</span>

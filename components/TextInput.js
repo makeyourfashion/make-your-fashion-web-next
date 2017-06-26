@@ -24,9 +24,11 @@ export default class TextInput extends React.Component {
             line-height: 1em;
             letter-spacing: .1em;
             border: 1px solid #ccc;
-            box-shadow: 0 1px 3px 0 #e5e5e5 inset;
-            padding: 7px 0px 5px;
-            width: 100%;
+            padding: 8px 0px 8px 8px;
+            box-shadow: none;
+            width: 97%;
+            font-size: 12px;
+            font-weight: 300;
           }
           .textfield-label {
             font-size: .8em;
@@ -34,12 +36,14 @@ export default class TextInput extends React.Component {
             margin-bottom: 2px;
           }
           textarea {
-            width: 100%;
+            width: 97%;
             line-height: 1em;
             letter-spacing: .1em;
             border: 1px solid #ccc;
-            box-shadow: 0 1px 3px 0 #e5e5e5 inset;
-            padding: 7px 0px 5px;
+            box-shadow: none;
+            padding: 8px 0px 8px 8px;
+            font-size: 12px;
+            font-weight: 300;
           }
         `}</style>
         <div className="text-input">

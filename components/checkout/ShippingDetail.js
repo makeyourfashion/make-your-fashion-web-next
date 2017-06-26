@@ -79,7 +79,7 @@ export default class ShippingDetail extends React.Component {
       <div >
         <style jsx>{`
           .short-input {
-            max-width: 200px;
+            max-width: 500px;
           }
           form {
             margin-bottom: 40px;
@@ -106,14 +106,16 @@ export default class ShippingDetail extends React.Component {
                 value={this.state.name}
               />
             </div>
-            <TextInput
-              label="详细地址："
-              multiline
-              displayError={this.state.addressError}
-              onChange={this.handleAddressChange}
-              onBlur={this.handleAddressValidation}
-              value={this.state.address}
-            />
+            <div className="short-input">
+              <TextInput
+                label="详细地址："
+                multiline
+                displayError={this.state.addressError}
+                onChange={this.handleAddressChange}
+                onBlur={this.handleAddressValidation}
+                value={this.state.address}
+              />
+            </div>
             <div className="short-input">
               <TextInput
                 label="手机号："

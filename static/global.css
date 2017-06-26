@@ -93,3 +93,6 @@ body {
 .mdc-simple-menu--open {
   z-index: 99999999;
 }
+*:focus {
+  outline: none;
+}
