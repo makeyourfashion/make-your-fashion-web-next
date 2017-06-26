@@ -52,6 +52,7 @@ export default class AppBar extends React.Component {
           .title {
             font-size: 1.25rem;
             font-weight: 500;
+            letter-spacing: 0.1rem;
           }
           @media (min-width: 600px) {
             .login-button {

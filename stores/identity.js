@@ -6,6 +6,8 @@ let store = null;
 class IdentityStore {
   @observable phone = null
   @observable name = null
+  @observable address = null
+  @observable email = null
   @observable isLoading = null
   @observable error = null
   @observable histories = []
@@ -56,6 +58,13 @@ class IdentityStore {
     }
 
     this.isLoading = false;
+  }
+
+  @action async saveAccountDetails(details) {
+    this.name = details.name;
+    this.phone = details.phone;
+    this.address = details.address;
+    this.email = details.email;
   }
 
   @action async fetchHistories() {

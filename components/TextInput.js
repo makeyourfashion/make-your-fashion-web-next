@@ -26,6 +26,8 @@ export default class TextInput extends React.Component {
             border: 1px solid #ccc;
             padding: 8px 0px 8px 8px;
             box-shadow: none;
+            appearance: none;
+            border-radius: 0;
             width: 97%;
             font-size: 12px;
             font-weight: 300;
@@ -39,6 +41,8 @@ export default class TextInput extends React.Component {
             width: 97%;
             line-height: 1em;
             letter-spacing: .1em;
+            appearance: none;
+            border-radius: 0;
             border: 1px solid #ccc;
             box-shadow: none;
             padding: 8px 0px 8px 8px;

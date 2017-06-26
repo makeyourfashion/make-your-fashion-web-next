@@ -5,6 +5,7 @@ export default class Snackbar extends React.Component {
   componentDidMount() {
     this.snackbar = new MDCSnackbar(this.snackbarDom);
     const { message, actionText, onAction } = this.props;
+
     if (this.props.open) {
       this.snackbar.show({
         message,
