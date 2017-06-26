@@ -29,7 +29,7 @@ export default class PictureCard extends React.Component {
           }
         `}</style>
         <div>
-          <img alt={this.props.picture.name} className="picture-card-image" src={this.props.picture.imgUrl} />
+          <img crossOrigin="anonymous" alt={this.props.picture.name} className="picture-card-image" src={this.props.picture.imgUrl} />
         </div>
       </div>
     );

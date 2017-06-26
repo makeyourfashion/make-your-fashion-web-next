@@ -40,16 +40,20 @@ export default class MyAccount extends React.Component {
             text-align: center;
           }
 
-          @media (max-width: 600px) {
-            .icon-button {
-              margin-right: 0;
-              padding: 2px;
+          .myaccount-button {
+            margin-right: 5px;
+            padding: 0;
+          }
+
+          @media (min-width: 600px) {
+            .myaccount-button {
+              margin-right: 20px;
             }
           }
         `}</style>
         <button
           onClick={this.handleToggleMenu}
-          className="icon-button"
+          className="icon-button myaccount-button"
         >我的帐户</button>
         <div className="mdc-simple-menu" ref={(r) => { this.menuDom = r; }}>
           <div className="account-line1">

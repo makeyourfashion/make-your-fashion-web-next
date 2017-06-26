@@ -19,7 +19,8 @@ export default class Design extends React.Component {
       this.props.designStore.setActiveImageId(activeImage.id);
 
       const image = new window.Image();
-      image.crossOrigin = 'Anonymous';
+      // image.crossOrigin = 'Anonymous';
+      image.setAttribute('crossOrigin', 'anonymous');
       image.src = activeImage.largeUrl;
       image.onload = () => {
         this.setState({
@@ -65,7 +66,8 @@ export default class Design extends React.Component {
     this.props.designStore.setActiveImageId(activeImageId);
     const activeImage = this.props.product.pics.find(pic => pic.id === +activeImageId);
     const image = new window.Image();
-    image.crossOrigin = 'Anonymous';
+    // image.crossOrigin = 'Anonymous';
+    image.setAttribute('crossOrigin', 'anonymous');
     image.src = activeImage.largeUrl;
     image.onload = () => {
       this.setState({
@@ -189,7 +191,7 @@ export default class Design extends React.Component {
           {
             this.props.product.pics ? this.props.product.pics.map(pic => (
               <a key={pic.id} onClick={this.handleSelectImage} href={pic.id}>
-                <img src={pic.smallUrl} alt="small" className="thumbnail" />
+                <img crossOrigin="anonymous" src={pic.smallUrl} alt="small" className="thumbnail" />
               </a>
             )) : null
           }
