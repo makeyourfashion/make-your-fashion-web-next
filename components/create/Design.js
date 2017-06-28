@@ -21,7 +21,7 @@ export default class Design extends React.Component {
       const image = new window.Image();
       // image.crossOrigin = 'Anonymous';
       image.setAttribute('crossOrigin', 'anonymous');
-      image.src = activeImage.largeUrl;
+      image.src = activeImage.smallUrl;
       image.onload = () => {
         this.setState({
           image,
@@ -68,7 +68,7 @@ export default class Design extends React.Component {
     const image = new window.Image();
     // image.crossOrigin = 'Anonymous';
     image.setAttribute('crossOrigin', 'anonymous');
-    image.src = activeImage.largeUrl;
+    image.src = activeImage.smallUrl;
     image.onload = () => {
       this.setState({
         image,

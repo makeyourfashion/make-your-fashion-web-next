@@ -54,6 +54,7 @@ export default class OrderForm extends React.Component {
       this.setState({
         ...errors,
       });
+      window.scroll(0, this.selectList.offsetTop - (window.outerHeight / 2));
       return;
     }
     this.setState({
@@ -84,8 +85,15 @@ export default class OrderForm extends React.Component {
   render() {
     const product = this.props.product;
     return (
-      <div>
+      <div className="details-wrapper">
         <style jsx>{`
+          .subtitle {
+            margin-bottom: 20px;
+          }
+          .rate-img {
+            width: 83px;
+            height: 14px;
+          }
           h2 {
             margin: 5px 0 5px 0;
           }
@@ -104,18 +112,47 @@ export default class OrderForm extends React.Component {
           .add-to-cart-button {
             margin-top: 20px;
           }
+          @media (min-width: 600px) {
+            .details-wrapper {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              height: 500px;
+            }
+          }
+          .select-list {
+            margin-bottom: 20px;
+          }
+          @media (max-width: 600px) {
+            .action-area {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+            }
+            .select-list {
+              margin-bottom: 40px;
+            }
+          }
         `}</style>
         <div className="title">
           <h2>{product.name}</h2>
           <div className="subtitle">{product.des}</div>
+          <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
         </div>
-        <div className="form-field">
-          <span>单价：</span>
-          <span>¥100</span>
+        <div>
+          <div className="form-field">
+            <span>颜色：</span>
+            <span>灰色</span>
+          </div>
+          <div className="form-field">
+            <span>单价：</span>
+            <span>¥100</span>
+          </div>
         </div>
         <form noValidate>
           <EditTextPanel />
-          <div className="form-field select-list">
+          <div ref={(r) => { this.selectList = r; }} className="form-field select-list">
             <div className="select">
               <label htmlFor="select-size">选择尺码：</label><br />
               <SelectField
@@ -147,13 +184,15 @@ export default class OrderForm extends React.Component {
               <div className="error-msg">{this.state.qtyError}</div>
             </div>
           </div>
-          {
-            this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-              更新购物车
-            </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-              添加到购物车
-            </button>
-          }
+          <div className="action-area">
+            {
+              this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                更新购物车
+              </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                添加到购物车
+              </button>
+            }
+          </div>
         </form>
       </div>
     );

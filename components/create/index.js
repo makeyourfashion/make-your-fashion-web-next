@@ -114,9 +114,28 @@ export default class CreateView extends React.Component {
 
     return (
       <div>
+        <style jsx>{`
+          .detail-img {
+            width: 100%;
+            margin-top: 20px;
+          }
+          .design-container {
+            border-bottom: solid 1px #dedede;
+          }
+          .detail-img-list {
+            max-width: 800px;
+            margin: auto;
+          }
+          .title {
+            margin: 40px 0 10px 0;
+            padding-bottom: 10px;
+            border-bottom: solid 1px #dedede;
+            font-weight: 500;
+          }
+        `}</style>
         <AppBar />
         <div className="container">
-          <div className="mdc-layout-grid">
+          <div className="mdc-layout-grid design-container">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
               <Menu />
             </div>
@@ -139,6 +158,15 @@ export default class CreateView extends React.Component {
                 /> : null
               }
             </div>
+          </div>
+          <div className="detail-img-list">
+            <h3 className="title">商品详情：</h3>
+            <img className="detail-img" src="/static/image/1.jpg" alt="img" />
+            <img className="detail-img" src="/static/image/2.jpg" alt="img" />
+            <img className="detail-img" src="/static/image/3.jpg" alt="img" />
+            <img className="detail-img" src="/static/image/4.jpg" alt="img" />
+            <img className="detail-img" src="/static/image/5.jpg" alt="img" />
+            <img className="detail-img" src="/static/image/6.jpg" alt="img" />
           </div>
           <Snackbar
             open={this.state.showSuccessMessage}
