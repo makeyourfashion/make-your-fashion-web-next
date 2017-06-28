@@ -164,7 +164,7 @@ export default class CreateView extends React.Component {
             <img className="detail-img" src="/static/image/1.jpg" alt="img" />
             <img className="detail-img" src="/static/image/2.jpg" alt="img" />
             <img className="detail-img" src="/static/image/3.jpg" alt="img" />
-            <img className="detail-img" src="/static/image/4.jpg" alt="img" />
+            <img className="detail-img" src="/static/image/4.png" alt="img" />
             <img className="detail-img" src="/static/image/5.jpg" alt="img" />
             <img className="detail-img" src="/static/image/6.jpg" alt="img" />
           </div>
