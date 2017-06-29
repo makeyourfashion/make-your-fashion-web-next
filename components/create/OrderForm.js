@@ -123,12 +123,36 @@ export default class OrderForm extends React.Component {
           .select-list {
             margin-bottom: 20px;
           }
+          @media (min-width: 600px) {
+            .price-tag {
+              display: none;
+            }
+          }
+
           @media (max-width: 600px) {
             .action-area {
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
               position: fixed;
               bottom: 0;
               left: 0;
               width: 100%;
+              background-color: rgba(253,253,249, 1);
+              border-top: 1px solid #dedede;
+              height: 60px;
+            }
+            .rate-img {
+              width: 70px;
+              height: 12px;
+            }
+            .price-tag {
+              font-size: 13px;
+              font-weight: bold;
+            }
+            .add-to-cart-button {
+              margin-top: 0;
+              width: 50%;
             }
             .select-list {
               margin-bottom: 40px;
@@ -138,7 +162,7 @@ export default class OrderForm extends React.Component {
         <div className="title">
           <h2>{product.name}</h2>
           <div className="subtitle">{product.des}</div>
-          <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
+          <img className="rate-img-mobile" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
         </div>
         <div>
           <div className="form-field">
@@ -185,8 +209,14 @@ export default class OrderForm extends React.Component {
             </div>
           </div>
           <div className="action-area">
+            <div className="price-tag">
+              ¥100
+              <div>
+                <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
+              </div>
+            </div>
             {
-              this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+              this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
                 更新购物车
               </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
                 添加到购物车

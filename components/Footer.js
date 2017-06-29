@@ -7,7 +7,7 @@ function Footer() {
         .footer {
           border-top: 1px solid #dedede;
           margin: auto;
-          margin: 40px 0 40px 0;
+          margin: 40px 0 60px 0;
         }
 
         .contact-list {
