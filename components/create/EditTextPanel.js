@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { range } from 'lodash';
 import { inject, observer } from 'mobx-react';
@@ -101,7 +100,7 @@ export default class EditTextPanel extends React.Component {
       <div className="edit-text-panel">
         <style jsx>{`
           .edit-text-panel {
-            margin-top: 20px;
+            margin: 20px 0 40px 0;
           }
           .active-text {
             border: 1px solid var(--mdc-theme-accent);

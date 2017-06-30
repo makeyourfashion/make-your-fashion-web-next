@@ -80,9 +80,7 @@ export default class Text extends React.Component {
   }
 
   handleClick = () => {
-    if (this.props.editible) {
-      this.props.designStore.setActiveTextId(this.props.text.id);
-    }
+    this.props.designStore.setActiveTextId(this.props.text.id);
   }
 
   handleRotate = () => {

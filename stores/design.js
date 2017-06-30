@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, autorun } from 'mobx';
 import uuid from 'uuid/v4';
 
 let store = null;
@@ -9,7 +9,8 @@ class DesignStore {
     texts: [],
   }
   @observable activeImageId = null
-  @observable activeTextId = null
+  @observable activeTextId = null;
+  @observable showEditText = false;
 
   constructor(productId, images = [], texts = []) {
     this.design.productId = productId;
@@ -30,6 +31,9 @@ class DesignStore {
         }
       }
     }
+    autorun(() => {
+      this.activeTextId = this.design.texts[0] && this.design.texts[0].id;
+    });
   }
 
   getText(id) {
@@ -58,6 +62,7 @@ class DesignStore {
 
   @action setActiveTextId(id) {
     this.activeTextId = id;
+    this.showEditText = new Date().getTime();
   }
 
   @action updateImage(image) {
@@ -114,6 +119,7 @@ class DesignStore {
     };
     this.design.texts.push(newText);
     this.activeTextId = newText.id;
+    this.showEditText = new Date().getTime();
     window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 

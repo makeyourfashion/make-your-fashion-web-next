@@ -1,85 +1,32 @@
 import React from 'react';
-import { range, isEmpty } from 'lodash';
+import { range } from 'lodash';
 import { inject, observer } from 'mobx-react';
 import { SelectField, SelectItem } from '../SelectField';
-import EditTextPanel from './EditTextPanel';
 
-@inject('designStore', 'cartStore') @observer
+@inject('designStore') @observer
 export default class OrderForm extends React.Component {
-
-  constructor(props) {
-    super(props);
-    if (this.props.cartId) {
-      const { size, qty } = this.props.cartStore.getCartItem(this.props.cartId);
-      this.state = {
-        size,
-        qty,
-        sizeError: '',
-        qtyError: '',
-      };
-    } else {
-      this.state = {
-        size: '',
-        qty: '',
-        sizeError: '',
-        qtyError: '',
-      };
-    }
-  }
-
   handleSelectQty = (value) => {
-    this.setState({
+    this.props.onOrderChange({
+      ...this.props.order,
       qty: value,
     });
   }
 
   handleSelectSize = (value) => {
-    this.setState({
+    this.props.onOrderChange({
+      ...this.props.order,
       size: value,
     });
   }
 
   addToCart = (e) => {
     e.preventDefault();
-    const { size, qty } = this.state;
-    const errors = {};
-
-    if (!size) {
-      errors.sizeError = '请选择尺码';
-    }
-    if (!qty) {
-      errors.qtyError = '请选择数量';
-    }
-    if (!isEmpty(errors)) {
-      this.setState({
-        ...errors,
-      });
-      window.scroll(0, this.selectList.offsetTop - (window.outerHeight / 2));
-      return;
-    }
-    this.setState({
-      qtyError: null,
-      sizeError: null,
-    });
-    const newCartItem = {
-      size,
-      qty: +qty,
-      ...this.props.designStore.design,
-    };
-
-    this.props.onAddCartItem(newCartItem);
+    this.props.onAddCartItem();
   }
 
   handleUpdateCart = (e) => {
     e.preventDefault();
-    const { size, qty } = this.state;
-    const newCartItem = {
-      size,
-      qty: +qty,
-      ...this.props.designStore.design,
-    };
-
-    this.props.onUpdateCart(newCartItem);
+    this.props.onUpdateCart();
   }
 
   render() {
@@ -99,6 +46,9 @@ export default class OrderForm extends React.Component {
           }
           .title {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
           }
           .select-list {
             display: flex;
@@ -112,59 +62,28 @@ export default class OrderForm extends React.Component {
           .add-to-cart-button {
             margin-top: 20px;
           }
-          @media (min-width: 600px) {
-            .details-wrapper {
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-              height: 500px;
-            }
-          }
           .select-list {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
           }
-          @media (min-width: 600px) {
-            .price-tag {
-              display: none;
-            }
+          .details {
+            display: flex;
+          }
+          .details > .form-field:nth-child(2) {
+            margin-left: 40px;
           }
 
           @media (max-width: 600px) {
             .action-area {
-              display: flex;
-              justify-content: space-around;
-              align-items: center;
-              position: fixed;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              background-color: rgba(253,253,249, 1);
-              border-top: 1px solid #dedede;
-              height: 60px;
-            }
-            .rate-img {
-              width: 70px;
-              height: 12px;
-            }
-            .price-tag {
-              font-size: 13px;
-              font-weight: bold;
-            }
-            .add-to-cart-button {
-              margin-top: 0;
-              width: 50%;
-            }
-            .select-list {
-              margin-bottom: 40px;
+              display: none;
             }
           }
         `}</style>
         <div className="title">
           <h2>{product.name}</h2>
-          <div className="subtitle">{product.des}</div>
-          <img className="rate-img-mobile" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
+          <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
         </div>
-        <div>
+        <div className="subtitle">{product.des}</div>
+        <div className="details">
           <div className="form-field">
             <span>颜色：</span>
             <span>灰色</span>
@@ -175,13 +94,12 @@ export default class OrderForm extends React.Component {
           </div>
         </div>
         <form noValidate>
-          <EditTextPanel />
-          <div ref={(r) => { this.selectList = r; }} className="form-field select-list">
+          <div className="form-field select-list">
             <div className="select">
               <label htmlFor="select-size">选择尺码：</label><br />
               <SelectField
                 id="select-size"
-                value={this.state.size}
+                value={this.props.order.size}
                 onChange={this.handleSelectSize}
               >
                 {
@@ -190,13 +108,13 @@ export default class OrderForm extends React.Component {
                   )
                 }
               </SelectField>
-              <div className="error-msg">{this.state.sizeError}</div>
+              <div className="error-msg">{this.props.order.sizeError}</div>
             </div>
             <div className="select">
               <label htmlFor="select-size">选择数量：</label><br />
               <SelectField
                 id="select-size"
-                value={this.state.qty}
+                value={this.props.order.qty}
                 onChange={this.handleSelectQty}
               >
                 {
@@ -205,16 +123,10 @@ export default class OrderForm extends React.Component {
                   )
                 }
               </SelectField>
-              <div className="error-msg">{this.state.qtyError}</div>
+              <div className="error-msg">{this.props.order.qtyError}</div>
             </div>
           </div>
           <div className="action-area">
-            <div className="price-tag">
-              ¥100
-              <div>
-                <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
-              </div>
-            </div>
             {
               this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
                 更新购物车
