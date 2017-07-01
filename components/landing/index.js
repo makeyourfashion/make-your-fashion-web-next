@@ -121,31 +121,41 @@ const Landing = () => (
               </div>
             </a>
           </Link>
-          <div className="campaign-card mdc-card--theme-dark campaign1 mdc-card demo-card demo-card--bg-demo">
-            <div className="mdc-card__primary campaign-card-content">
-              <h1 className="mdc-card__title mdc-card__title--large">父亲节</h1>
-            </div>
-          </div>
-          <div className="campaign-card mdc-card--theme-dark campaign2 mdc-card demo-card demo-card--bg-demo">
-            <div className="mdc-card__primary campaign-card-content">
-              <h1 className="mdc-card__title mdc-card__title--large">母亲节</h1>
-            </div>
-          </div>
-          <div className="campaign-card mdc-card--theme-dark campaign3 mdc-card demo-card demo-card--bg-demo">
-            <div className="mdc-card__primary campaign-card-content">
-              <h1 className="mdc-card__title mdc-card__title--large">星球大战</h1>
-            </div>
-          </div>
-          <div className="campaign-card mdc-card--theme-dark campaign5 mdc-card demo-card demo-card--bg-demo">
-            <div className="mdc-card__primary campaign-card-content">
-              <h1 className="mdc-card__title mdc-card__title--large">儿童节</h1>
-            </div>
-          </div>
-          <div className="campaign-card mdc-card--theme-dark campaign6 mdc-card demo-card demo-card--bg-demo">
-            <div className="mdc-card__primary campaign-card-content">
-              <h1 className="mdc-card__title mdc-card__title--large">神奇女侠</h1>
-            </div>
-          </div>
+          <Link href="/shop?tag=0">
+            <a className="campaign-card mdc-card--theme-dark campaign1 mdc-card demo-card demo-card--bg-demo">
+              <div className="mdc-card__primary campaign-card-content">
+                <h1 className="mdc-card__title mdc-card__title--large">父亲节</h1>
+              </div>
+            </a>
+          </Link>
+          <Link href="/shop?tag=1">
+            <a className="campaign-card mdc-card--theme-dark campaign2 mdc-card demo-card demo-card--bg-demo">
+              <div className="mdc-card__primary campaign-card-content">
+                <h1 className="mdc-card__title mdc-card__title--large">母亲节</h1>
+              </div>
+            </a>
+          </Link>
+          <Link href="/shop?tag=3">
+            <a className="campaign-card mdc-card--theme-dark campaign3 mdc-card demo-card demo-card--bg-demo">
+              <div className="mdc-card__primary campaign-card-content">
+                <h1 className="mdc-card__title mdc-card__title--large">星球大战</h1>
+              </div>
+            </a>
+          </Link>
+          <Link href="/shop?tag=4">
+            <a className="campaign-card mdc-card--theme-dark campaign5 mdc-card demo-card demo-card--bg-demo">
+              <div className="mdc-card__primary campaign-card-content">
+                <h1 className="mdc-card__title mdc-card__title--large">儿童节</h1>
+              </div>
+            </a>
+          </Link>
+          <Link href="/shop?tag=5">
+            <a className="campaign-card mdc-card--theme-dark campaign6 mdc-card demo-card demo-card--bg-demo">
+              <div className="mdc-card__primary campaign-card-content">
+                <h1 className="mdc-card__title mdc-card__title--large">神奇女侠</h1>
+              </div>
+            </a>
+          </Link>
         </div>
       </div>
       <Footer />

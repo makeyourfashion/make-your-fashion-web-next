@@ -53,6 +53,7 @@ export default class AppBar extends React.Component {
             font-size: 1.25rem;
             font-weight: 500;
             letter-spacing: 0.1rem;
+            color: #000;
           }
           .login-button {
             margin-right: 5px;
@@ -69,7 +70,11 @@ export default class AppBar extends React.Component {
         <div className="app-bar">
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section" />
-            <div className="mdc-toolbar__section title">意栈网</div>
+            <div className="mdc-toolbar__section">
+              <Link href="/">
+                <a className="title">意栈网</a>
+              </Link>
+            </div>
             <div style={{ zIndex: 99999999 }} className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
               {
                 this.props.identityStore.isLoggedIn ? <MyAccount />

@@ -24,6 +24,14 @@ class ProductStore {
     },
     {
       id: 3,
+      name: '星球大战',
+    },
+    {
+      id: 4,
+      name: '儿童节',
+    },
+    {
+      id: 5,
       name: '神奇女侠',
     },
   ]
@@ -49,6 +57,8 @@ class ProductStore {
       },
     ],
     3: [],
+    4: [],
+    5: [],
   })
 
   constructor(state = intialState) {
