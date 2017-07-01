@@ -5,7 +5,8 @@ body, h1, button, input, select, textarea {
 body {
   background-color: #fdfdf9;
   --mdc-theme-primary: rgb(33, 33, 33);
-  --mdc-theme-accent: #ff5a5f;;
+  --mdc-theme-accent: #ff5a5f;
+  --mdc-theme-text-primary-on-light: #008489;
 }
 
 a {

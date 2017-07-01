@@ -84,6 +84,14 @@ const Landing = () => (
         padding-bottom: 5px;
         border-bottom: 1px solid #dedede;
       }
+      .action-button {
+        height: 48px;
+        padding: 4px 40px 0px 40px;
+        color: var(--mdc-theme-accent);
+        font-size: 16px;
+        border: 2px solid;
+        font-weight: bold;
+      }
       .promotion-bar {
         text-align: center;
         background-color: var(--mdc-theme-primary);
@@ -104,11 +112,11 @@ const Landing = () => (
           <div className="welcome">
             <h2>开启你的时尚之旅</h2>
             <Link href="/create?product=1">
-              <a className="mdc-button mdc-button--raised mdc-button--accent">设计</a>
+              <a className="mdc-button action-button">设计</a>
             </Link>
             <span style={{ margin: '0 15px 0 15px' }}>或</span>
             <Link prefetch href="/shop?category=2">
-              <a className="mdc-button mdc-button--raised mdc-button--accent">购物</a>
+              <a className="mdc-button action-button">购物</a>
             </Link>
           </div>
         </div>
