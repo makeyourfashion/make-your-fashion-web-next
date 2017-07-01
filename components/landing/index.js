@@ -1,17 +1,21 @@
 import Link from 'next/link';
+import { inject, observer } from 'mobx-react';
 import Head from '../Head';
 import AppBar from '../AppBar';
 import Footer from '../Footer';
 
-const Landing = () => (
+const Landing = ({ productStore }) => (
   <div>
     <Head />
     <style jsx>{`
       .landing-background {
-        background: blue url("/static/image/background.jpg") no-repeat scroll center;
+        background: blue url("http://img.lnts.cn/attachments/default/201706/30/DA710j26115499988071bacb5c19370b93561b.jpg") no-repeat scroll center;
+        background-size: auto 100%;
         height: 500px;
+        margin: auto;
         margin-bottom: 20px;
         position: relative;
+        max-width: 1100px;
       }
       .welcome {
         position: absolute;
@@ -101,6 +105,9 @@ const Landing = () => (
         height: 40px;
         color: #fff;
       }
+      .bg-title {
+        color: var(--mdc-theme-accent);
+      }
     `}</style>
     <div>
       <div className="promotion-bar">
@@ -110,7 +117,7 @@ const Landing = () => (
       <div className="container">
         <div className="landing-background">
           <div className="welcome">
-            <h2>开启你的时尚之旅</h2>
+            <h2>定制你的专属战衣</h2>
             <Link href="/create?product=1">
               <a className="mdc-button action-button">设计</a>
             </Link>
@@ -122,48 +129,22 @@ const Landing = () => (
         </div>
         <h2 className="campaign-title">近期活动</h2>
         <div className="campaign-list landing-category">
-          <Link href="/shop?tag=2">
-            <a className="campaign-card mdc-card--theme-dark campaign4 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">NBA</h1>
-              </div>
-            </a>
-          </Link>
-          <Link href="/shop?tag=0">
-            <a className="campaign-card mdc-card--theme-dark campaign1 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">父亲节</h1>
-              </div>
-            </a>
-          </Link>
-          <Link href="/shop?tag=1">
-            <a className="campaign-card mdc-card--theme-dark campaign2 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">母亲节</h1>
-              </div>
-            </a>
-          </Link>
-          <Link href="/shop?tag=3">
-            <a className="campaign-card mdc-card--theme-dark campaign3 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">星球大战</h1>
-              </div>
-            </a>
-          </Link>
-          <Link href="/shop?tag=4">
-            <a className="campaign-card mdc-card--theme-dark campaign5 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">儿童节</h1>
-              </div>
-            </a>
-          </Link>
-          <Link href="/shop?tag=5">
-            <a className="campaign-card mdc-card--theme-dark campaign6 mdc-card demo-card demo-card--bg-demo">
-              <div className="mdc-card__primary campaign-card-content">
-                <h1 className="mdc-card__title mdc-card__title--large">神奇女侠</h1>
-              </div>
-            </a>
-          </Link>
+          {
+            productStore.tags.map(tag => (
+              <Link key={tag.id} href={`/shop?tag=${tag.id}`}>
+                <a
+                  style={{
+                    backgroundImage: `url(${tag.img})`,
+                  }}
+                  className="campaign-card mdc-card--theme-dark mdc-card demo-card demo-card--bg-demo"
+                >
+                  <div className="mdc-card__primary campaign-card-content">
+                    <h1 className="mdc-card__title mdc-card__title--large">{tag.name}</h1>
+                  </div>
+                </a>
+              </Link>
+            ))
+          }
         </div>
       </div>
       <Footer />
@@ -171,4 +152,4 @@ const Landing = () => (
   </div>
 );
 
-export default Landing;
+export default inject('productStore')(observer(Landing));

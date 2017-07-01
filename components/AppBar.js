@@ -34,7 +34,7 @@ export default class AppBar extends React.Component {
   render() {
     const navStyle = this.sticky ? {
       position: 'fixed',
-      top: '0px',
+      top: '5px',
       padding: `0 ${(window.innerWidth - this.nav.offsetWidth) / 2}px 0 ${(window.innerWidth - this.nav.offsetWidth) / 2}px`,
       backgroundColor: 'rgba(253,253,249,1)',
       borderBottom: '1px solid #dedede',
@@ -56,23 +56,41 @@ export default class AppBar extends React.Component {
             color: #000;
           }
           .login-button {
-            margin-right: 5px;
-          }
-          @media (min-width: 600px) {
-            .login-button {
-              margin-right: 20px;
-            }
+            margin-right: 20px;
           }
           .align-center {
             align-items: center;
           }
+          .logo {
+            width: 200px;
+          }
+          @media (max-width: 600px) {
+            .logo {
+              width: 150px;
+            }
+            .left-place-holder {
+              display: none;
+            }
+          }
+          .top-strip {
+            width: 100%;
+            height: 5px;
+            background-color: var(--mdc-theme-primary);
+            z-index: 9999999999999999;
+            position: fixed;
+            top: 0;
+            left: 0;
+          }
         `}</style>
         <div className="app-bar">
+          <div className="top-strip" />
           <div className="mdc-toolbar__row">
-            <div className="mdc-toolbar__section" />
+            <div className="mdc-toolbar__section left-place-holder" />
             <div className="mdc-toolbar__section">
               <Link href="/">
-                <a className="title">意栈网</a>
+                <a className="title">
+                  <img className="logo" width="200px" alt="山东鲁能" src="http://www.lnts.com.cn/themes/classic/statics/images/home/logo.png" />
+                </a>
               </Link>
             </div>
             <div style={{ zIndex: 99999999 }} className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
@@ -113,4 +131,3 @@ export default class AppBar extends React.Component {
     );
   }
 }
-

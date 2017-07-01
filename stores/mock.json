@@ -6,21 +6,10 @@
     "design": {
       "productId":"100",
       "images":[
-        {
-          "id":"2ff2699c-f683-4f2d-bb68-cb8e6a11a13f",
-          "imgUrl":"/static/image/bil-sc.jpg",
-          "imageId":3,
-          "height":1077.7777777777778,
-          "width":983.3333333333333,
-          "x":5.555555555555555,
-          "y":275,
-          "rotation":0,
-          "picId":1
-        }
       ],
       "texts":[
         {
-          "text":"Stephen Curry",
+          "text":"乘风破浪",
           "id":"b6d0e89d-0bdd-4701-bd05-9d9b56592da4",
           "width":950,
           "x":25,
@@ -81,22 +70,10 @@
     "des":"男士基础款体恤",
     "design": {
       "productId":"101",
-      "images":[
-        {
-          "id":"2ff2699c-f683-4f2d-bb68-cb8e6a11a13f",
-          "imgUrl":"/static/image/jh.jpg",
-          "imageId":3,
-          "height":1144.4444444444443,
-          "width":983.3333333333333,
-          "x":5.555555555555555,
-          "y":191.66666666666674,
-          "rotation":0,
-          "picId":1
-        }
-      ],
+      "images":[],
       "texts":[
         {
-          "text":"James Harden",
+          "text":"LNTS",
           "id":"b6d0e89d-0bdd-4701-bd05-9d9b56592da4",
           "width":950,
           "x":25,

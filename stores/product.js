@@ -12,46 +12,71 @@ class ProductStore {
   @observable tags = [
     {
       id: 0,
-      name: '父亲节',
+      name: '鲁能是冠军',
+      img: 'http://img.lnts.cn/attachments/default/201706/20/g0E09t4caebae90249aa2c040e56326420ec43.jpg',
     },
     {
       id: 1,
-      name: '母亲节',
+      name: '联赛',
+      img: 'http://www.lnts.com.cn/themes/classic/statics/images/upload/home/all/2016.jpg',
     },
     {
       id: 2,
-      name: 'NBA',
-    },
-    {
-      id: 3,
-      name: '星球大战',
-    },
-    {
-      id: 4,
-      name: '儿童节',
-    },
-    {
-      id: 5,
-      name: '神奇女侠',
+      name: '杯赛',
+      img: 'http://img.lnts.cn/attachments/default/201706/23/E62jNbdba0ea5c127809a2c423ce47ceee80b5.jpg',
     },
   ]
   @observable productsByTags = observable.map({
-    0: [],
-    1: [],
-    2: [
+    0: [
       {
         id: 100,
-        name: 'stephen curry',
-        des: '大幅度辅导费多发点',
-        imgUrl: '/static/image/100.png',
+        name: '乘风破浪',
+        des: '乘风破浪',
+        imgUrl: 'https://gw.alicdn.com/bao/uploaded/i3/2935010079/TB2l4IAm88lpuFjy0FnXXcZyXXa_!!2935010079.jpg_230x230.jpg',
         category: 3,
         cost: null,
       },
       {
         id: 101,
-        name: 'james harden',
-        des: '大幅度辅导费多发点',
-        imgUrl: '/static/image/101.png',
+        name: 'LNTS',
+        des: '鲁能是冠军',
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i4/TB1U7kCLVXXXXaRXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg',
+        category: 3,
+        cost: null,
+      },
+    ],
+    1: [
+      {
+        id: 100,
+        name: '乘风破浪',
+        des: '乘风破浪',
+        imgUrl: 'https://gw.alicdn.com/bao/uploaded/i3/2935010079/TB2l4IAm88lpuFjy0FnXXcZyXXa_!!2935010079.jpg_230x230.jpg',
+        category: 3,
+        cost: null,
+      },
+      {
+        id: 101,
+        name: 'LNTS',
+        des: '鲁能是冠军',
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i4/TB1U7kCLVXXXXaRXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg',
+        category: 3,
+        cost: null,
+      },
+    ],
+    2: [
+      {
+        id: 100,
+        name: '乘风破浪',
+        des: '乘风破浪',
+        imgUrl: 'https://gw.alicdn.com/bao/uploaded/i3/2935010079/TB2l4IAm88lpuFjy0FnXXcZyXXa_!!2935010079.jpg_230x230.jpg',
+        category: 3,
+        cost: null,
+      },
+      {
+        id: 101,
+        name: 'LNTS',
+        des: '鲁能是冠军',
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i4/TB1U7kCLVXXXXaRXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg',
         category: 3,
         cost: null,
       },
