@@ -8,6 +8,23 @@ module.exports = {
     cfg.resolve.alias = {
       'react$': path.resolve(__dirname, './node_modules/react')
     }
+    cfg.module.rules.push(
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'emit-file-loader',
+            options: {
+              name: 'dist/[path][name].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: ['babel-loader', 'raw-loader', 'postcss-loader']
+      }
+    )
     cfg.plugins.push(new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size

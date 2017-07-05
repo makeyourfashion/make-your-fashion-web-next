@@ -91,14 +91,14 @@ const Landing = ({ productStore }) => (
       .action-button {
         height: 48px;
         padding: 4px 40px 0px 40px;
-        color: var(--mdc-theme-accent);
+        color: #fb5900;
         font-size: 16px;
         border: 2px solid;
         font-weight: bold;
       }
       .promotion-bar {
         text-align: center;
-        background-color: var(--mdc-theme-primary);
+        background-color: #fb5900;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -106,7 +106,7 @@ const Landing = ({ productStore }) => (
         color: #fff;
       }
       .bg-title {
-        color: var(--mdc-theme-accent);
+        color: #fb5900;
       }
     `}</style>
     <div>

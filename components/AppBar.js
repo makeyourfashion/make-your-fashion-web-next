@@ -75,7 +75,7 @@ export default class AppBar extends React.Component {
           .top-strip {
             width: 100%;
             height: 5px;
-            background-color: var(--mdc-theme-primary);
+            background-color: #fb5900;
             z-index: 9999999999999999;
             position: fixed;
             top: 0;

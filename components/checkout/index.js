@@ -145,7 +145,7 @@ export default class Checkout extends React.Component {
             justify-content: space-between;
           }
           .edit-link {
-            color: var(--mdc-theme-accent);
+            color: #fb5900;
             border: none;
             background-color: #fdfdf9;
           }

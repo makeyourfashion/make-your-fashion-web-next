@@ -103,7 +103,7 @@ export default class EditTextPanel extends React.Component {
             margin: 20px 0 40px 0;
           }
           .active-text {
-            border: 1px solid var(--mdc-theme-accent);
+            border: 1px solid #fb5900;
           }
           .select-list {
             display: flex;
