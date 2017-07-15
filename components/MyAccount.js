@@ -24,6 +24,11 @@ export default class MyAccount extends React.Component {
     }
   }
 
+  logout = async (e) => {
+    e.preventDefault();
+    await this.props.identityStore.logout();
+  }
+
   render() {
     return (
       <div className="mdc-menu-anchor">
@@ -63,7 +68,7 @@ export default class MyAccount extends React.Component {
               }
             </div>
             <div>
-              <a href="/login">退出</a>
+              <a onClick={this.logout} href="/api/logout">退出</a>
             </div>
           </div>
           <ul className="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">

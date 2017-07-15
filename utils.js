@@ -42,7 +42,10 @@ function validateZipcode(zipcode) {
   return '';
 }
 
+const HOST = typeof window === 'undefined' ? 'http://localhost:9000/' : '/';
+
 export {
+  HOST,
   validatePhone,
   validatePassword,
   validateEmail,

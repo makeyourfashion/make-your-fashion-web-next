@@ -6,16 +6,24 @@ import initProductStore from '../stores/product';
 import initCartStore from '../stores/cart';
 import ShopView from '../components/shop';
 import initIdentityStore from '../stores/identity';
-import initProductDetailStore from '../stores/productDetail';
 
 export default class Shop extends React.Component {
   static async getInitialProps({ query }) {
     const productStore = initProductStore();
-    await Promise.all([productStore.fetchProcuts(query.category), productStore.fetchCategories()]);
+    await productStore.fetchCategories();
+    await productStore.fetchCampaigns();
+    if (query.category) {
+      await productStore.fetchProcutsByCategory(query.category);
+    } else {
+      await productStore.fetchProcutsByCampaign(query.campaign);
+    }
+
     return {
       categories: productStore.categories,
+      campaigns: productStore.campaigns,
       products: productStore.products,
       category: query.category,
+      campaign: query.campaign,
       tag: query.tag,
     };
   }
@@ -23,6 +31,7 @@ export default class Shop extends React.Component {
   productStore = initProductStore({
     products: this.props.products,
     categories: this.props.categories,
+    campaigns: this.props.campaigns,
   })
 
   render() {
@@ -33,9 +42,8 @@ export default class Shop extends React.Component {
           cartStore={initCartStore()}
           productStore={this.productStore}
           identityStore={initIdentityStore()}
-          productDetailStore={initProductDetailStore()}
         >
-          <ShopView category={this.props.category} tag={this.props.tag} />
+          <ShopView category={this.props.category} campaign={this.props.campaign} />
         </Provider>
       </div>
     );

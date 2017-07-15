@@ -71,6 +71,9 @@ export default class HistoryView extends React.Component {
           .short-input {
             max-width: 500px;
           }
+          form {
+            margin-bottom: 40px;
+          }
           @media (max-width: 600px) {
             .short-input {
               max-width: 100%;

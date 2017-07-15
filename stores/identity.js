@@ -1,9 +1,11 @@
 import { observable, action, computed } from 'mobx';
 import 'isomorphic-fetch';
-import { getHistories } from '../baseWebClient';
+import Router from 'next/router';
+import { HOST } from '../utils';
 
 let store = null;
 class IdentityStore {
+  @observable id = null
   @observable phone = null
   @observable name = null
   @observable address = null
@@ -21,13 +23,16 @@ class IdentityStore {
   }
 
   async initSession() {
-    const res = await fetch('/api/account', {
+    const res = await fetch('/api/users', {
       credentials: 'include',
     });
     try {
       const user = await res.json();
+      this.id = user.id;
       this.phone = user.phone;
       this.name = user.name;
+      this.address = user.address;
+      this.email = user.email;
       this.error = null;
     } catch (e) {
       this.error = 'server error';
@@ -50,8 +55,11 @@ class IdentityStore {
         body: JSON.stringify(userInfo),
       });
       const user = await res.json();
-      this.phone = user.phone;
+      this.id = user.id;
       this.name = user.name;
+      this.address = user.address;
+      this.phone = user.phone;
+      this.email = user.email;
       this.error = null;
     } catch (e) {
       this.error = 'server error';
@@ -60,22 +68,18 @@ class IdentityStore {
     this.isLoading = false;
   }
 
-  @action async saveAccountDetails(details) {
-    this.name = details.name;
-    this.phone = details.phone;
-    this.address = details.address;
-    this.email = details.email;
-  }
+  // @action async saveAccountDetails(details) {
+  //   this.name = details.name;
+  //   this.phone = details.phone;
+  //   this.address = details.address;
+  //   this.email = details.email;
+  // }
 
   @action async fetchHistories() {
     if (!this.histories.length) {
-      if (this.isServer) {
-        this.histories = await getHistories();
-        return;
-      }
       this.isLoading = true;
       try {
-        const res = await fetch('/api/account/histories', {
+        const res = await fetch(`${HOST}api/orders`, {
           credentials: 'include',
         });
         this.histories = await res.json();
@@ -86,11 +90,53 @@ class IdentityStore {
     this.isLoading = false;
   }
 
+  @action async logout() {
+    await fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(() => {
+      this.name = null;
+      this.phone = null;
+      this.address = null;
+      this.email = null;
+      Router.push('/login');
+    });
+  }
+
   @action async createAccount(account) {
     this.isLoading = true;
     try {
-      const res = await fetch('/api/account', {
+      const res = await fetch('/api/users', {
         method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(account),
+      });
+      const user = await res.json();
+      this.id = user.id;
+      this.phone = user.phone;
+      this.name = user.name;
+      this.address = user.address;
+      this.phone = user.phone;
+      this.email = user.email;
+      this.error = null;
+    } catch (e) {
+      this.error = 'server error';
+    }
+
+    this.isLoading = false;
+  }
+
+  @action async saveAccountDetails(account) {
+    this.isLoading = true;
+    try {
+      const res = await fetch(`/api/users/${this.id}`, {
+        method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
@@ -100,6 +146,8 @@ class IdentityStore {
       const user = await res.json();
       this.phone = user.phone;
       this.name = user.name;
+      this.address = user.address;
+      this.phone = user.phone;
       this.error = null;
     } catch (e) {
       this.error = 'server error';

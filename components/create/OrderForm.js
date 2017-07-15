@@ -82,7 +82,7 @@ export default class OrderForm extends React.Component {
           <h2>{product.name}</h2>
           <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
         </div>
-        <div className="subtitle">{product.des}</div>
+        <div className="subtitle">{product.description}</div>
         <div className="details">
           <div className="form-field">
             <span>颜色：</span>
@@ -90,7 +90,7 @@ export default class OrderForm extends React.Component {
           </div>
           <div className="form-field">
             <span>单价：</span>
-            <span>¥100</span>
+            <span>¥{product.price}</span>
           </div>
         </div>
         <form noValidate>
@@ -103,7 +103,7 @@ export default class OrderForm extends React.Component {
                 onChange={this.handleSelectSize}
               >
                 {
-                  product.sizes.map(n =>
+                  product.sizes.split(',').map(n =>
                     <SelectItem key={n} value={n}>{n}</SelectItem>,
                   )
                 }

@@ -17,6 +17,7 @@ class DesignStore {
     if (typeof window !== 'undefined') {
       if (images.length || texts.length) {
         this.design.images = images;
+        console.log(texts);
         this.design.texts = texts;
         window.localStorage.setItem('design', JSON.stringify(this.design));
       } else {
@@ -45,11 +46,11 @@ class DesignStore {
   }
 
   @computed get activeImages() {
-    return this.design.images.slice().filter(image => image.picId === this.activeImageId);
+    return this.design.images.slice().filter(image => image.pic_id === this.activeImageId);
   }
 
   @computed get activeTexts() {
-    return this.design.texts.slice().filter(text => text.picId === this.activeImageId);
+    return this.design.texts.slice().filter(text => text.pic_id === this.activeImageId);
   }
 
   @computed get selectedText() {
@@ -57,7 +58,7 @@ class DesignStore {
   }
 
   @action setActiveImageId(id) {
-    this.activeImageId = +id;
+    this.activeImageId = id;
   }
 
   @action setActiveTextId(id) {
@@ -85,17 +86,19 @@ class DesignStore {
     window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 
-  @action addImage(imageId, imgUrl) {
+  @action addImage(imageId, img_url) {
     const newImage = {
       id: uuid(),
-      imgUrl,
-      imageId,
+      design: {
+        id: imageId,
+        img_url,
+      },
       height: 500,
       width: 500,
       x: 250,
       y: 625,
       rotation: 0,
-      picId: this.activeImageId,
+      pic_id: this.activeImageId,
     };
     this.design.images.push(newImage);
     window.localStorage.setItem('design', JSON.stringify(this.design));
@@ -109,13 +112,13 @@ class DesignStore {
       x: 25,
       y: 625,
       rotation: 0,
-      fontSize: 30,
-      fontFamily: 'Arial',
+      font_size: 30,
+      font_family: 'Arial',
       color: '#000',
       align: 'center',
       bold: false,
       italic: false,
-      picId: this.activeImageId,
+      pic_id: this.activeImageId,
     };
     this.design.texts.push(newText);
     this.activeTextId = newText.id;

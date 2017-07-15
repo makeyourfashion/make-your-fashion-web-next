@@ -3,12 +3,12 @@ import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import { MDCSimpleMenu } from '@material/menu/dist/mdc.menu';
 
-@inject('cartStore', 'productDetailStore', 'identityStore') @observer
+@inject('cartStore', 'productStore', 'identityStore') @observer
 export default class ShoppingCart extends React.Component {
   componentDidMount() {
     this.menu = new MDCSimpleMenu(this.menuDom);
     this.props.cartStore.cartItems.slice().forEach((item) => {
-      this.props.productDetailStore.fetchProductDetail(item.productId);
+      this.props.productStore.fetchProduct(item.productId);
     });
   }
 
@@ -84,8 +84,8 @@ export default class ShoppingCart extends React.Component {
                   </li>
                 ) :
                 cartItems.map((item) => {
-                  const productDetail = this.props.productDetailStore
-                    .getProductDetail(item.productId) || {};
+                  const productDetail = this.props.productStore
+                    .getProduct(item.productId) || {};
                   return (
                     <li key={item.id} className="mdc-list-item cart-item" role="menuitem">
                       <div className="cart-item">

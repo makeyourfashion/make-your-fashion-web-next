@@ -4,7 +4,7 @@ import Head from '../../components/Head';
 import initCartStore from '../../stores/cart';
 import initIdentityStore from '../../stores/identity';
 import DetailsView from '../../components/account/details';
-import initProductDetailStore from '../../stores/productDetail';
+import initProductStore from '../../stores/product';
 
 export default class History extends React.Component {
   static async getInitialProps() {
@@ -24,7 +24,7 @@ export default class History extends React.Component {
         <Provider
           cartStore={initCartStore()}
           identityStore={this.identityStore}
-          productDetailStore={initProductDetailStore()}
+          productStore={initProductStore()}
         >
           <DetailsView />
         </Provider>

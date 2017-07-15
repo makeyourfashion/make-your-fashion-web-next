@@ -1,7 +1,12 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
+import moment from 'moment';
 import AppBar from '../../AppBar';
 import Footer from '../../Footer';
+
+const STATUS = {
+  placed: '已下单',
+};
 
 @inject('identityStore') @observer
 export default class HistoryView extends React.Component {
@@ -92,81 +97,87 @@ export default class HistoryView extends React.Component {
               margin-left: 40px;
             }
           }
+          .container {
+            margin-bottom: 40px
+          }
         `}</style>
         <AppBar />
         <div className="container">
           <h1>购物历史</h1>
           {
-            this.props.identityStore.histories.map((history, i) => (
-              <div key={i}>
-                <div className="title">
-                  <div className="date">{history.date}</div>
-                  <div className="status">
-                    <div>
-                      <span>状态：</span>
-                      <span>{history.status}</span>
+            this.props.identityStore.histories.map((history) => {
+              const priceTotal = history.orderItem.map(item => +item.price).reduce((a, b) => a + b);
+              return (
+                <div key={history.id}>
+                  <div className="title">
+                    <div className="date">{moment(history.createdAt).lang('zh-cn').format('LLL')}</div>
+                    <div className="status">
+                      <div>
+                        <span>状态：</span>
+                        <span>{STATUS[history.status]}</span>
+                      </div>
+                      {
+                        history.trackNumber ? (
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`http://www.sf-express.com/us/en/dynamic_functions/waybill/#search/bill-number/${history.trackNumber}`}
+                          >追踪订单</a>
+                        ) : null
+                      }
                     </div>
+                  </div>
+                  <div className="product-list">
                     {
-                      history.trackNumber ? (
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={`http://www.sf-express.com/us/en/dynamic_functions/waybill/#search/bill-number/${history.trackNumber}`}
-                        >追踪订单</a>
-                      ) : null
+                      history.orderItem.map(({ id, qty, img, name }) => (
+                        <div className="product-card" key={id}>
+                          <img alt={name} className="product-card-image" src={img} />
+                          <div className="description">
+                            <div>{name}</div>
+                            <div>数量：{qty}</div>
+                          </div>
+                        </div>
+                      ))
                     }
                   </div>
-                </div>
-                <div className="product-list">
-                  {
-                    history.products.map(({ id, qty, img, name }) => (
-                      <div className="product-card" key={id}>
-                        <img alt={name} className="product-card-image" src={img} />
-                        <div className="description">
-                          <div>{name}</div>
-                          <div>数量：{qty}</div>
+                  <div className="mdc-layout-grid details">
+                    <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                      <div>
+                        <div className="sub-title">邮寄信息</div>
+                        <div className="ship-info">
+                          <div>{history.address}</div>
+                          <div>{history.name}</div>
+                          <div>{history.phone}</div>
                         </div>
-                      </div>
-                    ))
-                  }
-                </div>
-                <div className="mdc-layout-grid details">
-                  <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-                    <div>
-                      <div className="sub-title">邮寄信息</div>
-                      <div className="ship-info">
-                        <div>{history.shipmentInfo.address}</div>
-                        <div>{history.shipmentInfo.name}</div>
-                        <div>{history.shipmentInfo.phone}</div>
                       </div>
                     </div>
-                  </div>
-                  <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-                    <div className="summary-block">
-                      <div className="sub-title">订单总结</div>
-                      <div className="order-summary">
-                        <div className="order-details">
-                          <div>价格</div>
-                          <div>¥{history.paymentInfo.price}</div>
+                    <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                      <div className="summary-block">
+                        <div className="sub-title">订单总结</div>
+                        <div className="order-summary">
+                          <div className="order-details">
+                            <div>价格</div>
+                            <div>¥{priceTotal}</div>
+                          </div>
+                          <div className="order-details">
+                            <div>运费</div>
+                            <div>¥{history.shipFee}</div>
+                          </div>
+                          <div className="order-details">
+                            <div>折扣</div>
+                            <div>－¥{history.promotion}</div>
+                          </div>
                         </div>
-                        <div className="order-details">
-                          <div>运费</div>
-                          <div>¥{history.paymentInfo.shipFee}</div>
+                        <div className="order-details total">
+                          <div>总价</div>
+                          <div>¥{(+priceTotal + (+history.shipFee)) - (+history.promotion)}</div>
                         </div>
-                        <div className="order-details">
-                          <div>折扣</div>
-                          <div>－¥{history.paymentInfo.promotion}</div>
-                        </div>
-                      </div>
-                      <div className="order-details total">
-                        <div>总价</div>
-                        <div>¥{history.paymentInfo.total}</div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           }
         </div>
         <Footer />

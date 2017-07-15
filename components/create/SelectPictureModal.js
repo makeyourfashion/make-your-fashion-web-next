@@ -7,21 +7,15 @@ import PictureCard from './PictureCard';
 @inject('pictureStore', 'designStore') @observer
 export default class SelectPictureModal extends React.Component {
   componentDidMount() {
-    this.categories.addEventListener('click', (e) => {
+    this.categories.addEventListener('click', async (e) => {
       e.preventDefault();
-      this.tag = e.target.getAttribute('href');
+      const tag = e.target.getAttribute('href');
+      await this.props.pictureStore.fetchPictures(tag);
+      this.tag = tag;
     });
   }
 
   @observable tag = null;
-
-  handleTagClick = (e) => {
-    e.preventDefault();
-    if (e.target.className === 'category-button') {
-      e.preventDefault();
-      this.tag = e.target.getAttribute('href');
-    }
-  }
 
   render() {
     let pictures;
@@ -60,6 +54,10 @@ export default class SelectPictureModal extends React.Component {
           }
         `}</style>
         <div ref={(r) => { this.categories = r; }} className="category-list">
+          <a
+            className={`category-button ${+this.tag === 0 ? 'active-category' : ''}`}
+            href={0}
+          >全部图片</a>
           {
             this.props.pictureStore.allTags.map(tag => (
               <a

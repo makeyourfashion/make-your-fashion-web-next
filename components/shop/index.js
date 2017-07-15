@@ -69,30 +69,24 @@ export default class ShopView extends React.Component {
         <div className="container">
           <h1 className="category">
             {
-              this.props.tag
-                ? this.props.productStore.getTag(this.props.tag).name
+              this.props.campaign
+                ? this.props.productStore.getCampaign(this.props.campaign).name
                 : this.props.productStore.getCategory(this.props.category).name
             }
           </h1>
-          <h2 className="sub-category">
-            {
-              this.state.subCat ? this.props.productStore.getSubCategories(this.props.category)
-                .find(c => c.id === +this.state.subCat).name : '全部产品'
-            }
-          </h2>
           <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone left-menu">
               <div><span className="label">热门主题</span></div>
               <ul>
                 {
-                  this.props.productStore.tags.map(tag => (
-                    <li key={tag.id} className="category-list">
-                      <Link href={`/shop?tag=${tag.id}`}>
+                  this.props.productStore.campaigns.values().map(campaign => (
+                    <li key={campaign.id} className="category-list">
+                      <Link href={`/shop?campaign=${campaign.id}`}>
                         <a
                           style={{
-                            color: `${tag.id === +this.props.tag ? '#00b2a6' : '#737373'}`,
+                            color: `${campaign.id === +this.props.campaign ? '#00b2a6' : '#737373'}`,
                           }}
-                        >{tag.name}</a>
+                        >{campaign.name}</a>
                       </Link>
                     </li>
                   ))
@@ -101,7 +95,7 @@ export default class ShopView extends React.Component {
               <div><span className="label">类别</span></div>
               <ul>
                 {
-                  this.props.productStore.categories.slice().map(cat => (
+                  this.props.productStore.categories.values().map(cat => (
                     <li className="category-list" key={cat.id}>
                       <Link href={`/shop?category=${cat.id}`}>
                         <a
@@ -114,35 +108,17 @@ export default class ShopView extends React.Component {
                   ))
                 }
               </ul>
-              <div><span className="label">产品分类</span></div>
-              <ul>
-                {
-                  !this.props.tag ? this.props.productStore.getSubCategories(this.props.category).map(cat => (
-                    <li className="category-list" key={cat.id}>
-                      <a
-                        href={`#${cat.id}`}
-                        data-catId={cat.id}
-                        onClick={this.handleSelectSubCat}
-                        style={{
-                          textDecoration: 'none',
-                          color: `${cat.id === +this.state.subCat ? '#00b2a6' : '#737373'}`,
-                        }}
-                      >{cat.name}</a>
-                    </li>
-                  )) : null
-                }
-              </ul>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
               <div className="product-list">
                 {
-                  this.props.tag
-                    ? this.props.productStore.getProductByTag(this.props.tag)
+                  this.props.campaign
+                    ? this.props.productStore.getProductsByCampaign(this.props.campaign)
                       .map(product => (
                         <ProductCard key={product.id} product={product} />
                       ))
                     : this.props.productStore
-                      .getProductsByCategory(this.props.category, this.state.subCat)
+                      .getProductsByCategory(this.props.category)
                       .map(product => (
                         <ProductCard key={product.id} product={product} />
                       ))

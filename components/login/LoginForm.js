@@ -32,6 +32,7 @@ export default class LoginForm extends React.Component {
         password,
         rememberPassword,
       });
+
       if (!this.props.identityStore.error) {
         this.props.onSuccess();
       }

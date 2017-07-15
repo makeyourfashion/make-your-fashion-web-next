@@ -15,13 +15,12 @@ export default class Design extends React.Component {
 
   componentDidMount() {
     if (this.props.product) {
-      const activeImage = this.props.product.pics[0];
-      this.props.designStore.setActiveImageId(activeImage.id);
+      const activeImage = this.props.product.imgFront;
+      this.props.designStore.setActiveImageId('imgFront');
 
       const image = new window.Image();
-      // image.crossOrigin = 'Anonymous';
       image.setAttribute('crossOrigin', 'anonymous');
-      image.src = activeImage.smallUrl;
+      image.src = activeImage;
       image.onload = () => {
         this.setState({
           image,
@@ -64,11 +63,10 @@ export default class Design extends React.Component {
     e.preventDefault();
     const activeImageId = e.target.closest('a').getAttribute('href');
     this.props.designStore.setActiveImageId(activeImageId);
-    const activeImage = this.props.product.pics.find(pic => pic.id === +activeImageId);
+    const activeImage = this.props.product[activeImageId];
     const image = new window.Image();
-    // image.crossOrigin = 'Anonymous';
     image.setAttribute('crossOrigin', 'anonymous');
-    image.src = activeImage.smallUrl;
+    image.src = activeImage;
     image.onload = () => {
       this.setState({
         image,
@@ -188,13 +186,12 @@ export default class Design extends React.Component {
           }
         </div>
         <div className="thumbnails">
-          {
-            this.props.product.pics ? this.props.product.pics.map(pic => (
-              <a key={pic.id} onClick={this.handleSelectImage} href={pic.id}>
-                <img crossOrigin="anonymous" src={pic.smallUrl} alt="small" className="thumbnail" />
-              </a>
-            )) : null
-          }
+          <a onClick={this.handleSelectImage} href="imgFront">
+            <img crossOrigin="anonymous" src={this.props.product.imgFront} alt="small" className="thumbnail" />
+          </a>
+          <a onClick={this.handleSelectImage} href="imgBack">
+            <img crossOrigin="anonymous" src={this.props.product.imgBack} alt="small" className="thumbnail" />
+          </a>
         </div>
       </div>
     );

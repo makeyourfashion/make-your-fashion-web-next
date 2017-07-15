@@ -118,8 +118,8 @@ export default class Text extends React.Component {
   }
 
   render() {
-    const { text, x, y, fontSize, fontFamily, color, width, align, bold, italic } = this.props.text;
-    const adjFontSize = getAdjFontSize(fontSize);
+    const { text, x, y, font_size, font_family, color, width, align, bold, italic } = this.props.text;
+    const adjFontSize = getAdjFontSize(font_size);
     const canvasWidth = toCanvasWidth(width);
     const canvasXY = toCanvasPx(x, y);
     return (
@@ -189,7 +189,7 @@ export default class Text extends React.Component {
           ref={(r) => { this.text = r; }}
           fill={color}
           fontSize={adjFontSize}
-          fontFamily={fontFamily}
+          fontFamily={font_family}
           text={text}
           align={align}
           width={canvasWidth}

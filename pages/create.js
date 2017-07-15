@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 import Head from '../components/Head';
-import initProductDetailStore from '../stores/productDetail';
 import initProductStore from '../stores/product';
 import initCartStore from '../stores/cart';
 import CreateView from '../components/create';
@@ -11,12 +10,12 @@ import initPictureStore from '../stores/picture';
 
 export default class Create extends React.Component {
   static async getInitialProps({ query }) {
-    const productDetailStore = initProductDetailStore();
+    const productStore = initProductStore();
     if (query.product) {
-      await productDetailStore.fetchProductDetail(query.product);
+      await productStore.fetchProduct(query.product);
     }
     return {
-      productDetails: productDetailStore.productDetails,
+      products: productStore.products,
       productId: query.product,
       cartId: query.cart,
     };
@@ -24,7 +23,9 @@ export default class Create extends React.Component {
 
   constructor(props) {
     super(props);
-    this.productDetailStore = initProductDetailStore(this.props.productDetails);
+    this.productStore = initProductStore({
+      products: this.props.products,
+    });
     this.cartStore = initCartStore();
     if (this.props.cartId) {
       const cartItem = this.cartStore.getCartItem(this.props.cartId);
@@ -33,10 +34,16 @@ export default class Create extends React.Component {
         return;
       }
     }
-    const design = this.productDetailStore.getProductDetail(this.props.productId).design;
-    this.designStore = initDesignStore(this.props.productId,
-      design ? design.images : undefined, design ? design.texts : undefined);
+    const designDetail = this.productStore.getProduct(this.props.productId).designDetail;
+    const textDetail = this.productStore.getProduct(this.props.productId).textDetail;
+    this.designStore = initDesignStore(this.props.productId, designDetail, textDetail);
   }
+
+  componentDidMount() {
+    this.pictureStore.init();
+  }
+
+  pictureStore= initPictureStore()
 
   render() {
     return (
@@ -45,10 +52,9 @@ export default class Create extends React.Component {
         <Provider
           cartStore={this.cartStore}
           identityStore={initIdentityStore()}
-          productDetailStore={this.productDetailStore}
-          productStore={initProductStore()}
+          productStore={this.productStore}
           designStore={this.designStore}
-          pictureStore={initPictureStore()}
+          pictureStore={this.pictureStore}
         >
           <CreateView productId={this.props.productId} cartId={this.props.cartId} />
         </Provider>

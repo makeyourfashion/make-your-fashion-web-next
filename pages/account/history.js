@@ -4,18 +4,14 @@ import Head from '../../components/Head';
 import initCartStore from '../../stores/cart';
 import initIdentityStore from '../../stores/identity';
 import HistoryView from '../../components/account/history';
-import initProductDetailStore from '../../stores/productDetail';
+import initProductStore from '../../stores/product';
 
 export default class History extends React.Component {
-  static async getInitialProps() {
-    const identityStore = initIdentityStore();
-    await identityStore.fetchHistories();
-    return {
-      histories: identityStore.histories.slice(),
-    };
+  componentDidMount() {
+    this.identityStore.fetchHistories();
   }
 
-  identityStore = initIdentityStore(this.props.histories)
+  identityStore = initIdentityStore()
 
   render() {
     return (
@@ -24,7 +20,7 @@ export default class History extends React.Component {
         <Provider
           cartStore={initCartStore()}
           identityStore={this.identityStore}
-          productDetailStore={initProductDetailStore()}
+          productStore={initProductStore()}
         >
           <HistoryView />
         </Provider>

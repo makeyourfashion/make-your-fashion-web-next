@@ -3,8 +3,8 @@ import { Provider } from 'mobx-react';
 import Head from '../components/Head';
 import initCartStore from '../stores/cart';
 import initIdentityStore from '../stores/identity';
+import initProductStore from '../stores/product';
 import LoginView from '../components/login';
-import initProductDetailStore from '../stores/productDetail';
 
 function Login({ redirect }) {
   return (
@@ -13,7 +13,7 @@ function Login({ redirect }) {
       <Provider
         cartStore={initCartStore()}
         identityStore={initIdentityStore()}
-        productDetailStore={initProductDetailStore()}
+        productStore={initProductStore()}
       >
         <LoginView redirect={redirect} />
       </Provider>

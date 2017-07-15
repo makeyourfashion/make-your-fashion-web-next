@@ -1,7 +1,10 @@
 import React from 'react';
+import { autorun } from 'mobx';
+import { inject, observer } from 'mobx-react';
 import TextInput from '../TextInput';
 import { validatePhone } from '../../utils';
 
+@inject('identityStore') @observer
 export default class ShippingDetail extends React.Component {
   static defaultProps = {
     name: '',
@@ -9,13 +12,23 @@ export default class ShippingDetail extends React.Component {
     phone: '',
   }
 
-  state = {
-    name: this.props.name,
-    nameError: '',
-    address: this.props.address,
-    addressError: '',
-    phone: this.props.phone,
-    phoneError: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: this.props.identityStore.name,
+      nameError: '',
+      address: this.props.identityStore.address,
+      addressError: '',
+      phone: this.props.identityStore.phone,
+      phoneError: '',
+    };
+    autorun(() => {
+      this.setState({
+        name: this.props.identityStore.name,
+        address: this.props.identityStore.address,
+        phone: this.props.identityStore.phone,
+      });
+    });
   }
 
   handleNameChange = (e) => {

@@ -4,21 +4,29 @@ import Head from '../../components/Head';
 import initIdentityStore from '../../stores/identity';
 import DesignsView from '../../components/admin/designs';
 import initCartStore from '../../stores/cart';
-import initProductDetailStore from '../../stores/productDetail';
+import initProductStore from '../../stores/product';
+import initPictureStore from '../../stores/picture';
 
-function Designs() {
-  return (
-    <div>
-      <Head />
-      <Provider
-        identityStore={initIdentityStore()}
-        cartStore={initCartStore()}
-        productDetailStore={initProductDetailStore()}
-      >
-        <DesignsView />
-      </Provider>
-    </div>
-  );
+export default class Designs extends React.Component {
+  componentDidMount() {
+    this.pictureStore.init();
+  }
+
+  pictureStore = initPictureStore()
+
+  render() {
+    return (
+      <div>
+        <Head />
+        <Provider
+          cartStore={initCartStore()}
+          identityStore={initIdentityStore()}
+          productStore={initProductStore()}
+          pictureStore={this.pictureStore}
+        >
+          <DesignsView />
+        </Provider>
+      </div>
+    );
+  }
 }
-
-export default Designs;

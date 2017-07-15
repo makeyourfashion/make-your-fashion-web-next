@@ -50,7 +50,7 @@ export default class AppBar extends React.Component {
             z-index: 99999;
           }
           .title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 500;
             letter-spacing: 0.1rem;
             color: #000;
@@ -75,7 +75,7 @@ export default class AppBar extends React.Component {
           .top-strip {
             width: 100%;
             height: 5px;
-            background-color: #fb5900;
+            background-color: #ff5a5f;
             z-index: 9999999999999999;
             position: fixed;
             top: 0;
@@ -89,7 +89,7 @@ export default class AppBar extends React.Component {
             <div className="mdc-toolbar__section">
               <Link href="/">
                 <a className="title">
-                  <img className="logo" width="200px" alt="山东鲁能" src="http://www.lnts.com.cn/themes/classic/statics/images/home/logo.png" />
+                  创意栈
                 </a>
               </Link>
             </div>

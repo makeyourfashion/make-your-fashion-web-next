@@ -6,7 +6,7 @@ import AppBar from '../../AppBar';
 import Footer from '../../Footer';
 import Snackbar from '../../Snackbar';
 
-@inject('identityStore') @observer
+@inject('identityStore', 'pictureStore') @observer
 export default class Designs extends React.Component {
   componentDidMount() {
     if (!this.props.identityStore.isLoggedIn) {
@@ -16,17 +16,17 @@ export default class Designs extends React.Component {
 
   @observable images = [
     {
-      src: 'http://www.ufunk.net/wp-content/uploads/2016/08/Xavier-Portela-Tokyo-1.jpg',
+      imgUrl: 'http://www.ufunk.net/wp-content/uploads/2016/08/Xavier-Portela-Tokyo-1.jpg',
       count: 5,
       status: '通过审核',
     },
     {
-      src: 'http://img02.tooopen.com/images/20150504/tooopen_sy_121674864715.jpg',
+      imgUrl: 'http://img02.tooopen.com/images/20150504/tooopen_sy_121674864715.jpg',
       count: 16,
       status: '通过审核',
     },
     {
-      src: 'http://img02.tooopen.com/images/20150521/tooopen_sy_125443297259.jpg',
+      imgUrl: 'http://img02.tooopen.com/images/20150521/tooopen_sy_125443297259.jpg',
       count: 103,
       status: '通过审核',
     },
@@ -48,26 +48,29 @@ export default class Designs extends React.Component {
       return;
     }
     const reader = new FileReader();
+    const file = e.target.files[0];
     reader.onload = (event) => {
       this.newImages.push({
-        src: event.target.result,
+        imgUrl: event.target.result,
         count: 0,
         status: '审核中',
-        category: '',
+        tag: [''],
         des: '',
       });
     };
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(file);
   }
 
-  @action handleSaveImages = () => {
+  @action handleSaveImages = async () => {
+    await Promise.all(this.newImages.map(design => this.props.pictureStore.uploadImage(design)));
+
     this.images = this.images.slice().concat(this.newImages.slice());
     this.newImages = [];
     this.showSuccessMessage = true;
   }
 
-  @action handleSelectCategory = (e) => {
-    this.newImages[e.target.getAttribute('data-index')].category = e.target.value;
+  @action handleSelectTag = (e) => {
+    this.newImages[e.target.getAttribute('data-index')].tag[0] = e.target.value;
   }
 
   @action handleDesChange = (e) => {
@@ -181,20 +184,21 @@ export default class Designs extends React.Component {
                 {
                   this.newImages.map((img, i) => (
                     <div key={i} className="image-card mdc-elevation--z2">
-                      <img alt="图片" className="uploaded-image" src={img.src} />
+                      <img alt="图片" className="uploaded-image" src={img.imgUrl} />
                       <div className="form-field">
                         <label>
                           <span>类别：</span>
                           <select
                             data-index={i}
-                            value={img.category}
-                            onChange={this.handleSelectCategory}
+                            value={img.tag[0]}
+                            onChange={this.handleSelectTag}
                           >
                             <option value="" />
-                            <option value="sport">体育</option>
-                            <option value="game">游戏</option>
-                            <option value="geek">极客</option>
-                            <option value="celebrity">明星</option>
+                            {
+                              this.props.pictureStore.allTags.map(tag => (
+                                <option key={tag.id} value={tag.id}>{tag.name}</option>
+                              ))
+                            }
                           </select>
                         </label>
                       </div>
@@ -218,7 +222,7 @@ export default class Designs extends React.Component {
                 {
                   this.images.map((img, i) => (
                     <div key={i} className="image-card mdc-elevation--z2">
-                      <img alt="图片" className="uploaded-image" src={img.src} />
+                      <img alt="图片" className="uploaded-image" src={img.imgUrl} />
                       <div>使用次数: <span>{img.count}</span></div>
                       <div>状态: <span>{img.status}</span></div>
                     </div>

@@ -1,12 +1,13 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-@inject('cartStore', 'productDetailStore') @observer
+@inject('cartStore', 'productStore') @observer
 export default class PlaceOrder extends React.Component {
   state = {}
 
   render() {
     const cartItems = this.props.cartStore.cartItems.slice();
+    const totalPrice = cartItems.map(item => item.price).reduce((a, b) => (+a) + (+b), 0);
     return (
       <div>
         <style jsx>{`
@@ -78,8 +79,8 @@ export default class PlaceOrder extends React.Component {
           <h4>商品信息</h4>
           {
             cartItems.map((item) => {
-              const productDetail = this.props.productDetailStore
-                .getProductDetail(item.productId) || {};
+              const productDetail = this.props.productStore
+                .getProduct(item.productId) || {};
               return (
                 <ul className="cart-list" key={item.id}>
                   <div className="cart-item">
@@ -104,15 +105,19 @@ export default class PlaceOrder extends React.Component {
           <div className="summary">
             <div className="label-list">
               <div>商品总价：</div>
-              <div>¥100</div>
+              <div>¥{totalPrice}</div>
             </div>
             <div className="label-list">
               <div>运费：</div>
-              <div>¥0</div>
+              <div>¥10</div>
+            </div>
+            <div className="label-list">
+              <div>折扣：</div>
+              <div>－¥7.5</div>
             </div>
             <div className="label-list">
               <div>总计：</div>
-              <div>¥100</div>
+              <div>¥{totalPrice + 2.5}</div>
             </div>
           </div>
         </div>

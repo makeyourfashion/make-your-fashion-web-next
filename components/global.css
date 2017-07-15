@@ -1,9 +1,9 @@
 @import "../node_modules/material-components-web/dist/material-components-web.css";
 
 :root {
-  --mdc-theme-primary: #fb5900;
-  --mdc-theme-accent: #fb5900;
-  --mdc-theme-text-primary-on-light: #fb5900;
+  --mdc-theme-primary: rgb(33, 33, 33);
+  --mdc-theme-accent: #ff5a5f;
+  --mdc-theme-text-primary-on-light: #008489;
 }
 
 body, h1, button, input, select, textarea {

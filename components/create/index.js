@@ -22,7 +22,7 @@ function getCanvasImgUrl() {
   return resizedCanvas.toDataURL();
 }
 
-@inject('productDetailStore', 'cartStore', 'identityStore', 'designStore') @observer
+@inject('productStore', 'cartStore', 'identityStore', 'designStore') @observer
 export default class CreateView extends React.Component {
   constructor(props) {
     super(props);
@@ -113,7 +113,10 @@ export default class CreateView extends React.Component {
       },
     }, () => {
       window.setTimeout(() => {
+        const { price, itemId } = this.getProduct();
         const newCartItem = {
+          itemId,
+          price: +price * +qty,
           size,
           qty: +qty,
           imgUrl: getCanvasImgUrl(),
@@ -172,7 +175,7 @@ export default class CreateView extends React.Component {
     });
   }
 
-  render() {
+  getProduct() {
     let productId;
     if (this.props.productId) {
       productId = this.props.productId;
@@ -183,7 +186,11 @@ export default class CreateView extends React.Component {
       }
     }
 
-    const product = this.props.productDetailStore.getProductDetail(productId);
+    return this.props.productStore.getProduct(productId);
+  }
+
+  render() {
+    const product = this.getProduct();
 
     return (
       <div>

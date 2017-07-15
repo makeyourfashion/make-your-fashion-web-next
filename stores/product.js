@@ -1,112 +1,37 @@
 import { observable, action } from 'mobx';
-import { flatten } from 'lodash';
 import 'isomorphic-fetch';
-import { getProductsByCatalog, getCatalog } from '../baseWebClient';
+import { keyBy } from 'lodash';
+import { HOST } from '../utils';
 
 let store = null;
 const intialState = { products: {}, categories: [] };
 class ProductStore {
-  @observable products = {}
-  @observable categories = {}
-  @observable isLoading = false
-  @observable tags = [
-    {
-      id: 0,
-      name: '鲁能是冠军',
-      img: 'http://img.lnts.cn/attachments/default/201706/20/g0E09t4caebae90249aa2c040e56326420ec43.jpg',
+  @observable products = observable.map()
+  @observable categories = observable.map({
+    all: {
+      products: [],
     },
-    {
-      id: 1,
-      name: '联赛',
-      img: 'http://www.lnts.com.cn/themes/classic/statics/images/upload/home/all/2016.jpg',
-    },
-    {
-      id: 2,
-      name: '杯赛',
-      img: 'http://img.lnts.cn/attachments/default/201706/23/E62jNbdba0ea5c127809a2c423ce47ceee80b5.jpg',
-    },
-  ]
-  @observable productsByTags = observable.map({
-    0: [
-      {
-        id: 100,
-        name: '乘风破浪',
-        des: '乘风破浪',
-        imgUrl: 'https://gw.alicdn.com/bao/uploaded/i3/2935010079/TB2l4IAm88lpuFjy0FnXXcZyXXa_!!2935010079.jpg_230x230.jpg',
-        category: 3,
-        cost: null,
-      },
-      {
-        id: 101,
-        name: 'LNTS',
-        des: '鲁能是冠军',
-        imgUrl: 'https://img.alicdn.com/bao/uploaded/i4/TB1U7kCLVXXXXaRXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg',
-        category: 3,
-        cost: null,
-      },
-    ],
-    1: [
-      {
-        id: 100,
-        name: '乘风破浪',
-        des: '乘风破浪',
-        imgUrl: 'https://gw.alicdn.com/bao/uploaded/i3/2935010079/TB2l4IAm88lpuFjy0FnXXcZyXXa_!!2935010079.jpg_230x230.jpg',
-        category: 3,
-        cost: null,
-      },
-      {
-        id: 101,
-        name: 'LNTS',
-        des: '鲁能是冠军',
-        imgUrl: 'https://img.alicdn.com/bao/uploaded/i4/TB1U7kCLVXXXXaRXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg',
-        category: 3,
-        cost: null,
-      },
-    ],
-    2: [
-      {
-        id: 100,
-        name: '乘风破浪',
-        des: '乘风破浪',
-        imgUrl: 'https://gw.alicdn.com/bao/uploaded/i3/2935010079/TB2l4IAm88lpuFjy0FnXXcZyXXa_!!2935010079.jpg_230x230.jpg',
-        category: 3,
-        cost: null,
-      },
-      {
-        id: 101,
-        name: 'LNTS',
-        des: '鲁能是冠军',
-        imgUrl: 'https://img.alicdn.com/bao/uploaded/i4/TB1U7kCLVXXXXaRXpXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg',
-        category: 3,
-        cost: null,
-      },
-    ],
-    3: [],
-    4: [],
-    5: [],
   })
+  @observable campaigns = observable.map()
+  @observable isLoading = false
 
   constructor(state = intialState) {
-    this.products = state.products;
-    this.categories = state.categories;
-    this.isServer = typeof window === 'undefined';
+    this.products = this.products.merge(state.products);
+    this.categories = this.categories.merge(state.categories);
+    this.campaigns = this.campaigns.merge(state.campaigns);
   }
 
-  @action
-  async fetchCategories() {
-    if (this.categories.length) {
+  @action async fetchCategories() {
+    if (this.categories.values().length > 1) {
       return;
     }
     this.isLoading = true;
     try {
-      if (this.isServer) {
-        this.categories = await getCatalog(1);
-      } else {
-        const res = await fetch('/api/category', {
-          credentials: 'same-origin',
-        });
-        this.categories = await res.json();
-      }
+      const res = await fetch(`${HOST}api/categories`, {
+        credentials: 'same-origin',
+      });
+      const categories = (await res.json()).categories;
+      this.categories.merge(keyBy(categories, 'id'));
     } catch (e) {
       // do nothing
     }
@@ -114,21 +39,17 @@ class ProductStore {
     this.isLoading = false;
   }
 
-  @action
-  async fetchProcuts(categoryId) {
-    if (this.products[categoryId]) {
+  @action async fetchCampaigns() {
+    if (this.campaigns.values().length) {
       return;
     }
     this.isLoading = true;
     try {
-      if (this.isServer) {
-        this.products[categoryId] = await getProductsByCatalog(categoryId);
-      } else {
-        const res = await fetch(`/api/category/${categoryId}`, {
-          credentials: 'same-origin',
-        });
-        this.products[categoryId] = await res.json();
-      }
+      const res = await fetch(`${HOST}api/campaigns`, {
+        credentials: 'same-origin',
+      });
+      const campaigns = (await res.json()).campaigns;
+      this.campaigns.merge(keyBy(campaigns, 'id'));
     } catch (e) {
       // do nothing
     }
@@ -136,27 +57,107 @@ class ProductStore {
     this.isLoading = false;
   }
 
-  getProductsByCategory(id, subCatId) {
-    if (!subCatId) {
-      return flatten(this.products[id].slice().map(c => c.products.slice()));
+  @action async fetchAllProducts() {
+    const allProducts = this.categories.get('all');
+    if (allProducts.products.length) {
+      return;
     }
-    return this.products[id].slice().find(subCat => subCat.id === +subCatId).products;
+    this.isLoading = true;
+
+    try {
+      const res = await fetch(`${HOST}api/products`, {
+        credentials: 'same-origin',
+      });
+      const products = (await res.json()).products;
+
+      this.products.merge(keyBy(products, 'id'));
+      const ids = products.map(p => p.id);
+      allProducts.products = ids;
+    } catch (e) {
+      // do nothing
+    }
+
+    this.isLoading = false;
   }
 
-  getProductByTag(id) {
-    return this.productsByTags.get(+id);
+  @action async fetchProcutsByCategory(categoryId) {
+    const category = this.categories.get(categoryId);
+    if (category && category.products && category.products.length) {
+      return;
+    }
+    this.isLoading = true;
+
+    try {
+      const res = await fetch(`${HOST}api/products?catagory=${categoryId}`, {
+        credentials: 'same-origin',
+      });
+
+      const products = (await res.json()).products;
+      this.products.merge(keyBy(products, 'id'));
+      const ids = products.map(p => p.id);
+      category.products = ids;
+    } catch (e) {
+      // do nothing
+    }
+
+    this.isLoading = false;
   }
 
-  getSubCategories(categoryId) {
-    return this.products[categoryId].slice().map(({ name, id }) => ({ name, id }));
+  @action async fetchProcutsByCampaign(campaignId) {
+    const campaign = this.campaigns.get(campaignId);
+    if (campaign.products && campaign.products.length) {
+      return;
+    }
+    this.isLoading = true;
+
+    try {
+      const res = await fetch(`${HOST}api/products?campaign=${campaignId}`, {
+        credentials: 'same-origin',
+      });
+      const products = (await res.json()).products;
+      const ids = products.map(p => p.id);
+      campaign.products = ids;
+
+      this.products.merge(keyBy(products, 'id'));
+    } catch (e) {
+      // do nothing
+    }
+
+    this.isLoading = false;
+  }
+
+  @action async fetchProduct(id) {
+    this.isLoading = true;
+    try {
+      const res = await fetch(`${HOST}api/products/${id}`, {
+        credentials: 'same-origin',
+      });
+      this.products.set(id, await res.json());
+    } catch (e) {
+      // do nothing
+    }
+
+    this.isLoading = false;
   }
 
   getCategory(id) {
-    return this.categories.slice().find(c => c.id === +id);
+    return this.categories.get(+id);
   }
 
-  getTag(id) {
-    return this.tags.slice().find(c => c.id === +id);
+  getCampaign(id) {
+    return this.campaigns.get(+id);
+  }
+
+  getProduct(id) {
+    return this.products.get(id);
+  }
+
+  getProductsByCategory(id) {
+    return this.categories.get(id).products.map(pid => this.products.get(pid));
+  }
+
+  getProductsByCampaign(id) {
+    return this.campaigns.get(id).products.map(pid => this.products.get(pid));
   }
 }
 

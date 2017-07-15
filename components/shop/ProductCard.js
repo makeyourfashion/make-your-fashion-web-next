@@ -42,7 +42,7 @@ export default class ProductCard extends React.Component {
           }
         `}</style>
         <div>
-          <img alt={this.props.product.imgUrl} className="product-card-image" src={this.props.product.imgUrl} />
+          <img alt={this.props.product.img} className="product-card-image" src={this.props.product.img} />
           <div className="description">
             <div>{this.props.product.name}</div>
             <div className="price-label">¥100</div>
