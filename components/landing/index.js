@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import Head from '../Head';
 import AppBar from '../AppBar';
 import Footer from '../Footer';
+import Carousel from '../Carousel';
 
 @inject('productStore', 'pictureStore') @observer
 export default class Landing extends React.Component {
@@ -44,22 +45,18 @@ export default class Landing extends React.Component {
 
           .campaign-list {
             margin-bottom: 10px;
-            overflow: auto;
+            overflow: hidden;
             white-space: nowrap;
+          }
+
+          .campaign-list:not(:last-child) {
+            border-bottom: solid 1px #ccc;
           }
           .campaign-card {
             display: inline-block;
-            width: 22%;
+            width: 19.4%;
             margin-right: 1%;
-            height: 300px;
-            margin-bottom: 20px;
-          }
-          .design-card {
-            display: inline-block;
-            width: 16%;
-            margin-right: 1%;
-            height: 200px;
-            margin-bottom: 20px;
+            height: 250px;
           }
           .campaign-img {
             background-size: cover;
@@ -67,19 +64,35 @@ export default class Landing extends React.Component {
             height: 80%;
             width: 100%;
           }
-
+          .design-img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+          }
+          .design-card {
+            display: inline-block;
+            width: 16%;
+            margin-right: 1%;
+            height: 170px;
+            margin-bottom: 20px;
+          }
           @media (max-width: 600px) {
             .landing-background {
               height: 400px;
               background-size: auto 100%;
             }
             .campaign-card {
-              width: 42%;
-              height: 180px;
+              width: 49%;
+              margin-right: 2%;
+              height: 250px;
+            }
+            .campaign-img {
+              height: 70%;
             }
             .design-card {
-              width: 27%;
-              height: 120px;
+              width: 33%;
+              height: 100px;
             }
           }
 
@@ -89,7 +102,8 @@ export default class Landing extends React.Component {
           .campaign-title {
             margin-top: 50px;
             padding-bottom: 5px;
-            font-size: 1.5em;
+            font-size: 1.3em;
+            border-bottom: solid 1px #ccc;
           }
           .action-button {
             height: 48px;
@@ -132,58 +146,64 @@ export default class Landing extends React.Component {
             </div>
             <h2 className="campaign-title">近期活动</h2>
             <div className="campaign-list landing-category">
-              {
-                productStore.campaigns.values().map(campaign => (
-                  <div key={campaign.id} className="campaign-card">
-                    <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
-                      <a>
-                        <div
-                          className="campaign-img"
-                          style={{
-                            backgroundImage: `url(${campaign.img})`,
-                          }}
-                        />
-                      </a>
-                    </Link>
-                    <h4>{campaign.name}</h4>
-                  </div>
-                ))
-              }
+              <Carousel total={5}>
+                {
+                  productStore.campaigns.values().map(campaign => (
+                    <div key={campaign.id} className="campaign-card image">
+                      <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
+                        <a>
+                          <div
+                            className="campaign-img"
+                            style={{
+                              backgroundImage: `url(${campaign.img})`,
+                            }}
+                          />
+                        </a>
+                      </Link>
+                      <h4>{campaign.name}</h4>
+                    </div>
+                  ))
+                }
+              </Carousel>
             </div>
             <h2 className="campaign-title">热门单品</h2>
             <div className="campaign-list landing-category">
-              {
-                productStore.getProductsByCategory('all').map(product => (
-                  <div key={product.id} className="campaign-card">
-                    <Link key={product.id} href={`/create?product=${product.id}`}>
-                      <a>
-                        <div
-                          className="campaign-img"
-                          style={{
-                            backgroundImage: `url(${product.img})`,
-                          }}
-                        />
-                      </a>
-                    </Link>
-                    <h4>{product.name}</h4>
-                  </div>
-                ))
-              }
+              <Carousel total={5}>
+                {
+                  productStore.getProductsByCategory('all').map(product => (
+                    <div key={product.id} className="campaign-card image">
+                      <Link key={product.id} href={`/create?product=${product.id}`}>
+                        <a>
+                          <div
+                            className="campaign-img"
+                            style={{
+                              backgroundImage: `url(${product.img})`,
+                            }}
+                          />
+                        </a>
+                      </Link>
+                      <h4>{product.name}</h4>
+                    </div>
+                  ))
+                }
+              </Carousel>
             </div>
             <h2 className="campaign-title">热门设计图片</h2>
             <div className="campaign-list landing-category">
-              {
-                pictureStore.designs.values().map(pic => (
-                  <div key={pic.id} className="design-card">
-                    <div
-                      className="campaign-img"
-                      style={{
-                        backgroundImage: `url(${pic.imgUrl})`,
-                      }}
-                    />
-                  </div>
-                ))
-              }
+              <Carousel total={6}>
+                {
+                  pictureStore.designs.values().map(pic => (
+                    <div key={pic.id} className="design-card image">
+                      <div
+                        className="design-img"
+                        style={{
+                          backgroundImage: `url(${pic.imgUrl})`,
+                        }}
+                      />
+                    </div>
+                  ))
+                }
+              </Carousel>
             </div>
           </div>
           <Footer />

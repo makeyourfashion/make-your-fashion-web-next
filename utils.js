@@ -42,7 +42,15 @@ function validateZipcode(zipcode) {
   return '';
 }
 
-const HOST = typeof window === 'undefined' ? 'http://localhost:9000/' : '/';
+let HOST;
+
+if (typeof window !== 'undefined') {
+  HOST = '/';
+} else if (process.env.NODE_ENV === 'production') {
+  HOST = 'http://59.110.141.38:9000/';
+} else {
+  HOST = 'http://localhost:9000/';
+}
 
 export {
   HOST,

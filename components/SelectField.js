@@ -16,9 +16,8 @@ class SelectField extends React.Component {
           .select-field {
             width: 100% !important;
             border: 1px solid #ccc !important;
-            padding: 5px 10px 5px 10px;
+            padding: 3px 10px 3px 15px;
             background-image: none;
-            background-color: #fff;
             color: #000;
             position: relative;
             margin-top: 10px;

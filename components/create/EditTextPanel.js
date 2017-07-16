@@ -22,11 +22,11 @@ export default class EditTextPanel extends React.Component {
     });
   }
 
-  handleChangeFont = (fontFamily) => {
+  handleChangeFont = (font_family) => {
     const text = this.props.designStore.selectedText;
     this.props.designStore.updateText({
       id: text.id,
-      fontFamily,
+      font_family,
     });
   }
 
@@ -34,7 +34,7 @@ export default class EditTextPanel extends React.Component {
     const text = this.props.designStore.selectedText;
     this.props.designStore.updateText({
       id: text.id,
-      fontSize: +fontSize,
+      font_size: +fontSize,
     });
   }
 
@@ -134,7 +134,7 @@ export default class EditTextPanel extends React.Component {
             <label htmlFor="align-select">
               字号：
               <SelectField
-                value={text.fontSize}
+                value={text.font_size}
                 onChange={this.handleChangeFontSize}
               >
                 {
@@ -149,8 +149,8 @@ export default class EditTextPanel extends React.Component {
             <label htmlFor="align-select">
               字体：
               <SelectField
-                style={{ fontFamily: text.fontFamily }}
-                value={text.fontFamily}
+                style={{ font_family: text.font_family }}
+                value={text.font_family}
                 onChange={this.handleChangeFont}
               >
                 {

@@ -290,6 +290,13 @@ export default class CreateView extends React.Component {
                       cartId={this.props.cartId}
                     /> : <EditTextPanel />
                   }
+                  {
+                    this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
+                      更新购物车
+                    </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                      添加到购物车
+                    </button>
+                  }
                 </div>
               </div>
             </div>

@@ -31,6 +31,7 @@ export default class TextInput extends React.Component {
             width: 97%;
             font-size: 12px;
             font-weight: 300;
+            background-color: #fdfdf9;
           }
           .textfield-label {
             font-size: .8em;
@@ -48,6 +49,7 @@ export default class TextInput extends React.Component {
             padding: 8px 0px 8px 8px;
             font-size: 12px;
             font-weight: 300;
+            background-color: #fdfdf9;
           }
         `}</style>
         <div className="text-input">

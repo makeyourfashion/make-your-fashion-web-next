@@ -59,6 +59,9 @@ export default class ShopView extends React.Component {
           .category-list {
             margin-bottom: 10px;
           }
+          .no-products-alert {
+            text-align: center;
+          }
           @media (max-width: 599px) {
             .left-menu {
               text-align: center;
@@ -110,20 +113,26 @@ export default class ShopView extends React.Component {
               </ul>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-              <div className="product-list">
-                {
-                  this.props.campaign
+              {
+                (() => {
+                  const campaigns = this.props.campaign
                     ? this.props.productStore.getProductsByCampaign(this.props.campaign)
-                      .map(product => (
-                        <ProductCard key={product.id} product={product} />
-                      ))
-                    : this.props.productStore
-                      .getProductsByCategory(this.props.category)
-                      .map(product => (
-                        <ProductCard key={product.id} product={product} />
-                      ))
-                }
-              </div>
+                    : this.props.productStore.getProductsByCategory(this.props.category);
+                  if (!campaigns.length) {
+                    return <div className="no-products-alert">暂无此类商品，请选择其他类别</div>
+                  } else {
+                    return (
+                      <div className="product-list">
+                        {
+                          campaigns.map(product => (
+                            <ProductCard key={product.id} product={product} />
+                          ))
+                        }
+                      </div>
+                    );
+                  }
+                })()
+              }
             </div>
           </div>
         </div>

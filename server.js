@@ -11,7 +11,11 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 function getApiHost() {
-  return 'localhost:9000';
+  if (process.env.NODE_ENV === 'production') {
+    return '59.110.141.38:9000';
+  } else {
+    return 'localhost:9000';
+  }
 }
 
 app.prepare().then(() => {

@@ -66,7 +66,7 @@ export default class HistoryView extends React.Component {
             margin-bottom: 40px;
           }
           .container {
-            max-width: 800px;
+            max-width: 500px;
           }
           .short-input {
             max-width: 500px;
@@ -118,7 +118,7 @@ export default class HistoryView extends React.Component {
                 value={this.email}
               />
             </div>
-            <button type="submit" className="mdc-button mdc-button--raised mdc-button--primary save-button">
+            <button type="submit" className="mdc-button mdc-button--raised button-full-width mdc-button--primary save-button">
               更新个人信息
             </button>
           </form>

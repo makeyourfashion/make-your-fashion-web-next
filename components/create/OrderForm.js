@@ -133,15 +133,6 @@ export default class OrderForm extends React.Component {
               <div className="error-msg">{this.props.order.qtyError}</div>
             </div>
           </div>
-          <div className="action-area">
-            {
-              this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                更新购物车
-              </button> : <button onClick={this.addToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                添加到购物车
-              </button>
-            }
-          </div>
         </form>
       </div>
     );
