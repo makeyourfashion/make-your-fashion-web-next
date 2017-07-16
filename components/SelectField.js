@@ -15,9 +15,25 @@ class SelectField extends React.Component {
         <style jsx>{`
           .select-field {
             width: 100% !important;
+            border: 1px solid #ccc !important;
+            padding: 5px 10px 5px 10px;
+            background-image: none;
+            background-color: #fff;
+            color: #000;
+            position: relative;
+            margin-top: 10px;
+          }
+          .icon-arrow {
+            position: absolute;
+            right: 10px;
           }
         `}</style>
         <span style={this.props.style} className="mdc-select__selected-text">{this.props.value}</span>
+        <span className="icon-arrow">
+          <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ display: 'block', fill: 'rgb(72, 72, 72)', height: '16px', width: '16px' }}>
+            <path fillRule="evenodd" d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
+          </svg>
+        </span>
         <div className="mdc-simple-menu mdc-select__menu">
           <ul className="mdc-list mdc-simple-menu__items">
             {this.props.children}

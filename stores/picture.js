@@ -53,14 +53,15 @@ class PictureStore {
   }
   @action async uploadImage(newDesign) {
     this.isLoading = true;
+    const fd = new FormData();
+    const { file, tag } = newDesign;
+    fd.append('image', file);
+    fd.append('tag', tag);
     try {
       const res = await fetch('/api/designs', {
         method: 'POST',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newDesign),
+        body: fd,
       });
       const obj = await res.json();
       this.designs.set(obj.id, obj);

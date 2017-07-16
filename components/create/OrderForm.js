@@ -2,6 +2,7 @@ import React from 'react';
 import { range } from 'lodash';
 import { inject, observer } from 'mobx-react';
 import { SelectField, SelectItem } from '../SelectField';
+import Ratings from '../Ratings';
 
 @inject('designStore') @observer
 export default class OrderForm extends React.Component {
@@ -55,8 +56,10 @@ export default class OrderForm extends React.Component {
             flex-wrap: wrap;
             justify-content: space-between;
           }
-          .select {
-            width: 45%;
+          .select-list div {
+            width: 47.5%;
+          }
+          .select-list div:not(:last-child) {
             margin-right: 5%;
           }
           .add-to-cart-button {
@@ -80,7 +83,7 @@ export default class OrderForm extends React.Component {
         `}</style>
         <div className="title">
           <h2>{product.name}</h2>
-          <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
+          <Ratings rating={product.ratings} />
         </div>
         <div className="subtitle">{product.description}</div>
         <div className="details">
@@ -95,34 +98,38 @@ export default class OrderForm extends React.Component {
         </div>
         <form noValidate>
           <div className="form-field select-list">
-            <div className="select">
-              <label htmlFor="select-size">选择尺码：</label><br />
-              <SelectField
-                id="select-size"
-                value={this.props.order.size}
-                onChange={this.handleSelectSize}
-              >
-                {
-                  product.sizes.split(',').map(n =>
-                    <SelectItem key={n} value={n}>{n}</SelectItem>,
-                  )
-                }
-              </SelectField>
+            <div>
+              <label htmlFor="select-size">
+                选择尺码：
+                <SelectField
+                  id="select-size"
+                  value={this.props.order.size}
+                  onChange={this.handleSelectSize}
+                >
+                  {
+                    product.sizes.split(',').map(n =>
+                      <SelectItem key={n} value={n}>{n}</SelectItem>,
+                    )
+                  }
+                </SelectField>
+              </label>
               <div className="error-msg">{this.props.order.sizeError}</div>
             </div>
-            <div className="select">
-              <label htmlFor="select-size">选择数量：</label><br />
-              <SelectField
-                id="select-size"
-                value={this.props.order.qty}
-                onChange={this.handleSelectQty}
-              >
-                {
-                  range(1, 12).map(n =>
-                    <SelectItem key={n} value={n}>{n}</SelectItem>,
-                  )
-                }
-              </SelectField>
+            <div>
+              <label htmlFor="select-size">
+                选择数量：
+                <SelectField
+                  id="select-size"
+                  value={this.props.order.qty}
+                  onChange={this.handleSelectQty}
+                >
+                  {
+                    range(1, 12).map(n =>
+                      <SelectItem key={n} value={n}>{n}</SelectItem>,
+                    )
+                  }
+                </SelectField>
+              </label>
               <div className="error-msg">{this.props.order.qtyError}</div>
             </div>
           </div>

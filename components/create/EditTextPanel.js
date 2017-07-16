@@ -110,8 +110,10 @@ export default class EditTextPanel extends React.Component {
             flex-wrap: wrap;
             justify-content: space-between;
           }
-          .select {
-            width: 45%;
+          .select-list div {
+            width: 47.5%;
+          }
+          .select-list div:not(:last-child) {
             margin-right: 5%;
           }
           [title~="#fff"] {
@@ -128,32 +130,36 @@ export default class EditTextPanel extends React.Component {
           />
         </div>
         <div className="form-field select-list">
-          <div className="select">
-            <label htmlFor="align-select">字号<br /></label>
-            <SelectField
-              value={text.fontSize}
-              onChange={this.handleChangeFontSize}
-            >
-              {
-                range(30, 46).map(n =>
-                  <SelectItem key={n} value={n}>{n}</SelectItem>,
-                )
-              }
-            </SelectField>
+          <div>
+            <label htmlFor="align-select">
+              字号：
+              <SelectField
+                value={text.fontSize}
+                onChange={this.handleChangeFontSize}
+              >
+                {
+                  range(30, 46).map(n =>
+                    <SelectItem key={n} value={n}>{n}</SelectItem>,
+                  )
+                }
+              </SelectField>
+            </label>
           </div>
-          <div className="select">
-            <label htmlFor="align-select">字体<br /></label>
-            <SelectField
-              style={{ fontFamily: text.fontFamily }}
-              value={text.fontFamily}
-              onChange={this.handleChangeFont}
-            >
-              {
-                fontList.map(n =>
-                  <SelectItem key={n} value={n}><span style={{ fontFamily: n }}>{n}</span></SelectItem>,
-                )
-              }
-            </SelectField>
+          <div>
+            <label htmlFor="align-select">
+              字体：
+              <SelectField
+                style={{ fontFamily: text.fontFamily }}
+                value={text.fontFamily}
+                onChange={this.handleChangeFont}
+              >
+                {
+                  fontList.map(n =>
+                    <SelectItem key={n} value={n}><span style={{ fontFamily: n }}>{n}</span></SelectItem>,
+                  )
+                }
+              </SelectField>
+            </label>
           </div>
         </div>
         <label htmlFor="align-select">对齐</label>

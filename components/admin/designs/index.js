@@ -51,6 +51,7 @@ export default class Designs extends React.Component {
     const file = e.target.files[0];
     reader.onload = (event) => {
       this.newImages.push({
+        file,
         imgUrl: event.target.result,
         count: 0,
         status: '审核中',

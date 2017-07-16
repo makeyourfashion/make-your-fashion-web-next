@@ -22,7 +22,7 @@ export default class Landing extends React.Component {
             max-width: 1050px;
           }
           .landing-background {
-            background: grey url("/static/image/background.jpg") no-repeat scroll center;
+            background: grey url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/23e8a0f3-e0e7-4db8-bcb2-9f1111103025-background.jpg") no-repeat scroll center;
             background-size: auto;
             height: 600px;
             margin: auto;

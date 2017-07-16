@@ -3,8 +3,6 @@ const next = require('next');
 const proxy = require('express-http-proxy');
 const mobxReact = require('mobx-react');
 const compression = require('compression');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const url = require('url');
 
 mobxReact.useStaticRendering(true);
@@ -20,8 +18,6 @@ app.prepare().then(() => {
   const server = express();
 
   server.disable('x-powered-by');
-  server.use(cookieParser());
-  server.use(bodyParser.json({ limit: '50mb' }));
   server.use(compression());
   server.use('/api', proxy(getApiHost(), {
     proxyReqPathResolver(req) {
