@@ -25,6 +25,7 @@ class SelectField extends React.Component {
           .icon-arrow {
             position: absolute;
             right: 10px;
+            top: 30%;
           }
         `}</style>
         <span style={this.props.style} className="mdc-select__selected-text">{this.props.value}</span>

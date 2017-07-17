@@ -63,10 +63,9 @@ export default class Design extends React.Component {
     e.preventDefault();
     const activeImageId = e.target.closest('a').getAttribute('href');
     this.props.designStore.setActiveImageId(activeImageId);
-    const activeImage = this.props.product[activeImageId];
     const image = new window.Image();
     image.setAttribute('crossOrigin', 'anonymous');
-    image.src = activeImage;
+    image.src = e.target.getAttribute('src');
     image.onload = () => {
       this.setState({
         image,

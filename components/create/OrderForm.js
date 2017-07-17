@@ -74,12 +74,6 @@ export default class OrderForm extends React.Component {
           .details > .form-field:nth-child(2) {
             margin-left: 40px;
           }
-
-          @media (max-width: 600px) {
-            .action-area {
-              display: none;
-            }
-          }
         `}</style>
         <div className="title">
           <h2>{product.name}</h2>

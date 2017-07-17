@@ -54,7 +54,7 @@ export default class Designs extends React.Component {
         file,
         imgUrl: event.target.result,
         count: 0,
-        status: '审核中',
+        status: '通过审核',
         tag: [''],
         des: '',
       });
@@ -259,7 +259,7 @@ export default class Designs extends React.Component {
         </div>
         <Snackbar
           open={this.showSuccessMessage}
-          message="成功保存图片，一旦通过审核，您的图片将会加入图片库"
+          message="成功保存图片，您的图片已经加入图片库"
         />
         <Snackbar
           open={this.showInvalidImageFormat}

@@ -10,6 +10,7 @@ import Design from './Design';
 import OrderForm from './OrderForm';
 import Snackbar from '../Snackbar';
 import EditTextPanel from './EditTextPanel';
+import Ratings from '../Ratings';
 
 function getCanvasImgUrl() {
   const canvas = document.querySelector('canvas');
@@ -251,6 +252,11 @@ export default class CreateView extends React.Component {
             .select-list {
               margin-bottom: 40px;
             }
+            @media (max-width: 600px) {
+              .desktop-button {
+                display: none;
+              }
+            }
           }
         `}</style>
         <AppBar />
@@ -290,13 +296,15 @@ export default class CreateView extends React.Component {
                       cartId={this.props.cartId}
                     /> : <EditTextPanel />
                   }
-                  {
-                    this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                      更新购物车
-                    </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                      添加到购物车
-                    </button>
-                  }
+                  <div className="desktop-button">
+                    {
+                      this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
+                        更新购物车
+                      </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                        添加到购物车
+                      </button>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -304,9 +312,7 @@ export default class CreateView extends React.Component {
           <div className="action-area">
             <div className="price-tag">
               ¥100
-              <div>
-                <img className="rate-img" src="https://jcrew.ugc.bazaarvoice.com/1706redes-en_us/3_5/5/rating.png" alt="3.5 / 5" title="3.5 / 5" />
-              </div>
+              <Ratings rating={product.ratings} />
             </div>
             {
               this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
