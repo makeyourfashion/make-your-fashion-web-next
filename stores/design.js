@@ -17,7 +17,6 @@ class DesignStore {
     if (typeof window !== 'undefined') {
       if (images.length || texts.length) {
         this.design.images = images;
-        console.log(texts);
         this.design.texts = texts;
         window.localStorage.setItem('design', JSON.stringify(this.design));
       } else {

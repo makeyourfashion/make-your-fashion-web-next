@@ -13,30 +13,8 @@ export default class Menu extends React.Component {
     isAddTextModalOpen: false,
   }
 
-  componentDidMount() {
-    this.menu = new MDCSimpleMenu(this.menuDom);
-    document.querySelector('.mobile-menu').addEventListener('click', (e) => {
-      switch (e.target.getAttribute('data-action')) {
-        case 'select-product':
-          this.selectProduct();
-          break;
-        case 'select-design':
-          this.handleSelectPicture();
-          break;
-        case 'add-text':
-          this.handleAddText();
-          break;
-        case 'upload-pic':
-          this.handleOpenFileUploadDialog(e);
-          break;
-        default:
-      }
-    });
-  }
-
   handleSelect = (id, imgUrl) => {
     this.props.designStore.addImage(id, imgUrl);
-
     this.setState({
       isSelectPicModalOpen: false,
     });
@@ -89,43 +67,6 @@ export default class Menu extends React.Component {
     }
   }
 
-  renderMenu(mobile) {
-    return (
-      <ul className={`mdc-list ${mobile ? 'mdc-simple-menu__items' : ''}`}>
-        <style jsx>{`
-          .input-hiddden {
-            display: none;
-          }
-        `}</style>
-        <li data-action="select-product" className="mdc-list-item list-item">
-          <ShirtIcon />
-          <button onClick={this.selectProduct} ref={(r) => { this.selectProductBtn = r; }} className="icon-button">
-            选择产品
-          </button>
-        </li>
-        <li data-action="select-design" className="mdc-list-item list-item">
-          <i className="material-icons" aria-hidden="true">collections</i>
-          <button onClick={this.handleSelectPicture} className="icon-button">
-            选择设计
-          </button>
-        </li>
-        <li data-action="add-text" className="mdc-list-item list-item">
-          <i className="material-icons" aria-hidden="true">text_fields</i>
-          <button onClick={this.handleAddText} className="icon-button">
-            添加文字
-          </button>
-        </li>
-        <li data-action="upload-pic" className="mdc-list-item list-item">
-          <input className="input-hiddden" type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
-          <i className="material-icons">file_upload</i>
-          <button onClick={this.handleOpenFileUploadDialog} className="icon-button">
-            上传图片
-          </button>
-        </li>
-      </ul>
-    );
-  }
-
   render() {
     return (
       <div>
@@ -133,9 +74,6 @@ export default class Menu extends React.Component {
           i {
             display: inline-table;
             vertical-align: middle;
-          }
-          .list-item {
-            margin-bottom: 10px;
           }
           .menu-button {
             background: none;
@@ -147,18 +85,23 @@ export default class Menu extends React.Component {
             margin-right: 24px;
             box-sizing: border-box;
           }
-
-          @media (max-width: 599px) {
-            .desktop-menu {
-              display: none;
+          .input-hiddden {
+            display: none;
+          }
+          .list-item {
+            margin-bottom: 10px;
+            flex-direction: column;
+          }
+          .icon-button {
+            font-size: 0.9em;
+            margin-right: 0;
+            background-color: rgba(255,255,255,0);
+          }
+          @media (max-width: 600px) {
+            .icon-button {
+              font-size: 0.7em;
             }
           }
-          @media (min-width: 600px) {
-            .mobile-menu {
-              display: none;
-            }
-          }
-
         `}</style>
         <SelectPictureModal
           onSelect={this.handleSelect}
@@ -166,15 +109,33 @@ export default class Menu extends React.Component {
           open={this.state.isSelectPicModalOpen}
         />
         <AddTextModal open={this.state.isAddTextModalOpen} onClose={this.handleCloseAddTextModal} />
-        <div className="desktop-menu">
-          { this.renderMenu(false) }
-        </div>
-        <div className="mobile-menu">
-          <button onClick={this.toggleMenu} className="menu-button material-icons">menu</button>
-          <div className="mdc-simple-menu" tabIndex="-1" ref={(r) => { this.menuDom = r; }}>
-            { this.renderMenu(true) }
-          </div>
-        </div>
+        <ul className="mdc-list">
+          <li data-action="select-product" className="mdc-list-item list-item">
+            <ShirtIcon />
+            <button onClick={this.selectProduct} ref={(r) => { this.selectProductBtn = r; }} className="icon-button">
+              产品
+            </button>
+          </li>
+          <li data-action="select-design" className="mdc-list-item list-item">
+            <i className="material-icons" aria-hidden="true">collections</i>
+            <button onClick={this.handleSelectPicture} className="icon-button">
+              素材
+            </button>
+          </li>
+          <li data-action="add-text" className="mdc-list-item list-item">
+            <i className="material-icons" aria-hidden="true">text_fields</i>
+            <button onClick={this.handleAddText} className="icon-button">
+              文字
+            </button>
+          </li>
+          <li data-action="upload-pic" className="mdc-list-item list-item">
+            <input className="input-hiddden" type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
+            <i className="material-icons">file_upload</i>
+            <button onClick={this.handleOpenFileUploadDialog} className="icon-button">
+              上传
+            </button>
+          </li>
+        </ul>
       </div>
     );
   }

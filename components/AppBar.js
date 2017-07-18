@@ -34,7 +34,7 @@ export default class AppBar extends React.Component {
   render() {
     const navStyle = this.sticky ? {
       position: 'fixed',
-      top: '5px',
+      top: '0',
       padding: `0 ${(window.innerWidth - this.nav.offsetWidth) / 2}px 0 ${(window.innerWidth - this.nav.offsetWidth) / 2}px`,
       backgroundColor: 'rgba(253,253,249,1)',
       borderBottom: '1px solid #dedede',
@@ -45,6 +45,15 @@ export default class AppBar extends React.Component {
           .app-bar {
             border-bottom: 1px solid #dedede;
             width: 100%;
+          }
+          .promotion-bar {
+            text-align: center;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 40px;
+            color: #fff;
           }
           .nav-tab {
             z-index: 99999;
@@ -75,7 +84,7 @@ export default class AppBar extends React.Component {
           .top-strip {
             width: 100%;
             height: 5px;
-            background-color: #ff5a5f;
+            background-color: #000;
             z-index: 9999999999999999;
             position: fixed;
             top: 0;
@@ -83,13 +92,15 @@ export default class AppBar extends React.Component {
           }
         `}</style>
         <div className="app-bar">
-          <div className="top-strip" />
+          <div className="promotion-bar">
+            <div>开业大吉，全体商品最低八折！</div>
+          </div>
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section left-place-holder" />
             <div className="mdc-toolbar__section">
               <Link href="/">
                 <a className="title">
-                  创意栈
+                  意栈网
                 </a>
               </Link>
             </div>

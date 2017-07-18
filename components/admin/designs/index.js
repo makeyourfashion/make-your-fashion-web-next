@@ -43,10 +43,10 @@ export default class Designs extends React.Component {
   }
 
   @action uploadImage = (e) => {
-    if (!e.target.files[0].type.startsWith('image')) {
-      this.showInvalidImageFormat = true;
-      return;
-    }
+    // if (!e.target.files[0].type.startsWith('image')) {
+    //   this.showInvalidImageFormat = true;
+    //   return;
+    // }
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.onload = (event) => {

@@ -93,12 +93,13 @@ export default class Design extends React.Component {
       <div className="">
         <style jsx>{`
           .thumbnail {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border: 1px solid transparent;
             margin-left: 5px;
-            border-radius: 5%;
-            box-shadow: 0 2px 2px 0 rgba(0,0,0,.11), inset 0 2px 2px 0 rgba(255,255,255,.3);
+          }
+          .active {
+            border: solid 1px #ccc;
           }
           .thumbnails {
             margin-top: 20px;
@@ -186,10 +187,10 @@ export default class Design extends React.Component {
         </div>
         <div className="thumbnails">
           <a onClick={this.handleSelectImage} href="imgFront">
-            <img crossOrigin="anonymous" src={this.props.product.imgFront} alt="small" className="thumbnail" />
+            <img crossOrigin="anonymous" src={this.props.product.imgFront} alt="small" className={`thumbnail ${this.props.designStore.activeImageId === 'imgFront' ? 'active' : ''}`} />
           </a>
           <a onClick={this.handleSelectImage} href="imgBack">
-            <img crossOrigin="anonymous" src={this.props.product.imgBack} alt="small" className="thumbnail" />
+            <img crossOrigin="anonymous" src={this.props.product.imgBack} alt="small" className={`thumbnail ${this.props.designStore.activeImageId === 'imgBack' ? 'active' : ''}`} />
           </a>
         </div>
       </div>

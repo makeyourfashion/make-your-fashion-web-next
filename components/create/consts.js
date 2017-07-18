@@ -1,19 +1,22 @@
-let canvasWidth;
-let canvasHeight;
-if (typeof window === 'undefined' || window.matchMedia('(min-width: 700px)').matches) {
-  canvasWidth = 500;
-  canvasHeight = 500;
-} else {
-  canvasWidth = window.screen.width - 16;
-  canvasHeight = window.screen.width - 16;
+let canvasWidth = 100;
+let canvasHeight = 100;
+if (typeof window !== 'undefined') {
+  if (window.matchMedia('(min-width: 700px)').matches) {
+    const maxWidth = window.innerWidth * 0.6;
+    canvasWidth = maxWidth > 650 ? 650 : maxWidth;
+    canvasHeight = canvasWidth;
+  } else {
+    canvasWidth = window.screen.width - 16;
+    canvasHeight = window.screen.width - 16;
+  }
 }
 
 const CANVAS_HEIGHT = canvasHeight;
 const CANVAS_WIDTH = canvasWidth;
 const RECT_WIDTH = (9 / 25) * CANVAS_WIDTH;
 const RECT_HEIGHT = (RECT_WIDTH * 7) / 4;
-const DESIGN_WIDTH = 100 * (CANVAS_WIDTH / 500);
-const DESIGN_HEIGHT = 100 * (CANVAS_HEIGHT / 500);
+const DESIGN_WIDTH = canvasHeight;
+const DESIGN_HEIGHT = canvasWidth;
 
 const fontList = [
   'Arial',

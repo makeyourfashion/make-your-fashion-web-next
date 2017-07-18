@@ -54,7 +54,8 @@ export default class Carousel extends React.Component {
           button {
             padding: 5px !important;
             position: absolute !important;
-            top: 40%;
+            top: 50%;
+            transform: translateY(-50%);
             display: inline-block;
             cursor: pointer;
             border-radius: 50%;

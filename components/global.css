@@ -3,7 +3,6 @@
 :root {
   --mdc-theme-primary: rgb(33, 33, 33);
   --mdc-theme-accent: #ff5a5f;
-  --mdc-theme-text-primary-on-light: #008489;
 }
 
 body, h1, button, input, select, textarea {
@@ -58,7 +57,6 @@ ul {
 }
 .konvajs-content {
   margin: auto;
-  background-color: rgb(245, 245, 245);
 }
 
 .subtitle {

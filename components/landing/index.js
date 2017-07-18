@@ -20,11 +20,15 @@ export default class Landing extends React.Component {
         <Head />
         <style jsx>{`
           .container {
+            margin: auto;
+          }
+          .main-content {
             max-width: 1050px;
+            margin: auto;
           }
           .landing-background {
-            background: grey url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/23e8a0f3-e0e7-4db8-bcb2-9f1111103025-background.jpg") no-repeat scroll center;
-            background-size: auto;
+            background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/23e8a0f3-e0e7-4db8-bcb2-9f1111103025-background.jpg") no-repeat scroll center;
+            background-size: 100% auto;
             height: 600px;
             margin: auto;
             margin-bottom: 20px;
@@ -113,23 +117,11 @@ export default class Landing extends React.Component {
             border: 2px solid;
             font-weight: bold;
           }
-          .promotion-bar {
-            text-align: center;
-            background-color: #ff5a5f;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 40px;
-            color: #fff;
-          }
           .campaign-card h4 {
             text-align: center;
           }
         `}</style>
         <div>
-          <div className="promotion-bar">
-            <div>开业大吉，全体商品最低八折！</div>
-          </div>
           <AppBar />
           <div className="container">
             <div className="landing-background">
@@ -144,66 +136,68 @@ export default class Landing extends React.Component {
                 </Link>
               </div>
             </div>
-            <h2 className="campaign-title">近期活动</h2>
-            <div className="campaign-list landing-category">
-              <Carousel total={5}>
-                {
-                  productStore.campaigns.values().map(campaign => (
-                    <div key={campaign.id} className="campaign-card image">
-                      <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
-                        <a>
-                          <div
-                            className="campaign-img"
-                            style={{
-                              backgroundImage: `url(${campaign.img})`,
-                            }}
-                          />
-                        </a>
-                      </Link>
-                      <h4>{campaign.name}</h4>
-                    </div>
-                  ))
-                }
-              </Carousel>
-            </div>
-            <h2 className="campaign-title">热门单品</h2>
-            <div className="campaign-list landing-category">
-              <Carousel total={5}>
-                {
-                  productStore.getProductsByCategory('all').map(product => (
-                    <div key={product.id} className="campaign-card image">
-                      <Link key={product.id} href={`/create?product=${product.id}`}>
-                        <a>
-                          <div
-                            className="campaign-img"
-                            style={{
-                              backgroundImage: `url(${product.img})`,
-                            }}
-                          />
-                        </a>
-                      </Link>
-                      <h4>{product.name}</h4>
-                    </div>
-                  ))
-                }
-              </Carousel>
-            </div>
-            <h2 className="campaign-title">热门设计图片</h2>
-            <div className="campaign-list landing-category">
-              <Carousel total={6}>
-                {
-                  pictureStore.designs.values().map(pic => (
-                    <div key={pic.id} className="design-card image">
-                      <div
-                        className="design-img"
-                        style={{
-                          backgroundImage: `url(${pic.imgUrl})`,
-                        }}
-                      />
-                    </div>
-                  ))
-                }
-              </Carousel>
+            <div className="main-content">
+              <h2 className="campaign-title">近期活动</h2>
+              <div className="campaign-list landing-category">
+                <Carousel total={5}>
+                  {
+                    productStore.campaigns.values().map(campaign => (
+                      <div key={campaign.id} className="campaign-card image">
+                        <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
+                          <a>
+                            <div
+                              className="campaign-img"
+                              style={{
+                                backgroundImage: `url(${campaign.img})`,
+                              }}
+                            />
+                          </a>
+                        </Link>
+                        <h4>{campaign.name}</h4>
+                      </div>
+                    ))
+                  }
+                </Carousel>
+              </div>
+              <h2 className="campaign-title">热门单品</h2>
+              <div className="campaign-list landing-category">
+                <Carousel total={5}>
+                  {
+                    productStore.getProductsByCategory('all').map(product => (
+                      <div key={product.id} className="campaign-card image">
+                        <Link key={product.id} href={`/create?product=${product.id}`}>
+                          <a>
+                            <div
+                              className="campaign-img"
+                              style={{
+                                backgroundImage: `url(${product.img})`,
+                              }}
+                            />
+                          </a>
+                        </Link>
+                        <h4>{product.name}</h4>
+                      </div>
+                    ))
+                  }
+                </Carousel>
+              </div>
+              <h2 className="campaign-title">热门设计图片</h2>
+              <div className="campaign-list landing-category">
+                <Carousel total={6}>
+                  {
+                    pictureStore.designs.values().map(pic => (
+                      <div key={pic.id} className="design-card image">
+                        <div
+                          className="design-img"
+                          style={{
+                            backgroundImage: `url(${pic.imgUrl})`,
+                          }}
+                        />
+                      </div>
+                    ))
+                  }
+                </Carousel>
+              </div>
             </div>
           </div>
           <Footer />

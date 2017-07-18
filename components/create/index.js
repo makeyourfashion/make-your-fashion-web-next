@@ -196,6 +196,20 @@ export default class CreateView extends React.Component {
     return (
       <div>
         <style jsx>{`
+          .container {
+            max-width: 1280px;
+          }
+          .design-container {
+            position: relative;
+          }
+          .menu {
+            position: absolute;
+            top: 10%;
+            left: 0;
+          }
+          .right-secion {
+            margin-top: 10%;
+          }
           .detail-img {
             width: 100%;
             margin-top: 20px;
@@ -217,6 +231,10 @@ export default class CreateView extends React.Component {
             border-bottom: 1px solid #dedede;
             margin: 0 0 20px 0;
             width: 100%;
+          }
+          .desktop-button .add-to-cart-button {
+            height: 50px !important;
+            font-weight: bold !important;
           }
           @media (min-width: 600px) {
             .action-area {
@@ -252,29 +270,27 @@ export default class CreateView extends React.Component {
             .select-list {
               margin-bottom: 40px;
             }
-            @media (max-width: 600px) {
-              .desktop-button {
-                display: none;
-              }
+            .desktop-button {
+              display: none;
             }
           }
         `}</style>
         <AppBar />
         <div className="container">
           <div className="mdc-layout-grid design-container">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
-              <Menu />
-            </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-6-tablet">
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-7 mdc-layout-grid__cell--span-12-tablet">
               {
                 product ? <Design
                   editable={this.state.editable}
                   product={product}
                 /> : null
               }
+              <div className="menu">
+                <Menu />
+              </div>
             </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-6-tablet">
-              <div>
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet">
+              <div className="right-secion">
                 <div>
                   <nav className="mdc-tab-bar details-text-tab">
                     <a className={`mdc-tab ${this.state.tabIndex === 0 ? 'mdc-tab--active' : ''}`} href="0" onClick={this.goToDetails}>商品详情</a>
@@ -298,9 +314,9 @@ export default class CreateView extends React.Component {
                   }
                   <div className="desktop-button">
                     {
-                      this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
+                      this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--primary button-full-width add-to-cart-button">
                         更新购物车
-                      </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                      </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
                         添加到购物车
                       </button>
                     }
@@ -317,7 +333,7 @@ export default class CreateView extends React.Component {
             {
               this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
                 更新购物车
-              </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+              </button> : <button onClick={this.handleAddToCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
                 添加到购物车
               </button>
             }
