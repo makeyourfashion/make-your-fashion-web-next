@@ -202,15 +202,9 @@ export default class CreateView extends React.Component {
           .design-container {
             position: relative;
           }
-          .menu {
-            position: absolute;
-            top: 10%;
-            transform: translateY(-10%);
-            left: 0;
-          }
+
           .right-secion {
-            margin-top: 10%;
-            transform: translateY(-10%);
+            margin-top: 5%;
           }
           .detail-img {
             width: 100%;

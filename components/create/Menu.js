@@ -75,6 +75,12 @@ export default class Menu extends React.Component {
             display: inline-table;
             vertical-align: middle;
           }
+          .menu {
+            position: absolute;
+            top: 10%;
+            transform: translateY(-10%);
+            left: 0;
+          }
           .menu-button {
             background: none;
             border: none;
@@ -109,7 +115,7 @@ export default class Menu extends React.Component {
           open={this.state.isSelectPicModalOpen}
         />
         <AddTextModal open={this.state.isAddTextModalOpen} onClose={this.handleCloseAddTextModal} />
-        <ul className="mdc-list">
+        <ul className="mdc-list menu">
           <li data-action="select-product" className="mdc-list-item list-item">
             <ShirtIcon />
             <button onClick={this.selectProduct} ref={(r) => { this.selectProductBtn = r; }} className="icon-button">
