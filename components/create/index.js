@@ -210,6 +210,7 @@ export default class CreateView extends React.Component {
           }
           .right-secion {
             margin-top: 10%;
+            transform: translateY(-10%);
           }
           .detail-img {
             width: 100%;
