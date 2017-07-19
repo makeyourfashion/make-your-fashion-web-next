@@ -205,6 +205,7 @@ export default class CreateView extends React.Component {
           .menu {
             position: absolute;
             top: 10%;
+            transform: translateY(-10%);
             left: 0;
           }
           .right-secion {
