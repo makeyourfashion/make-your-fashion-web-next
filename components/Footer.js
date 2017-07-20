@@ -7,6 +7,9 @@ function Footer() {
         .footer {
           border-top: 1px solid #dedede;
           margin: auto;
+          margin-top: 20px;
+          background: #dedede;
+          min-height: 15vw;
           padding: 0 0 60px 0;
         }
 

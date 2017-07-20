@@ -61,6 +61,11 @@ export default class Landing extends React.Component {
             width: 19.4%;
             margin-right: 1%;
             height: 250px;
+            transition: width 0.5s, height 0.5s;
+          }
+          .campaign-card:hover {
+            width: 21%;
+            height: 270px;
           }
           .campaign-img {
             background-size: cover;
@@ -80,6 +85,7 @@ export default class Landing extends React.Component {
             margin-right: 1%;
             height: 170px;
             margin-bottom: 20px;
+            transition: width 1s;
           }
           @media (max-width: 600px) {
             .landing-background {
@@ -111,11 +117,26 @@ export default class Landing extends React.Component {
           }
           .action-button {
             height: 48px;
-            padding: 4px 40px 0px 40px;
-            color: #ff5a5f;
+            padding: 6px 40px 0px 40px;
             font-size: 16px;
-            border: 2px solid;
             font-weight: bold;
+            transition: background-color 0.7s ease;
+          }
+          .action-button1 {
+            background-color: rgba(255,255,255, 0.9);
+            color: #000;
+          }
+          .action-button2 {
+            background-color: rgba(0,0,0, 0.9);
+            color: #fff;
+          }
+          .action-button2:hover {
+            background-color: #fff;
+            color: #000;
+          }
+          .action-button1:hover {
+            background-color: #000;
+            color: #fff;
           }
           .campaign-card h4 {
             text-align: center;
@@ -128,11 +149,11 @@ export default class Landing extends React.Component {
               <div className="welcome">
                 <h2>开启你的时尚之旅</h2>
                 <Link href="/create?product=1">
-                  <a className="mdc-button action-button">设计</a>
+                  <a className="mdc-button action-button action-button2">设计</a>
                 </Link>
                 <span style={{ margin: '0 15px 0 15px' }}>或</span>
                 <Link prefetch href="/shop?category=2">
-                  <a className="mdc-button action-button">购物</a>
+                  <a className="mdc-button action-button action-button1">购物</a>
                 </Link>
               </div>
             </div>

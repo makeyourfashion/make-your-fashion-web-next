@@ -20,7 +20,7 @@ class SelectField extends React.Component {
             background-image: none;
             color: #000;
             position: relative;
-            margin-top: 10px;
+            margin: 10px 0 10px 0;
           }
           .icon-arrow {
             position: absolute;
