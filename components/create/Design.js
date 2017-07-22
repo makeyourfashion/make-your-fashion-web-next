@@ -141,7 +141,11 @@ export default class Design extends React.Component {
             position: absolute;
             top: 10%;
             left: 0;
-            z-index: 99999;
+            z-index: 9;
+          }
+          .list-item {
+            margin-bottom: 10px;
+            flex-direction: column;
           }
           .icon-button {
             font-size: 0.9em;

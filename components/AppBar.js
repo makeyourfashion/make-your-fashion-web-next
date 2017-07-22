@@ -80,15 +80,17 @@ export default class AppBar extends React.Component {
             .left-place-holder {
               display: none;
             }
-          }
-          .top-strip {
-            width: 100%;
-            height: 5px;
-            background-color: #000;
-            z-index: 9999999999999999;
-            position: fixed;
-            top: 0;
-            left: 0;
+            .promotion-bar {
+              height: 2px;
+              position: fixed;
+              top: 0px;
+              left: 0;
+              width: 100%;
+              z-index: 9999999999999999;
+            }
+            .promotion-bar div {
+              display: none;
+            }
           }
         `}</style>
         <div className="app-bar">
