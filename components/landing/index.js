@@ -65,7 +65,6 @@ export default class Landing extends React.Component {
           }
           .campaign-card:hover {
             width: 21%;
-            height: 270px;
           }
           .campaign-img {
             background-size: cover;

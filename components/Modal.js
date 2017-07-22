@@ -1,34 +1,14 @@
 import React from 'react';
-import { MDCDialog } from '@material/dialog/dist/mdc.dialog';
 
 export default class Modal extends React.Component {
-  componentDidMount() {
-    this.modal = new MDCDialog(this.modalDom);
-    this.lastFocusedTarget = null;
-
-    if (this.props.open) {
-      this.modal.show();
-    }
-
-    this.modal.listen('MDCDialog:cancel', this.props.onClose);
-    this.modal.listen('MDCDialog:accept', this.props.onAccept);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.open !== this.props.open) {
-      if (nextProps.open) {
-        this.modal.show();
-      } else if (this.modal.open) {
-        this.modal.close();
-      }
-    }
-  }
-
   render() {
+    if (!this.props.open) {
+      return null;
+    }
     return (
       <aside
         ref={(r) => { this.modalDom = r; }}
-        className="mdc-dialog"
+        className="mdc-dialog mdc-dialog--open"
         role="alertdialog"
         aria-labelledby="mdc-dialog-with-list-label"
         aria-describedby="mdc-dialog-with-list-description"
@@ -36,11 +16,9 @@ export default class Modal extends React.Component {
         <style jsx>{`
           .modal-body {
             max-height: 80%;
-            height: 500px;
           }
           .mdc-dialog__surface {
             max-height: 100%;
-            height: 600px;
           }
           @media (max-width: 599px) {
             .mdc-dialog__surface {
@@ -59,9 +37,9 @@ export default class Modal extends React.Component {
           </section>
           <footer className="mdc-dialog__footer">
             {
-              this.props.onAccept ? <button type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">确定</button> : null
+              this.props.onAccept ? <button onClick={this.props.onAccept} type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">确定</button> : null
             }
-            <button type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">返回</button>
+            <button onClick={this.props.onClose} type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">返回</button>
           </footer>
         </div>
         <div className="mdc-dialog__backdrop" />

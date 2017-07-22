@@ -1,21 +1,19 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
-import Modal from '../Modal';
 import PictureCard from './PictureCard';
+import UploadImageButton from './UploadImageButton';
 
 @inject('pictureStore', 'designStore') @observer
-export default class SelectPictureModal extends React.Component {
-  componentDidMount() {
-    this.categories.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const tag = e.target.getAttribute('href');
-      await this.props.pictureStore.fetchPictures(tag);
-      this.tag = tag;
-    });
-  }
-
+export default class SelectPicture extends React.Component {
   @observable tag = null;
+
+  handleClickTag = async (e) => {
+    e.preventDefault();
+    const tag = e.target.getAttribute('href');
+    await this.props.pictureStore.fetchPictures(tag);
+    this.tag = tag;
+  }
 
   render() {
     let pictures;
@@ -26,13 +24,15 @@ export default class SelectPictureModal extends React.Component {
     }
 
     return (
-      <Modal onClose={this.props.onClose} open={this.props.open} title="选择设计图案" >
+      <div>
         <style jsx>{`
           .picture-list {
-            margin-top: 40px;
+            margin: 40px 0 20px 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
+            max-height: 350px;
+            overflow: auto;
           }
           .category-button {
             margin-right: 10px;
@@ -47,15 +47,20 @@ export default class SelectPictureModal extends React.Component {
             background-color: #00b2a6;
             color: #fff;
           }
-          @media (max-width: 599px) {
-            .picture-list {
-              justify-content: space-between;
-            }
+          .upload-area {
+            padding: 0 0 20px 0;
+            margin: 20px 0 20px 0;
+            border-bottom: solid 1px #ccc;
           }
         `}</style>
+        <div className="upload-area">
+          <UploadImageButton />
+        </div>
+        <h3>素材库</h3>
         <div ref={(r) => { this.categories = r; }} className="category-list">
           <a
             className={`category-button ${+this.tag === 0 ? 'active-category' : ''}`}
+            onClick={this.handleClickTag}
             href={0}
           >全部图片</a>
           {
@@ -63,6 +68,7 @@ export default class SelectPictureModal extends React.Component {
               <a
                 className={`category-button ${tag.id === +this.tag ? 'active-category' : ''}`}
                 href={tag.id}
+                onClick={this.handleClickTag}
                 key={tag.id}
               >
                 {tag.name}
@@ -81,7 +87,7 @@ export default class SelectPictureModal extends React.Component {
             ))
           }
         </div>
-      </Modal>
+      </div>
     );
   }
 }

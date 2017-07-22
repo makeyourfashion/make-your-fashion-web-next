@@ -71,8 +71,12 @@ class DesignStore {
   }
 
   @action updateText(text) {
-    Object.assign(this.getText(text.id), text);
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    if (text.id) {
+      Object.assign(this.getText(text.id), text);
+      window.localStorage.setItem('design', JSON.stringify(this.design));
+    } else {
+      this.addText(text);
+    }
   }
 
   @action removePicture(id) {

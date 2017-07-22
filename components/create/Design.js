@@ -1,11 +1,14 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
+import Router from 'next/router';
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   RECT_WIDTH,
   RECT_HEIGHT,
 } from './consts';
+import BubbleButton from '../BubbleButton';
+import ShirtIcon from './ShirtIcon';
 
 @inject('designStore') @observer
 export default class Design extends React.Component {
@@ -39,6 +42,10 @@ export default class Design extends React.Component {
         this.rect.hide();
       }
     }
+  }
+
+  selectProduct = () => {
+    Router.push('/shop?category=2');
   }
 
   handleDrag = ({ x, y, width, height }) => {
@@ -85,10 +92,17 @@ export default class Design extends React.Component {
     }, 1000);
   }
 
+  handleMenuClick = (e) => {
+    const tabId = +e.target.closest('button').getAttribute('data-tab-id');
+    this.props.onSelectPicture(tabId);
+  }
+
   render() {
     const lineColor = 'white';
     const images = this.props.designStore.activeImages || [];
     const texts = this.props.designStore.activeTexts || [];
+    const showCallToAction = (!this.props.designStore.design.texts.length)
+      && (!this.props.designStore.design.images.length);
     return (
       <div className="">
         <style jsx>{`
@@ -106,8 +120,76 @@ export default class Design extends React.Component {
             display: flex;
             justify-content: center;
           }
+          #create-shirt-canvas {
+            position: relative;
+          }
+          .call-to-action {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+          }
+          .action-des {
+            position: absolute;
+            top: calc(40% + 50px);;
+            left: 50%;
+            transform: translateX(-50%);
+             z-index: 9999;
+          }
+          .menu {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            z-index: 99999;
+          }
+          .icon-button {
+            font-size: 0.9em;
+            margin-right: 0;
+            background-color: rgba(255,255,255,0);
+          }
+          @media (min-width: 600px) {
+            .menu {
+              display: none;
+            }
+          }
         `}</style>
         <div id="create-shirt-canvas">
+          {
+            showCallToAction ? (
+              <div className="call-to-action">
+                <BubbleButton data-tab-id={2} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick}>
+                  <i className="material-icons">add</i>
+                </BubbleButton>
+              </div>
+            ) : (
+              <ul className="mdc-list menu">
+                <li data-action="select-product" className="mdc-list-item list-item">
+                  <ShirtIcon />
+                  <button data-tab-id={0} onTouchStart={this.selectProduct} onClick={this.selectProduct} className="icon-button">
+                    产品
+                  </button>
+                </li>
+                <li data-action="select-design" className="mdc-list-item list-item">
+                  <i className="material-icons" aria-hidden="true">collections</i>
+                  <button data-tab-id={2} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick} className="icon-button">
+                    素材
+                  </button>
+                </li>
+                <li data-action="add-text" className="mdc-list-item list-item">
+                  <i className="material-icons" aria-hidden="true">text_fields</i>
+                  <button data-tab-id={1} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick} className="icon-button">
+                    文字
+                  </button>
+                </li>
+              </ul>
+            )
+          }
+          {
+            showCallToAction ? (
+              <div className="action-des">点击开设定制</div>
+            ) : null
+          }
           {
             (() => {
               if (typeof window === 'undefined') {

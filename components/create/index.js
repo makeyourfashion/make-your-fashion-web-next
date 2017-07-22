@@ -1,16 +1,14 @@
 import React from 'react';
-import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import Router from 'next/router';
 import AppBar from '../AppBar';
 import Footer from '../Footer';
-import Menu from './Menu';
 import Design from './Design';
-import OrderForm from './OrderForm';
 import Snackbar from '../Snackbar';
-import EditTextPanel from './EditTextPanel';
 import Ratings from '../Ratings';
+import DesignPanel from './DesignPanel';
+import Modal from '../Modal';
 
 function getCanvasImgUrl() {
   const canvas = document.querySelector('canvas');
@@ -38,27 +36,42 @@ export default class CreateView extends React.Component {
     }
     this.state = {
       editable: true,
+      tabId: 0,
       showSuccessMessage: false,
-      tabIndex: 0,
       order,
+      isSelectPicModalOpen: false,
     };
   }
 
   componentDidMount() {
     document.addEventListener('click', this.handleToggleEditable);
     document.addEventListener('touchstart', this.handleToggleEditable);
-    autorun(() => {
-      if (this.props.designStore.showEditText) {
-        this.setState({
-          tabIndex: 1,
-        });
-      }
-    });
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleToggleEditable);
     document.removeEventListener('touchstart', this.handleToggleEditable);
+  }
+
+  getProduct() {
+    let productId;
+    if (this.props.productId) {
+      productId = this.props.productId;
+    } else {
+      const cartItem = this.props.cartStore.getCartItem(this.props.cartId);
+      if (cartItem) {
+        productId = cartItem.productId;
+      }
+    }
+
+    return this.props.productStore.getProduct(productId);
+  }
+
+  handleSelect = (id, imgUrl) => {
+    this.props.designStore.addImage(id, imgUrl);
+    this.setState({
+      isSelectPicModalOpen: false,
+    });
   }
 
   handleToggleEditable = (e) => {
@@ -70,7 +83,21 @@ export default class CreateView extends React.Component {
       this.setState({
         editable: false,
       });
+      this.props.designStore.activeTextId = null;
     }
+  }
+
+  handleClosePictureModal = () => {
+    this.setState({
+      isSelectPicModalOpen: false,
+    });
+  }
+
+  handleSelectPicture = (tabId) => {
+    this.setState({
+      isSelectPicModalOpen: true,
+      tabId,
+    });
   }
 
   handleCheckout = () => {
@@ -97,7 +124,6 @@ export default class CreateView extends React.Component {
           ...this.state.order,
           ...errors,
         },
-        tabIndex: 0,
       }, () => {
         window.scroll(0, document.querySelector('.select-list').offsetTop - (window.outerHeight / 2));
       });
@@ -157,37 +183,10 @@ export default class CreateView extends React.Component {
     }, 4000);
   }
 
-  goToDetails = (e) => {
-    e.preventDefault();
-    this.setState({
-      tabIndex: 0,
-    });
-  }
-
-  goToText = (e) => {
-    e.preventDefault();
-    this.setState({
-      tabIndex: 1,
-    });
-  }
   handleOrderChange = (order) => {
     this.setState({
       order,
     });
-  }
-
-  getProduct() {
-    let productId;
-    if (this.props.productId) {
-      productId = this.props.productId;
-    } else {
-      const cartItem = this.props.cartStore.getCartItem(this.props.cartId);
-      if (cartItem) {
-        productId = cartItem.productId;
-      }
-    }
-
-    return this.props.productStore.getProduct(productId);
   }
 
   render() {
@@ -223,15 +222,11 @@ export default class CreateView extends React.Component {
             border-bottom: solid 1px #dedede;
             font-weight: 500;
           }
-          .details-text-tab {
-            border-bottom: 1px solid #dedede;
-            margin: 0 0 20px 0;
-            width: 100%;
-          }
           .desktop-button .add-to-cart-button {
             height: 50px !important;
             font-weight: bold !important;
           }
+          
           @media (min-width: 600px) {
             .action-area {
               display: none;
@@ -271,43 +266,44 @@ export default class CreateView extends React.Component {
             }
           }
         `}</style>
+        <Modal onClose={this.handleClosePictureModal} open={this.state.isSelectPicModalOpen} title="选择设计图案" >
+          <DesignPanel
+            onOrderChange={this.handleOrderChange}
+            editable={this.state.editable}
+            product={product}
+            order={this.state.order}
+            onSelect={this.handleSelect}
+            tabId={this.state.tabId}
+          />
+        </Modal>
         <AppBar />
         <div className="container">
           <div className="mdc-layout-grid design-container">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-7 mdc-layout-grid__cell--span-12-tablet">
               {
-                product ? <Design
-                  editable={this.state.editable}
-                  product={product}
-                /> : null
+                product ? (
+                  <div className="design-area">
+                    <Design
+                      onSelectPicture={this.handleSelectPicture}
+                      editable={this.state.editable}
+                      product={product}
+                    />
+                  </div>
+                ) : null
               }
-              <div className="menu">
-                <Menu />
-              </div>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet">
               <div className="right-secion">
                 <div>
-                  <nav className="mdc-tab-bar details-text-tab">
-                    <a className={`mdc-tab ${this.state.tabIndex === 0 ? 'mdc-tab--active' : ''}`} href="0" onClick={this.goToDetails}>商品详情</a>
-                    {
-                      this.props.designStore.design.texts.length ? (
-                        <a className={`mdc-tab ${this.state.tabIndex === 1 ? 'mdc-tab--active' : ''}`} href="1" onClick={this.goToText}>文字</a>
-                      ) : null
-                    }
-                    <span className="mdc-tab-bar__indicator" />
-                  </nav>
-                  {
-                    this.state.tabIndex === 0 ? <OrderForm
-                      onAddCartItem={this.handleAddToCart}
-                      onUpdateCart={this.handleUpdateCart}
-                      onOrderChange={this.handleOrderChange}
-                      editable={this.state.editable}
-                      product={product}
-                      order={this.state.order}
-                      cartId={this.props.cartId}
-                    /> : <EditTextPanel />
-                  }
+                  <DesignPanel
+                    onOrderChange={this.handleOrderChange}
+                    editable={this.state.editable}
+                    product={product}
+                    order={this.state.order}
+                    onSelect={this.handleSelect}
+                    tabId={0}
+                    isDetailsVisible
+                  />
                   <div className="desktop-button">
                     {
                       this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--primary button-full-width add-to-cart-button">

@@ -1,4 +1,5 @@
 import React from 'react';
+import BubbleButton from './BubbleButton';
 
 export default class Carousel extends React.Component {
   state = {
@@ -51,37 +52,31 @@ export default class Carousel extends React.Component {
           i {
             vertical-align: middle !important;
           }
-          button {
-            padding: 5px !important;
+          .arrow-button {
             position: absolute !important;
             top: 50%;
             transform: translateY(-50%);
-            display: inline-block;
-            cursor: pointer;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 1;
-            position: relative;
-            border: 2px solid transparent;
-            background: #ffffff;
-            box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.14);
           }
-          .button-right {
+          :global(.button-right) {
             right: 0;
           }
         `}</style>
         {
           currentIndex > 0 ? (
-            <button onClick={this.handleGoLeft} className="button-left">
-              <i className="material-icons">keyboard_arrow_left</i>
-            </button>
+            <div className="arrow-button">
+              <BubbleButton onClick={this.handleGoLeft}>
+                <i className="material-icons">keyboard_arrow_left</i>
+              </BubbleButton>
+            </div>
           ) : null
         }
         {
           currentIndex + total < children.length ? (
-            <button onClick={this.handleGoRight} className="button-right">
-              <i className="material-icons">keyboard_arrow_right</i>
-            </button>
+            <div className="arrow-button button-right">
+              <BubbleButton onClick={this.handleGoRight}>
+                <i className="material-icons">keyboard_arrow_right</i>
+              </BubbleButton>
+            </div>
           ) : null
         }
         <div>{ children.slice(currentIndex, currentIndex + total) }</div>

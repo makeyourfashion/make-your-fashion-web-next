@@ -6,6 +6,12 @@ import { fontList, COLORS } from './consts';
 import TextInput from '../TextInput';
 import { SelectField, SelectItem } from '../SelectField';
 
+const defaultText = {
+  font_size: 30,
+  font_family: 'Arial',
+  text: '',
+};
+
 @inject('designStore') @observer
 export default class EditTextPanel extends React.Component {
   componentDidUpdate() {
@@ -15,7 +21,7 @@ export default class EditTextPanel extends React.Component {
   }
 
   handleChangeText = (e) => {
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       text: e.target.value,
@@ -23,7 +29,7 @@ export default class EditTextPanel extends React.Component {
   }
 
   handleChangeFont = (font_family) => {
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       font_family,
@@ -31,7 +37,7 @@ export default class EditTextPanel extends React.Component {
   }
 
   handleChangeFontSize = (fontSize) => {
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       font_size: +fontSize,
@@ -39,7 +45,7 @@ export default class EditTextPanel extends React.Component {
   }
 
   handleChangeColor = (color) => {
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       color: color.hex,
@@ -48,7 +54,7 @@ export default class EditTextPanel extends React.Component {
 
   handleAlignCenter = (e) => {
     e.preventDefault();
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       align: 'center',
@@ -57,7 +63,7 @@ export default class EditTextPanel extends React.Component {
 
   handleAlignLeft = (e) => {
     e.preventDefault();
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       align: 'left',
@@ -66,7 +72,7 @@ export default class EditTextPanel extends React.Component {
 
   handleAlignRight = (e) => {
     e.preventDefault();
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       align: 'right',
@@ -75,7 +81,7 @@ export default class EditTextPanel extends React.Component {
 
   handleBoldSelect= (e) => {
     e.preventDefault();
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       bold: !text.bold,
@@ -84,7 +90,7 @@ export default class EditTextPanel extends React.Component {
 
   handleItalicSelect = (e) => {
     e.preventDefault();
-    const text = this.props.designStore.selectedText;
+    const text = this.props.designStore.selectedText || defaultText;
     this.props.designStore.updateText({
       id: text.id,
       italic: !text.italic,
@@ -92,10 +98,8 @@ export default class EditTextPanel extends React.Component {
   }
 
   render() {
-    const text = this.props.designStore.selectedText;
-    if (!text) {
-      return null;
-    }
+    const text = this.props.designStore.selectedText || defaultText;
+
     return (
       <div className="edit-text-panel">
         <style jsx>{`

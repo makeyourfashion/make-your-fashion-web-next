@@ -20,16 +20,6 @@ export default class OrderForm extends React.Component {
     });
   }
 
-  addToCart = (e) => {
-    e.preventDefault();
-    this.props.onAddCartItem();
-  }
-
-  handleUpdateCart = (e) => {
-    e.preventDefault();
-    this.props.onUpdateCart();
-  }
-
   render() {
     const product = this.props.product;
     return (

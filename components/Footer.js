@@ -9,7 +9,7 @@ function Footer() {
           margin: auto;
           margin-top: 20px;
           background: #dedede;
-          min-height: 15vw;
+          min-height: 5vh;
           padding: 0 0 60px 0;
         }
 

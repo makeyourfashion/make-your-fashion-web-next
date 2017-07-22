@@ -15,9 +15,13 @@ export default class PictureCard extends React.Component {
           .picture-card {
             width: 24%;
             max-width: 180px;
-            min-width: 120px;
             margin-bottom: 20px;
             padding-right: 1%;
+          }
+          @media (max-width: 599px) {
+            .picture-card {
+              width: 32%;
+            }
           }
           .picture-card:hover {
             cursor: pointer;

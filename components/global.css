@@ -46,6 +46,7 @@ ul {
   margin: auto;
   padding: 20px 8px 0 8px;
   max-width: 1280px;
+  min-height: 70vh;
 }
 
 .button-full-width {
