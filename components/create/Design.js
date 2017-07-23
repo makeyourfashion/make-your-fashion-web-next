@@ -212,7 +212,7 @@ export default class Design extends React.Component {
                   x={0} y={0} width={CANVAS_WIDTH} height={CANVAS_WIDTH}
                 >
                   <Layer ref="layer">
-                    <Image width={CANVAS_WIDTH} height={CANVAS_HEIGHT} image={this.state.image} />
+                    <Image width={CANVAS_WIDTH} height={CANVAS_HEIGHT} preventDefault={false} image={this.state.image} />
                     <Group
                       x={(CANVAS_WIDTH - RECT_WIDTH) / 2}
                       y={(CANVAS_HEIGHT - RECT_HEIGHT) / 2}
@@ -225,6 +225,7 @@ export default class Design extends React.Component {
                         y={0}
                         width={RECT_WIDTH}
                         height={RECT_HEIGHT}
+                        preventDefault={false}
                         ref={(r) => { this.rect = r; }}
                         stroke={lineColor}
                       />

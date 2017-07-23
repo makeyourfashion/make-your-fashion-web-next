@@ -77,9 +77,6 @@ export default class AppBar extends React.Component {
             .logo {
               width: 150px;
             }
-            .left-place-holder {
-              display: none;
-            }
             .promotion-bar {
               height: 2px;
               position: fixed;
