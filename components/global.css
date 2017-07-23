@@ -38,6 +38,7 @@ ul {
   background-color: #fdfdf9;
   margin-right: 10px;
 }
+
 .icon-button:hover {
   cursor: pointer;
 }
@@ -104,8 +105,11 @@ body {
   outline: none;
 }
 
-.mdc-toolbar__row {
-  padding: 25px 0 10px 0;
-  min-height: 20px;
+@media (min-width: 600px) {
+  .mdc-toolbar__row {
+    min-height: 40px;
+    padding: 20px 28px 0;
+  }
 }
+
 

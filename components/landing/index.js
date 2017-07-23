@@ -6,6 +6,10 @@ import AppBar from '../AppBar';
 import Footer from '../Footer';
 import Carousel from '../Carousel';
 
+function handleScroll() {
+  window.scrollTo(0, window.innerHeight - 100);
+}
+
 @inject('productStore', 'pictureStore') @observer
 export default class Landing extends React.Component {
   componentDidMount() {
@@ -22,24 +26,36 @@ export default class Landing extends React.Component {
           .container {
             margin: auto;
           }
+          .initial-screen {
+            display: flex;
+            flex-flow: column;
+            height: 100vh;
+            max-height: 900px;
+          }
+          .header {
+            flex: 0 1 auto;
+            margin-bottom: 20px;
+          }
           .main-content {
             max-width: 1050px;
             margin: auto;
           }
           .landing-background {
+            width: 100%;
+            flex: 1 1 auto;
             background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/23e8a0f3-e0e7-4db8-bcb2-9f1111103025-background.jpg") no-repeat scroll center;
             background-size: 100% auto;
-            height: 600px;
             margin: auto;
-            margin-bottom: 20px;
             position: relative;
+            max-width: 1440px;
           }
           .welcome {
             position: absolute;
             color: #fff;
             text-align: center;
             width: 100%;
-            bottom: 10%;
+            bottom: 30%;
+            transform: translateY(30%)
           }
           .landing-background h2 {
             text-shadow: 0 0 10px rgba(20,20,20,.7);
@@ -140,10 +156,32 @@ export default class Landing extends React.Component {
           .campaign-card h4 {
             text-align: center;
           }
+          .promotion-bar {
+            text-align: center;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 40px;
+            color: #fff;
+          }
+          .expand-icon {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(1.5);
+            color: #fff;
+            background-color: rgba(0,0,0,0);
+          }
         `}</style>
         <div>
-          <AppBar />
-          <div className="container">
+          <div className="initial-screen">
+            <div className="header">
+              <div className="promotion-bar">
+                <div>开业大吉，全体商品最低八折！</div>
+              </div>
+              <AppBar />
+            </div>
             <div className="landing-background">
               <div className="welcome">
                 <h2>开启你的时尚之旅</h2>
@@ -155,7 +193,12 @@ export default class Landing extends React.Component {
                   <a className="mdc-button action-button action-button1">购物</a>
                 </Link>
               </div>
+              <button onClick={handleScroll} className="icon-button expand-icon">
+                <i className="material-icons">expand_more</i>
+              </button>
             </div>
+          </div>
+          <div className="container">
             <div className="main-content">
               <h2 className="campaign-title">近期活动</h2>
               <div className="campaign-list landing-category">

@@ -94,7 +94,9 @@ export default class Design extends React.Component {
 
   handleMenuClick = (e) => {
     const tabId = +e.target.closest('button').getAttribute('data-tab-id');
-    this.props.onSelectPicture(tabId);
+    window.setTimeout(() => {
+      this.props.onSelectPicture(tabId);
+    }, 300);
   }
 
   render() {
@@ -128,20 +130,20 @@ export default class Design extends React.Component {
             top: 40%;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 9999;
+            z-index: 1;
           }
           .action-des {
             position: absolute;
             top: calc(40% + 50px);;
             left: 50%;
             transform: translateX(-50%);
-             z-index: 9999;
+             z-index: 1;
           }
           .menu {
             position: absolute;
             top: 10%;
             left: 0;
-            z-index: 9;
+            z-index: 1;
           }
           .list-item {
             margin-bottom: 10px;
@@ -158,7 +160,7 @@ export default class Design extends React.Component {
             }
           }
         `}</style>
-        <div id="create-shirt-canvas">
+        <div style={{ height: `${CANVAS_HEIGHT}px` }} id="create-shirt-canvas">
           {
             showCallToAction ? (
               <div className="call-to-action">
@@ -177,7 +179,7 @@ export default class Design extends React.Component {
                 <li data-action="select-design" className="mdc-list-item list-item">
                   <i className="material-icons" aria-hidden="true">collections</i>
                   <button data-tab-id={2} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick} className="icon-button">
-                    素材
+                    图片
                   </button>
                 </li>
                 <li data-action="add-text" className="mdc-list-item list-item">

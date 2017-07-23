@@ -3,7 +3,10 @@ import { inject, observer } from 'mobx-react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
 import AppBar from '../AppBar';
+import Mobile from '../Mobile';
+import Desktop from '../Desktop';
 import Footer from '../Footer';
+import Collapsible from '../Collapsible';
 
 @inject('productStore') @observer
 export default class ShopView extends React.Component {
@@ -27,14 +30,61 @@ export default class ShopView extends React.Component {
   }
 
   render() {
-    return (
-      <div>
+    const menu = (
+      <div className="left-menu">
         <style jsx>{`
           .label {
             font-weight: bold;
             font-size: 1.1em;
             border-bottom: 2px solid #000;
           }
+          .category-list {
+            margin-bottom: 10px;
+          }
+          @media (max-width: 599px) {
+            .left-menu {
+              text-align: center;
+            }
+          }
+        `}</style>
+        <div><span className="label">热门主题</span></div>
+        <ul>
+          {
+            this.props.productStore.campaigns.values().map(campaign => (
+              <li key={campaign.id} className="category-list">
+                <Link href={`/shop?campaign=${campaign.id}`}>
+                  <a
+                    style={{
+                      color: `${campaign.id === +this.props.campaign ? '#00b2a6' : '#737373'}`,
+                    }}
+                  >{campaign.name}</a>
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+        <div><span className="label">类别</span></div>
+        <ul>
+          {
+            this.props.productStore.categories.values().map(cat => (
+              <li className="category-list" key={cat.id}>
+                <Link href={`/shop?category=${cat.id}`}>
+                  <a
+                    style={{
+                      color: `${cat.id === +this.props.category ? '#00b2a6' : '#737373'}`,
+                    }}
+                  >{cat.name}</a>
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    );
+
+    return (
+      <div>
+        <style jsx>{`
           .product-list {
             display: flex;
             flex-wrap: wrap;
@@ -56,16 +106,11 @@ export default class ShopView extends React.Component {
             color: #333;
             letter-spacing: 2px;
           }
-          .category-list {
-            margin-bottom: 10px;
-          }
           .no-products-alert {
             text-align: center;
           }
-          @media (max-width: 599px) {
-            .left-menu {
-              text-align: center;
-            }
+          .filter {
+            font-weight: bold;
           }
         `}</style>
         <AppBar />
@@ -78,39 +123,15 @@ export default class ShopView extends React.Component {
             }
           </h1>
           <div className="mdc-layout-grid">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone left-menu">
-              <div><span className="label">热门主题</span></div>
-              <ul>
-                {
-                  this.props.productStore.campaigns.values().map(campaign => (
-                    <li key={campaign.id} className="category-list">
-                      <Link href={`/shop?campaign=${campaign.id}`}>
-                        <a
-                          style={{
-                            color: `${campaign.id === +this.props.campaign ? '#00b2a6' : '#737373'}`,
-                          }}
-                        >{campaign.name}</a>
-                      </Link>
-                    </li>
-                  ))
-                }
-              </ul>
-              <div><span className="label">类别</span></div>
-              <ul>
-                {
-                  this.props.productStore.categories.values().map(cat => (
-                    <li className="category-list" key={cat.id}>
-                      <Link href={`/shop?category=${cat.id}`}>
-                        <a
-                          style={{
-                            color: `${cat.id === +this.props.category ? '#00b2a6' : '#737373'}`,
-                          }}
-                        >{cat.name}</a>
-                      </Link>
-                    </li>
-                  ))
-                }
-              </ul>
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone">
+              <Desktop>
+                {menu}
+              </Desktop>
+              <Mobile>
+                <Collapsible label="过滤器">
+                  {menu}
+                </Collapsible>
+              </Mobile>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
               {
