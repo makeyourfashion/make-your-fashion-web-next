@@ -63,6 +63,12 @@ export default class ShoppingCart extends React.Component {
           .cart-icon {
             vertical-align: middle;
           }
+          .icon-button {
+            background-color: rgba(255, 255,255,0) !important;
+          }
+          .icon-button.transparent {
+            color: #fff;
+          }
           @media (max-width: 600px) {
             .icon-button {
               margin-right: 0;
@@ -72,7 +78,7 @@ export default class ShoppingCart extends React.Component {
         `}</style>
         <button
           onClick={this.handleToggleCartMenu}
-          className="icon-button"
+          className={`icon-button ${this.props.transparent ? 'transparent' : ''}`}
         ><i className="material-icons cart-icon">shopping_cart</i></button>
         <div className="mdc-simple-menu" ref={(r) => { this.menuDom = r; }}>
           {

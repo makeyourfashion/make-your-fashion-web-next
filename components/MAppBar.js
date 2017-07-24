@@ -17,6 +17,7 @@ export default class MAppBar extends React.Component {
   }
 
   render() {
+
     return (
       <div className="appbar-wrapper" ref={(r) => { this.root = r; }}>
         <style jsx>{`
@@ -27,7 +28,11 @@ export default class MAppBar extends React.Component {
             top: 2px;
             left: 0;
             z-index: 2;
-            background-color: rgba(253,253,249, 1)
+            background-color: rgba(253,253,249, 1);
+          }
+          .app-bar.transparent {
+            background-color: rgba(253,253,249, 0);
+            border-bottom: none;
           }
           
           @media (max-width: 600px) {
@@ -44,12 +49,18 @@ export default class MAppBar extends React.Component {
             letter-spacing: 0.1rem;
             color: #000;
           }
+          .title.transparent {
+            color: #fff;
+          }
           .mdc-temporary-drawer__header-content .title {
             color: #fff;
             font-weight: 600;
           }
           .login-button {
             margin-right: 20px;
+          }
+          .login-button.transparent {
+            color: #fff;
           }
           .align-center {
             align-items: center;
@@ -72,6 +83,9 @@ export default class MAppBar extends React.Component {
             margin: 0;
             margin-right: 24px;
             box-sizing: border-box;
+          }
+          .menu-button.transparent {
+            color: #fff;
           }
           .mdc-temporary-drawer__header-content {
             border-bottom: solid 1px #ccc;
@@ -132,13 +146,13 @@ export default class MAppBar extends React.Component {
             </nav>
           </nav>
         </aside>
-        <div className="app-bar">
+        <div className={`app-bar ${this.props.transparent ? 'transparent' : ''}`}>
           <div className="top-bar" />
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section align-center">
-              <button onClick={this.toggleDrawer} className="menu-button material-icons">menu</button>
+              <button onClick={this.toggleDrawer} className={`menu-button material-icons ${this.props.transparent ? 'transparent' : ''}`}>menu</button>
               <Link href="/">
-                <a className="title">
+                <a className={`title ${this.props.transparent ? 'transparent' : ''}`}>
                   意栈网
                 </a>
               </Link>
@@ -146,12 +160,12 @@ export default class MAppBar extends React.Component {
             <div className="mdc-toolbar__section left-place-holder" />
             <div className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
               {
-                this.props.identityStore.isLoggedIn ? <MyAccount />
+                this.props.identityStore.isLoggedIn ? <MyAccount transparent={this.props.transparent} />
                   : <Link prefetch href="/login">
-                    <a className="login-button">登陆</a>
+                    <a className={`login-button ${this.props.transparent ? 'transparent' : ''}`}>登陆</a>
                   </Link>
               }
-              <ShoppingCart />
+              <ShoppingCart transparent={this.props.transparent} />
             </div>
           </div>
         </div>

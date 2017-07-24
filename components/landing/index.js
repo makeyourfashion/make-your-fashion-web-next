@@ -12,9 +12,32 @@ function handleScroll() {
 
 @inject('productStore', 'pictureStore') @observer
 export default class Landing extends React.Component {
+  state = {
+    transparent: true,
+  }
+
   componentDidMount() {
     this.props.productStore.fetchAllProducts();
     this.props.pictureStore.init();
+    document.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (document.body.scrollTop > window.innerHeight) {
+      if (this.state.transparent) {
+        this.setState({
+          transparent: false,
+        });
+      }
+    } else if (!this.state.transparent) {
+      this.setState({
+        transparent: true,
+      });
+    }
   }
 
   render() {
@@ -34,7 +57,6 @@ export default class Landing extends React.Component {
           }
           .header {
             flex: 0 1 auto;
-            margin-bottom: 20px;
           }
           .main-content {
             max-width: 1050px;
@@ -145,6 +167,7 @@ export default class Landing extends React.Component {
             background-color: rgba(0,0,0, 0.9);
             color: #fff;
           }
+
           .action-button2:hover {
             background-color: #fff;
             color: #000;
@@ -177,10 +200,10 @@ export default class Landing extends React.Component {
         <div>
           <div className="initial-screen">
             <div className="header">
-              <div className="promotion-bar">
+              {/* <div className="promotion-bar">
                 <div>开业大吉，全体商品最低八折！</div>
-              </div>
-              <AppBar />
+              </div> */}
+              <AppBar transparent={this.state.transparent} />
             </div>
             <div className="landing-background">
               <div className="welcome">

@@ -48,6 +48,11 @@ export default class MyAccount extends React.Component {
           .myaccount-button {
             margin-right: 5px;
             padding: 0;
+            background-color: rgba(255, 255,255,0) !important;
+          }
+
+          .myaccount-button.transparent {
+            color: #fff;
           }
 
           @media (min-width: 600px) {
@@ -58,7 +63,7 @@ export default class MyAccount extends React.Component {
         `}</style>
         <button
           onClick={this.handleToggleMenu}
-          className="icon-button myaccount-button"
+          className={`icon-button myaccount-button ${this.props.transparent ? 'transparent' : ''}`}
         >我的帐户</button>
         <div className="mdc-simple-menu" ref={(r) => { this.menuDom = r; }}>
           <div className="account-line1">

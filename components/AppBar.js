@@ -4,11 +4,11 @@ import DAppBar from './DAppBar';
 import Mobile from './Mobile';
 import Desktop from './Desktop';
 
-function AppBar() {
+function AppBar({ transparent }) {
   return (
     <div>
       <Mobile>
-        <MAppBar />
+        <MAppBar transparent={transparent} />
       </Mobile>
       <Desktop>
         <DAppBar />
