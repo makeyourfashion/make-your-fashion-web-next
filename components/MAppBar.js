@@ -37,7 +37,7 @@ export default class MAppBar extends React.Component {
           
           @media (max-width: 600px) {
             :global(.container) {
-              margin-top: 58px !important;
+              margin-top: 46px !important;
             }
           }
           .nav-tab {
@@ -94,7 +94,6 @@ export default class MAppBar extends React.Component {
           }
           .label {
             padding: 16px;
-            border-bottom: solid 1px #ccc;
           }
           .mdc-list-item:last-child {
             border-bottom: solid 1px #ccc;
@@ -111,39 +110,43 @@ export default class MAppBar extends React.Component {
                 </Link>
               </div>
             </header>
-            <nav className="mdc-temporary-drawer__content mdc-list">
-              <Link prefetch href="/shop?category=2">
-                <a
-                  className={`mdc-list-item ${
-                    typeof window !== 'undefined' && window.location.pathname.startsWith('/shop') ? 'mdc-temporary-drawer--selected' : ''
-                  }`}
-                >购物</a>
-              </Link>
-              <Link prefetch href="/create?product=1">
-                <a
-                  className={`mdc-list-item ${
-                    typeof window !== 'undefined' && window.location.pathname.startsWith('/create') ? 'mdc-temporary-drawer--selected' : ''
-                  }`}
-                >设计</a>
-              </Link>
-              <Link prefetch href="/admin/designs">
-                <a
-                  className={`mdc-list-item ${
-                    typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') ? 'mdc-temporary-drawer--selected' : ''
-                  }`}
-                >销售</a>
-              </Link>
-            </nav>
-            <div className="label">类别</div>
-            <nav className="mdc-temporary-drawer__content mdc-list">
-              {
-                this.props.productStore.categories.values().map(cat => (
-                  cat.name && <Link href={`/shop?campaign=${cat.id}`}>
-                    <a className="mdc-list-item">{cat.name}</a>
-                  </Link>
-                ))
-              }
-            </nav>
+            <div className="mdc-temporary-drawer__content">
+              <nav className="mdc-list">
+                <Link prefetch href="/shop?category=2">
+                  <a
+                    className={`mdc-list-item ${
+                      typeof window !== 'undefined' && window.location.pathname.startsWith('/shop') ? 'mdc-temporary-drawer--selected' : ''
+                    }`}
+                  >购物</a>
+                </Link>
+                <Link prefetch href="/create?product=1">
+                  <a
+                    className={`mdc-list-item ${
+                      typeof window !== 'undefined' && window.location.pathname.startsWith('/create') ? 'mdc-temporary-drawer--selected' : ''
+                    }`}
+                  >设计</a>
+                </Link>
+                <Link prefetch href="/admin/designs">
+                  <a
+                    className={`mdc-list-item ${
+                      typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') ? 'mdc-temporary-drawer--selected' : ''
+                    }`}
+                  >销售</a>
+                </Link>
+              </nav>
+              <div className="mdc-temporary-drawer__toolbar-spacer" />
+              <div className="label">分类：</div>
+              <nav className="mdc-list">
+                {
+                  this.props.productStore.categories.values().map(cat => (
+                    cat.name && <Link href={`/shop?campaign=${cat.id}`}>
+                      <a className="mdc-list-item">{cat.name}</a>
+                    </Link>
+                  ))
+                }
+              </nav>
+            </div>
+            
           </nav>
         </aside>
         <div className={`app-bar ${this.props.transparent ? 'transparent' : ''}`}>

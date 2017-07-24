@@ -45,7 +45,7 @@ ul {
 
 .container {
   margin: auto;
-  padding: 20px 8px 0 8px;
+  padding: 10px 8px 0 8px;
   max-width: 1280px;
   min-height: 70vh;
 }
@@ -105,11 +105,9 @@ body {
   outline: none;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .mdc-toolbar__row {
-    min-height: 40px;
-    padding: 20px 28px 0;
+    min-height: 0;
+    padding: 10px;
   }
 }
-
-

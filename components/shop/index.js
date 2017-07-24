@@ -82,6 +82,9 @@ export default class ShopView extends React.Component {
       </div>
     );
 
+    const headLine = this.props.campaign
+      ? this.props.productStore.getCampaign(this.props.campaign).name
+      : this.props.productStore.getCategory(this.props.category).name;
     return (
       <div>
         <style jsx>{`
@@ -111,27 +114,26 @@ export default class ShopView extends React.Component {
           }
           .filter {
             font-weight: bold;
+            margin: 15px;
           }
         `}</style>
         <AppBar />
         <div className="container">
           <h1 className="category">
-            {
-              this.props.campaign
-                ? this.props.productStore.getCampaign(this.props.campaign).name
-                : this.props.productStore.getCategory(this.props.category).name
-            }
+            { headLine }
           </h1>
           <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone">
               <Desktop>
                 {menu}
               </Desktop>
-              <Mobile>
-                <Collapsible label="过滤器">
-                  {menu}
-                </Collapsible>
-              </Mobile>
+              <div className="filter">
+                <Mobile>
+                  <Collapsible label={`过滤器：${headLine}`}>
+                    {menu}
+                  </Collapsible>
+                </Mobile>
+              </div>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
               {
