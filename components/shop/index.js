@@ -34,16 +34,15 @@ export default class ShopView extends React.Component {
       <div className="left-menu">
         <style jsx>{`
           .label {
-            font-weight: bold;
-            font-size: 1.1em;
             border-bottom: 2px solid #000;
           }
           .category-list {
             margin-bottom: 10px;
           }
-          @media (max-width: 599px) {
-            .left-menu {
-              text-align: center;
+          @media (min-width: 600px) {
+            .label {
+              font-weight: bold;
+              font-size: 1.1em;
             }
           }
         `}</style>

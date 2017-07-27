@@ -124,6 +124,11 @@ export default class Landing extends React.Component {
             margin-bottom: 20px;
             transition: width 1s;
           }
+          @media (min-width: 600px) {
+            .landing-background {
+              margin-top: 30px;
+            }
+          }
           @media (max-width: 600px) {
             .landing-background {
               height: 400px;

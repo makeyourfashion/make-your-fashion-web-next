@@ -8,7 +8,7 @@ function Footer() {
           border-top: 1px solid #dedede;
           margin: auto;
           margin-top: 20px;
-          background: #dedede;
+          background: #000;
           min-height: 5vh;
           padding: 0 0 60px 0;
         }
@@ -18,7 +18,7 @@ function Footer() {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          color: #333;
+          color: #888;
         }
 
         .contact-info {

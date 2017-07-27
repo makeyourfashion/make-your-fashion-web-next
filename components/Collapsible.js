@@ -31,7 +31,6 @@ export default class Collapsible extends React.Component {
           .wrapper {
             overflow: hidden;
             border-bottom: solid 1px #ccc;
-            padding-bottom: 10px;
           }
 
           .collapsible-enter {
@@ -49,12 +48,12 @@ export default class Collapsible extends React.Component {
           }
           .material-icons {
             vertical-align: middle;
-            margin-top: -3px
           }
           a {
             font-weight: bold;
             display: flex;
             justify-content: space-between;
+            margin-bottom: 10px;
           }
         `}</style>
         <div>

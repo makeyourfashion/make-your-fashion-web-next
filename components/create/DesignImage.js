@@ -130,7 +130,8 @@ export default class DesignImage extends React.Component {
   handleZoom = () => {
     this.group.setDraggable(false);
     const width = this.zoomBtn.attrs.x + 10;
-    const height = this.zoomBtn.attrs.y + 10;
+    const percent = width / this.rect.getWidth();
+    const height = this.rect.getHeight() * percent;
     this.group.setWidth(width);
     this.group.setHeight(height);
     this.rect.setWidth(width);
@@ -138,6 +139,8 @@ export default class DesignImage extends React.Component {
     this.image.setWidth(width);
     this.image.setHeight(height);
     this.removeBtn.setX(width - 10);
+    this.zoomBtn.setX(width - 10);
+    this.zoomBtn.setY(height - 10);
     this.callParentDragCB();
     this.group.setDraggable(true);
   }
@@ -159,9 +162,9 @@ export default class DesignImage extends React.Component {
   }
 
   handleRotate = () => {
-    const { x, y } = this.rotateBtn.attrs;
-    const degree = (((Math.atan((y - this.group.attrs.y) / (x - this.group.attrs.x))) * 180)
-      / Math.PI) - 64;
+    const diffX = this.removeBtn.getX() - this.rotateBtn.getX();
+    const diffY = this.removeBtn.getY() - this.rotateBtn.getY();
+    const degree = ((Math.atan(diffY / diffX)) * 180) / Math.PI;
       // Magic number 64, don't know where it comes from!
     this.group.rotate(degree);
     this.rotateBtn.setX(-10);
