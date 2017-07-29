@@ -98,8 +98,8 @@ class DesignStore {
       },
       height: 500,
       width: 500,
-      x: 250,
-      y: 625,
+      x: 250 + (500 / 2),
+      y: 625 + (500 / 2),
       rotation: 0,
       pic_id: this.activeImageId,
     };

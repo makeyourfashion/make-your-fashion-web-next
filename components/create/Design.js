@@ -8,7 +8,6 @@ import {
   RECT_HEIGHT,
 } from './consts';
 import BubbleButton from '../BubbleButton';
-import ShirtIcon from './ShirtIcon';
 
 @inject('designStore') @observer
 export default class Design extends React.Component {
@@ -168,28 +167,7 @@ export default class Design extends React.Component {
                   <i className="material-icons">add</i>
                 </BubbleButton>
               </div>
-            ) : (
-              <ul className="mdc-list menu">
-                <li data-action="select-product" className="mdc-list-item list-item">
-                  <ShirtIcon />
-                  <button data-tab-id={0} onTouchStart={this.selectProduct} onClick={this.selectProduct} className="icon-button">
-                    产品
-                  </button>
-                </li>
-                <li data-action="select-design" className="mdc-list-item list-item">
-                  <i className="material-icons" aria-hidden="true">collections</i>
-                  <button data-tab-id={2} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick} className="icon-button">
-                    图片
-                  </button>
-                </li>
-                <li data-action="add-text" className="mdc-list-item list-item">
-                  <i className="material-icons" aria-hidden="true">text_fields</i>
-                  <button data-tab-id={1} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick} className="icon-button">
-                    文字
-                  </button>
-                </li>
-              </ul>
-            )
+            ) : null
           }
           {
             showCallToAction ? (

@@ -1,14 +1,15 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { isEmpty } from 'lodash';
+import { isEmpty, range } from 'lodash';
 import Router from 'next/router';
 import AppBar from '../AppBar';
 import Footer from '../Footer';
 import Design from './Design';
 import Snackbar from '../Snackbar';
-import Ratings from '../Ratings';
 import DesignPanel from './DesignPanel';
 import Modal from '../Modal';
+import Desktop from '../Desktop';
+import { SelectField, SelectItem } from '../SelectField';
 
 function getCanvasImgUrl() {
   const canvas = document.querySelector('canvas');
@@ -35,6 +36,7 @@ export default class CreateView extends React.Component {
       order = { sizeError: '', qtyError: '' };
     }
     this.state = {
+      isPromptNextOpen: false,
       editable: true,
       tabId: 0,
       showSuccessMessage: false,
@@ -124,14 +126,14 @@ export default class CreateView extends React.Component {
           ...this.state.order,
           ...errors,
         },
-      }, () => {
-        window.scroll(0, document.querySelector('.select-list').offsetTop - (window.outerHeight / 2));
+        isPromptNextOpen: true,
       });
       return;
     }
 
     this.setState({
       showSuccessMessage: true,
+      isPromptNextOpen: false,
       editable: false,
       order: {
         ...this.state.order,
@@ -189,6 +191,12 @@ export default class CreateView extends React.Component {
     });
   }
 
+  closePromptNext = () => {
+    this.setState({
+      isPromptNextOpen: false,
+    });
+  }
+
   render() {
     const product = this.getProduct();
 
@@ -201,10 +209,41 @@ export default class CreateView extends React.Component {
           .design-container {
             position: relative;
           }
-
-          .right-secion {
-            margin-top: 5%;
+          @media (min-width: 600px) {
+            .right-secion {
+              margin-top: 5%;
+            }
           }
+
+          .select-list {
+            display: flex;
+            justify-content: space-between;
+          }
+          .select-list > div {
+            width: 47.5%;
+          }
+          .select-list div:not(:last-child) {
+            margin-right: 5%;
+          }
+
+          @media (max-width: 600px) {
+            .right-secion {
+              max-height: 40%;
+              overflow: auto;
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              font-size: 12px;
+              background-color: rgba(255, 255, 255, 1);
+              border-top: solid 1px #333;
+            }
+            .right-secion > :global(div) {
+              width: calc(100% - 10px);
+              margin: 0 5px 0 5px;
+            }
+          }
+
           .detail-img {
             width: 100%;
             margin-top: 20px;
@@ -261,9 +300,6 @@ export default class CreateView extends React.Component {
             .select-list {
               margin-bottom: 40px;
             }
-            .desktop-button {
-              display: none;
-            }
           }
         `}</style>
         <Modal onClose={this.handleClosePictureModal} open={this.state.isSelectPicModalOpen} title="选择设计图案" >
@@ -275,6 +311,59 @@ export default class CreateView extends React.Component {
             onSelect={this.handleSelect}
             tabId={this.state.tabId}
           />
+        </Modal>
+        <Modal
+          onClose={this.closePromptNext}
+          open={this.state.isPromptNextOpen}
+          onAccept={this.handleAddToCart}
+          title="选择尺码与数量"
+        >
+          <div className="select-list">
+            <div>
+              <label htmlFor="select-size">
+                选择尺码：
+                <SelectField
+                  id="select-size"
+                  value={this.state.order.size}
+                  onChange={(value) => {
+                    this.handleOrderChange({
+                      ...this.state.order,
+                      size: value,
+                    });
+                  }}
+                >
+                  {
+                    product.sizes.split(',').map(n =>
+                      <SelectItem key={n} value={n}>{n}</SelectItem>,
+                    )
+                  }
+                </SelectField>
+              </label>
+              <div className="error-msg">{this.state.order.sizeError}</div>
+            </div>
+            <div>
+              <label htmlFor="select-size">
+                选择数量：
+                <SelectField
+                  id="select-size"
+                  value={this.state.order.qty}
+                  onChange={(value) => {
+                    this.handleOrderChange({
+                      ...this.state.order,
+                      qty: value,
+                    });
+                  }}
+                >
+                  {
+                    range(1, 12).map(n =>
+                      <SelectItem key={n} value={n}>{n}</SelectItem>,
+                    )
+                  }
+                </SelectField>
+              </label>
+              <div className="error-msg">{this.state.order.qtyError}</div>
+            </div>
+          </div>
         </Modal>
         <AppBar />
         <div className="container">
@@ -294,16 +383,19 @@ export default class CreateView extends React.Component {
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet">
               <div className="right-secion">
-                <div>
-                  <DesignPanel
-                    onOrderChange={this.handleOrderChange}
-                    editable={this.state.editable}
-                    product={product}
-                    order={this.state.order}
-                    onSelect={this.handleSelect}
-                    tabId={0}
-                    isDetailsVisible
-                  />
+                <DesignPanel
+                  onOrderChange={this.handleOrderChange}
+                  editable={this.state.editable}
+                  product={product}
+                  order={this.state.order}
+                  onSelect={this.handleSelect}
+                  onUpdateCart={this.handleUpdateCart}
+                  onAddToCart={this.handleAddToCart}
+                  tabId={0}
+                  showFinishButton
+                  isDetailsVisible
+                />
+                <Desktop>
                   <div className="desktop-button">
                     {
                       this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--primary button-full-width add-to-cart-button">
@@ -313,22 +405,9 @@ export default class CreateView extends React.Component {
                       </button>
                     }
                   </div>
-                </div>
+                </Desktop>
               </div>
             </div>
-          </div>
-          <div className="action-area">
-            <div className="price-tag">
-              ¥100
-              <Ratings rating={product.ratings} />
-            </div>
-            {
-              this.props.cartId ? <button type="submit" onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                更新购物车
-              </button> : <button onClick={this.handleAddToCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                添加到购物车
-              </button>
-            }
           </div>
           <div className="detail-img-list">
             <h3 className="title">商品详情：</h3>

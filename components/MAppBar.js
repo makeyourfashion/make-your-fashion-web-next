@@ -139,7 +139,7 @@ export default class MAppBar extends React.Component {
               <nav className="mdc-list">
                 {
                   this.props.productStore.categories.values().map(cat => (
-                    cat.name && <Link href={`/shop?campaign=${cat.id}`}>
+                    cat.name && <Link href={`/shop?category=${cat.id}`}>
                       <a className="mdc-list-item">{cat.name}</a>
                     </Link>
                   ))

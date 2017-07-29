@@ -25,7 +25,6 @@ export default class DesignImage extends React.Component {
 
   componentDidMount() {
     const image = new window.Image();
-    // image.crossOrigin = 'Anonymous';
     image.setAttribute('crossOrigin', 'anonymous');
     image.src = this.props.design.design.img_url;
     image.onload = () => {
@@ -101,8 +100,7 @@ export default class DesignImage extends React.Component {
   }
 
   handleDragEnd = () => {
-    const { x, y } = fromCanvasPx(this.group.attrs.x - this.group.attrs.offsetX
-      , this.group.attrs.y - this.group.attrs.offsetY);
+    const { x, y } = fromCanvasPx(this.group.getX(), this.group.getY());
     this.props.designStore.updateImage({ id: this.props.design.id, x, y });
     this.props.onDragEnd();
   }
@@ -112,11 +110,10 @@ export default class DesignImage extends React.Component {
   }
 
   handleZoomEnd = () => {
-    const { x, y } = fromCanvasPx(this.group.attrs.x - this.group.attrs.offsetX
-      , this.group.attrs.y - this.group.attrs.offsetY);
-    const width = fromCanvasWidth(this.group.attrs.width);
-    const height = fromCanvasHeight(this.group.attrs.height);
-    this.props.designStore.updateImage({ id: this.props.design.id, x, y, width, height });
+    const { x, y } = fromCanvasPx(this.group.attrs.x, this.group.attrs.y);
+    const width = fromCanvasWidth(this.rect.getWidth());
+    const height = fromCanvasHeight(this.rect.getHeight());
+    this.props.designStore.updateImage({ id: this.props.design.id, width, height, x, y });
     this.props.onDragEnd();
   }
 
@@ -132,8 +129,8 @@ export default class DesignImage extends React.Component {
     const width = this.zoomBtn.attrs.x + 10;
     const percent = width / this.rect.getWidth();
     const height = this.rect.getHeight() * percent;
-    this.group.setWidth(width);
-    this.group.setHeight(height);
+    this.group.setOffsetX(width / 2);
+    this.group.setOffsetY(height / 2);
     this.rect.setWidth(width);
     this.rect.setHeight(height);
     this.image.setWidth(width);
@@ -165,7 +162,6 @@ export default class DesignImage extends React.Component {
     const diffX = this.removeBtn.getX() - this.rotateBtn.getX();
     const diffY = this.removeBtn.getY() - this.rotateBtn.getY();
     const degree = ((Math.atan(diffY / diffX)) * 180) / Math.PI;
-      // Magic number 64, don't know where it comes from!
     this.group.rotate(degree);
     this.rotateBtn.setX(-10);
     this.rotateBtn.setY(-10);
@@ -179,21 +175,23 @@ export default class DesignImage extends React.Component {
   }
 
   render() {
-    const { x, y, width, height } = this.props.design;
+    const { x, y, width, height, rotation } = this.props.design;
     const canvasXY = toCanvasPx(x, y);
+
     const adjWidth = toCanvasWidth(width);
     const adjHeight = toCanvasHeight(height);
+
     return (
       <Group
-        x={canvasXY.x + (adjWidth / 2)}
-        y={canvasXY.y + (adjHeight / 2)}
+        x={canvasXY.x}
+        y={canvasXY.y}
         offsetX={(adjWidth / 2)}
         offsetY={(adjHeight / 2)}
         draggable={this.props.editible}
         onDragMove={this.handleDragGroup}
         onDragEnd={this.handleDragEnd}
         ref={(g) => { this.group = g; }}
-        rotation={this.props.design.rotation}
+        rotation={rotation}
       >
         <Rect
           strokeWidth={1}

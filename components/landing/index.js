@@ -101,9 +101,7 @@ export default class Landing extends React.Component {
             height: 250px;
             transition: width 0.5s, height 0.5s;
           }
-          .campaign-card:hover {
-            width: 21%;
-          }
+
           .campaign-img {
             background-size: cover;
             background-repeat: no-repeat;
@@ -127,6 +125,9 @@ export default class Landing extends React.Component {
           @media (min-width: 600px) {
             .landing-background {
               margin-top: 30px;
+            }
+            .campaign-card:hover {
+              width: 21%;
             }
           }
           @media (max-width: 600px) {

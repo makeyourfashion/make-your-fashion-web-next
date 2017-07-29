@@ -26,7 +26,7 @@ export default class OrderForm extends React.Component {
       <div className="details-wrapper">
         <style jsx>{`
           .subtitle {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
           }
           .rate-img {
             width: 83px;
@@ -36,10 +36,24 @@ export default class OrderForm extends React.Component {
             margin: 5px 0 5px 0;
           }
           .title {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+          }
+          @media (max-height: 600px) {
+            .subtitle {
+              margin-bottom: .25rem;
+            }
+            .title {
+              margin-bottom: .25rem;
+            }
+            .select-list {
+              margin-bottom: .25rem;
+            }
+            :global(.form-field) {
+              margin-top: 5px !important;
+            }
           }
           .select-list {
             display: flex;
@@ -53,16 +67,16 @@ export default class OrderForm extends React.Component {
             margin-right: 5%;
           }
           .add-to-cart-button {
-            margin-top: 20px;
+            margin-top: 1.25rem;
           }
           .select-list {
-            margin-bottom: 40px;
+            margin-bottom: 2.5rem;
           }
           .details {
             display: flex;
           }
           .details > .form-field:nth-child(2) {
-            margin-left: 40px;
+            margin-left: 2.5rem;
           }
         `}</style>
         <div className="title">

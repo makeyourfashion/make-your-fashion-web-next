@@ -31,8 +31,12 @@ export default class SelectPicture extends React.Component {
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
-            max-height: 350px;
-            overflow: auto;
+          }
+          @media (min-width: 600px) {
+            .picture-list {
+              max-height: 350px;
+              overflow: auto;
+            }
           }
           .category-button {
             margin-right: 10px;

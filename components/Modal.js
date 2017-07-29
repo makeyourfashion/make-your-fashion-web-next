@@ -39,7 +39,9 @@ export default class Modal extends React.Component {
             {
               this.props.onAccept ? <button onClick={this.props.onAccept} type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">确定</button> : null
             }
-            <button onClick={this.props.onClose} type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">返回</button>
+            {
+              this.props.onClose ? <button onClick={this.props.onClose} type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">返回</button> : null
+            }
           </footer>
         </div>
         <div className="mdc-dialog__backdrop" />
