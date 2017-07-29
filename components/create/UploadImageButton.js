@@ -23,11 +23,26 @@ export default class UploadImageButton extends React.Component {
           .input-hiddden {
             display: none;
           }
+          .upload-button {
+            padding: 10px 20px 10px 20px;
+            border: solid 1px #ccc;
+            background-color: #000;
+            color: #fff;
+          }
+          @media (max-width: 600px) {
+            .upload-button {
+              padding: 3px 10px 3px 10px;
+              font-size: 12px;
+              border: solid 1px #ccc;
+              background-color: #000;
+              color: #fff;
+            }
+          }
         `}</style>
         <input className="input-hiddden" type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
         <button
           onClick={this.handleOpenFileUploadDialog}
-          className="mdc-button mdc-button--raised"
+          className="upload-button"
         >
           上传图片
         </button>

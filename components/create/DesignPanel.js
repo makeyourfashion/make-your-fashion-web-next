@@ -11,14 +11,14 @@ import Mobile from '../Mobile';
 export default class DesignPanel extends React.Component {
   constructor(props) {
     super(props);
+    let currentEditText;
     autorun(() => {
-      if (this.props.designStore.showEditText) {
+      if (this.props.designStore.showEditText !== currentEditText) {
+        currentEditText = this.props.designStore.showEditText;
+        this.openTab();
         this.setState({
           tabIndex: 1,
         });
-        window.setTimeout(() => {
-          this.openTab();
-        }, 300);
       }
     });
   }
@@ -26,11 +26,6 @@ export default class DesignPanel extends React.Component {
   state = {
     tabIndex: this.props.tabId || 0,
     isMobileOpen: false,
-  }
-
-  componentDidMount() {
-    document.addEventListener('click', this.handleToggleMobileOpen);
-    document.addEventListener('touchstart', this.handleToggleMobileOpen);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,17 +37,10 @@ export default class DesignPanel extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleToggleMobileOpen);
-    document.removeEventListener('touchstart', this.handleToggleMobileOpen);
-  }
-
   handleToggleMobileOpen = (e) => {
-    if (!e.target.closest('.design-panel')) {
-      this.setState({
-        isMobileOpen: false,
-      });
-    }
+    this.setState({
+      isMobileOpen: false,
+    });
   }
 
   openTab = () => {
@@ -71,7 +59,7 @@ export default class DesignPanel extends React.Component {
 
   render() {
     return (
-      <div className={`${this.state.isMobileOpen || !this.props.showFinishButton ? '' : 'close'} design-panel`}>
+      <div className={`${this.state.isMobileOpen || !this.props.showFinishButton ? 'open' : 'close'} design-panel`}>
         <style jsx>{`
           .details-text-tab {
             border-bottom: 1px solid #dedede;
@@ -87,8 +75,21 @@ export default class DesignPanel extends React.Component {
             width: 100%;
             max-width: 600px;
           }
-          
+          @media (min-width: 600px) {
+            .close-button {
+              display: none;
+            }
+          }
+
           @media (max-width: 600px) {
+            .close-button {
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+            .mdc-tab-bar > a:not(:nth-last-child(2)) {
+              border-right: solid 1px #ccc;
+            }
             .tab-with-finish-button {
               width: 75% !important;
               margin-left: 0;
@@ -98,8 +99,10 @@ export default class DesignPanel extends React.Component {
               overflow: hidden !important;
             }
             .design-panel {
-              transition: max-height 0.5s ease-in-out;
               max-height: 40%;
+            }
+            .open {
+              margin-top: -50px !important;
             }
             .mobile-button {
               position: absolute;
@@ -109,6 +112,12 @@ export default class DesignPanel extends React.Component {
             }
             .mdc-tab {
               padding: 0;
+            }
+            .open .mobile-button {
+              display: none !important;
+            }
+            .icon-button {
+              margin-right: 0;
             }
             .mobile-button .add-to-cart-button {
               height: 48px !important;
@@ -153,6 +162,9 @@ export default class DesignPanel extends React.Component {
           ) : null
         }
         <div>
+          {
+            this.state.isMobileOpen ? <button onClick={this.handleToggleMobileOpen} className="close-button icon-button">&#10006;</button> : null
+          }
           {
             (() => {
               if (this.state.tabIndex === 0) {

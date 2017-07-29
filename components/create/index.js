@@ -236,7 +236,7 @@ export default class CreateView extends React.Component {
               width: 100%;
               font-size: 12px;
               background-color: rgba(255, 255, 255, 1);
-              border-top: solid 1px #333;
+              border-top: solid 1px #ccc;
             }
             .right-secion > :global(div) {
               width: calc(100% - 10px);

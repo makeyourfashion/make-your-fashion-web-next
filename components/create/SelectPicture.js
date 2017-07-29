@@ -27,40 +27,56 @@ export default class SelectPicture extends React.Component {
       <div>
         <style jsx>{`
           .picture-list {
-            margin: 40px 0 20px 0;
+            margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
           }
           @media (min-width: 600px) {
             .picture-list {
+              margin: 40px 0 20px 0;
               max-height: 350px;
               overflow: auto;
             }
+            .category-list {
+              margin-top: 10px;
+              display: flex;
+              flex-wrap: wrap;
+            }
+            .category-button {
+              margin-right: 10px;
+            }
           }
           .category-button {
-            margin-right: 10px;
             padding: 0 5px 0 5px;
           }
           .category-list {
             margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
+            overflow: auto;
           }
           .active-category {
             background-color: #00b2a6;
             color: #fff;
           }
-          .upload-area {
-            padding: 0 0 20px 0;
-            margin: 20px 0 20px 0;
-            border-bottom: solid 1px #ccc;
+          .line1 {
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          @media (max-width: 600px) {
+            .line1 h3 {
+              margin: 0;
+            }
+            .line1 :global(div) {
+              margin: 5px;
+            }
           }
         `}</style>
-        <div className="upload-area">
+        <div className="line1">
+          <h3>素材库</h3>
           <UploadImageButton />
         </div>
-        <h3>素材库</h3>
         <div ref={(r) => { this.categories = r; }} className="category-list">
           <a
             className={`category-button ${+this.tag === 0 ? 'active-category' : ''}`}
