@@ -108,25 +108,27 @@ class DesignStore {
   }
 
   @action addText(text) {
-    const newText = {
-      ...text,
-      id: uuid(),
-      width: 950,
-      x: 25,
-      y: 625,
-      rotation: 0,
-      font_size: 30,
-      font_family: 'Arial',
-      color: '#000',
-      align: 'center',
-      bold: false,
-      italic: false,
-      pic_id: this.activeImageId,
-    };
-    this.design.texts.push(newText);
-    this.activeTextId = newText.id;
-    this.showEditText = new Date().getTime();
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    if (text.text) {
+      const newText = {
+        ...text,
+        id: uuid(),
+        width: 950,
+        x: 25,
+        y: 625,
+        rotation: 0,
+        font_size: 30,
+        font_family: 'Arial',
+        color: '#000',
+        align: 'center',
+        bold: false,
+        italic: false,
+        pic_id: this.activeImageId,
+      };
+      this.design.texts.push(newText);
+      this.activeTextId = newText.id;
+      this.showEditText = new Date().getTime();
+      window.localStorage.setItem('design', JSON.stringify(this.design));
+    }
   }
 
   @action selectProduct(productId) {

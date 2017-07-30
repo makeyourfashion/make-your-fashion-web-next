@@ -20,7 +20,8 @@ export default class PictureCard extends React.Component {
           }
           @media (max-width: 599px) {
             .picture-card {
-              width: 32%;
+              display: inline-block;
+              width: 21%;
             }
           }
           .picture-card:hover {

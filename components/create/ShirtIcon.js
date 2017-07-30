@@ -5,6 +5,7 @@ function ShirtIcon() {
     <div>
       <style jsx>{`
         .shirt-icon {
+          margin: auto;
           width: 24px;
           height: 24px;
           background-size: 24px 24px;

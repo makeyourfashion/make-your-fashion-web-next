@@ -18,6 +18,7 @@ class SelectField extends React.Component {
               padding: 3px 10px 3px 15px;
               min-height: 40px;
             }
+
             .select-field-wrapper {
               position: relative;
             }

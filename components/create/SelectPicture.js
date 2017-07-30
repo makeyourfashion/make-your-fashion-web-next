@@ -30,29 +30,19 @@ export default class SelectPicture extends React.Component {
             margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
+            margin: 40px 0 20px 0;
+            max-height: 350px;
+            overflow: auto;
             justify-content: flex-start;
-          }
-          @media (min-width: 600px) {
-            .picture-list {
-              margin: 40px 0 20px 0;
-              max-height: 350px;
-              overflow: auto;
-            }
-            .category-list {
-              margin-top: 10px;
-              display: flex;
-              flex-wrap: wrap;
-            }
-            .category-button {
-              margin-right: 10px;
-            }
-          }
-          .category-button {
-            padding: 0 5px 0 5px;
           }
           .category-list {
             margin-top: 10px;
-            overflow: auto;
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .category-button {
+            margin-right: 10px;
+            padding: 0 5px 0 5px;
           }
           .active-category {
             background-color: #00b2a6;
@@ -67,6 +57,10 @@ export default class SelectPicture extends React.Component {
           @media (max-width: 600px) {
             .line1 h3 {
               margin: 0;
+            }
+            .picture-list {
+              overflow: auto;
+              white-space: nowrap !important;
             }
             .line1 :global(div) {
               margin: 5px;

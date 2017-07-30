@@ -5,7 +5,6 @@ import Link from 'next/link';
 import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
 import OrderForm from './OrderForm';
-import Mobile from '../Mobile';
 
 @inject('designStore') @observer
 export default class DesignPanel extends React.Component {
@@ -25,7 +24,6 @@ export default class DesignPanel extends React.Component {
 
   state = {
     tabIndex: this.props.tabId || 0,
-    isMobileOpen: false,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,29 +35,16 @@ export default class DesignPanel extends React.Component {
     }
   }
 
-  handleToggleMobileOpen = (e) => {
-    this.setState({
-      isMobileOpen: false,
-    });
-  }
-
-  openTab = () => {
-    this.setState({
-      isMobileOpen: true,
-    });
-  }
-
   handleTabClick = (e) => {
     e.preventDefault();
     this.setState({
       tabIndex: +e.target.getAttribute('href'),
     });
-    this.openTab();
   }
 
   render() {
     return (
-      <div className={`${this.state.isMobileOpen || !this.props.showFinishButton ? 'open' : 'close'} design-panel`}>
+      <div className="design-panel">
         <style jsx>{`
           .details-text-tab {
             border-bottom: 1px solid #dedede;
@@ -67,6 +52,9 @@ export default class DesignPanel extends React.Component {
             margin-bottom: 20px;
             width: 100%;
             position: relative;
+          }
+          .design-panel {
+            margin-top: 5%;
           }
           .mdc-tab {  
             min-width: 0;
@@ -81,14 +69,15 @@ export default class DesignPanel extends React.Component {
             }
           }
 
+          .hide {
+            display: none;
+          }
+
           @media (max-width: 600px) {
             .close-button {
               position: absolute;
               top: 0;
               right: 0;
-            }
-            .mdc-tab-bar > a:not(:nth-last-child(2)) {
-              border-right: solid 1px #ccc;
             }
             .tab-with-finish-button {
               width: 75% !important;
@@ -130,7 +119,7 @@ export default class DesignPanel extends React.Component {
           }
         `}</style>
         <div
-          className={`details-text-tab ${this.props.showFinishButton ? 'tab-with-finish-button' : ''}`}
+          className="details-text-tab"
         >
           <nav className="mdc-tab-bar">
             {
@@ -146,25 +135,7 @@ export default class DesignPanel extends React.Component {
             <span className="mdc-tab-bar__indicator" />
           </nav>
         </div>
-        {
-          this.props.showFinishButton ? (
-            <Mobile>
-              <div className="mobile-button">
-                {
-                  this.props.cartId ? <button onClick={this.props.onUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                    完成设计
-                  </button> : <button onClick={this.props.onAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                    完成设计
-                  </button>
-                }
-              </div>
-            </Mobile>
-          ) : null
-        }
         <div>
-          {
-            this.state.isMobileOpen ? <button onClick={this.handleToggleMobileOpen} className="close-button icon-button">&#10006;</button> : null
-          }
           {
             (() => {
               if (this.state.tabIndex === 0) {

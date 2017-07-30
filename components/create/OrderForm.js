@@ -41,20 +41,10 @@ export default class OrderForm extends React.Component {
             justify-content: space-between;
             align-items: center;
           }
-          @media (max-height: 600px) {
-            .subtitle {
-              margin-bottom: .25rem;
-            }
-            .title {
-              margin-bottom: .25rem;
-            }
-            .select-list {
-              margin-bottom: .25rem;
-            }
-            :global(.form-field) {
-              margin-top: 5px !important;
-            }
+          .select-list {
+            margin-bottom: 2.5rem;
           }
+
           .select-list {
             display: flex;
             flex-wrap: wrap;
@@ -69,9 +59,7 @@ export default class OrderForm extends React.Component {
           .add-to-cart-button {
             margin-top: 1.25rem;
           }
-          .select-list {
-            margin-bottom: 2.5rem;
-          }
+          
           .details {
             display: flex;
           }

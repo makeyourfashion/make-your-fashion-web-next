@@ -9,6 +9,8 @@ import Snackbar from '../Snackbar';
 import DesignPanel from './DesignPanel';
 import Modal from '../Modal';
 import Desktop from '../Desktop';
+import Mobile from '../Mobile';
+import MobileDesignPanel from './MobileDesignPanel';
 import { SelectField, SelectItem } from '../SelectField';
 
 function getCanvasImgUrl() {
@@ -85,7 +87,9 @@ export default class CreateView extends React.Component {
       this.setState({
         editable: false,
       });
-      this.props.designStore.activeTextId = null;
+      if (!e.target.closest('.edit-text-panel')) {
+        this.props.designStore.activeTextId = null;
+      }
     }
   }
 
@@ -209,11 +213,6 @@ export default class CreateView extends React.Component {
           .design-container {
             position: relative;
           }
-          @media (min-width: 600px) {
-            .right-secion {
-              margin-top: 5%;
-            }
-          }
 
           .select-list {
             display: flex;
@@ -227,21 +226,7 @@ export default class CreateView extends React.Component {
           }
 
           @media (max-width: 600px) {
-            .right-secion {
-              max-height: 40%;
-              overflow: auto;
-              position: fixed;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              font-size: 12px;
-              background-color: rgba(255, 255, 255, 1);
-              border-top: solid 1px #ccc;
-            }
-            .right-secion > :global(div) {
-              width: calc(100% - 10px);
-              margin: 0 5px 0 5px;
-            }
+            
           }
 
           .detail-img {
@@ -382,7 +367,7 @@ export default class CreateView extends React.Component {
               }
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet">
-              <div className="right-secion">
+              <Desktop>
                 <DesignPanel
                   onOrderChange={this.handleOrderChange}
                   editable={this.state.editable}
@@ -392,23 +377,34 @@ export default class CreateView extends React.Component {
                   onUpdateCart={this.handleUpdateCart}
                   onAddToCart={this.handleAddToCart}
                   tabId={0}
-                  showFinishButton
                   isDetailsVisible
                 />
-                <Desktop>
-                  <div className="desktop-button">
-                    {
-                      this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--primary button-full-width add-to-cart-button">
-                        更新购物车
-                      </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
-                        添加到购物车
-                      </button>
-                    }
-                  </div>
-                </Desktop>
-              </div>
+                <div className="desktop-button">
+                  {
+                    this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--primary button-full-width add-to-cart-button">
+                      更新购物车
+                    </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+                      添加到购物车
+                    </button>
+                  }
+                </div>
+              </Desktop>
             </div>
           </div>
+          <Mobile>
+            <MobileDesignPanel
+              onOrderChange={this.handleOrderChange}
+              editable={this.state.editable}
+              product={product}
+              order={this.state.order}
+              onSelect={this.handleSelect}
+              onUpdateCart={this.handleUpdateCart}
+              onAddToCart={this.handleAddToCart}
+              tabId={0}
+              showFinishButton
+              isDetailsVisible
+            />
+          </Mobile>
           <div className="detail-img-list">
             <h3 className="title">商品详情：</h3>
             <img className="detail-img" src="/static/image/1.jpg" alt="img" />
