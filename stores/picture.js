@@ -66,6 +66,7 @@ class PictureStore {
       const obj = await res.json();
       this.designs.set(obj.id, obj);
       this.error = null;
+      return obj;
     } catch (e) {
       this.error = 'server error';
     }

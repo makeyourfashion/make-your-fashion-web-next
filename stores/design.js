@@ -112,8 +112,8 @@ class DesignStore {
       const newText = {
         ...text,
         id: uuid(),
-        width: 950,
-        x: 25,
+        width: 1000,
+        x: 0,
         y: 625,
         rotation: 0,
         font_size: 30,

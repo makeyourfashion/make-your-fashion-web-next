@@ -46,8 +46,8 @@ export default class Checkout extends React.Component {
     const order = {
       ...this.state.address,
       userId: this.props.identityStore.id,
-      orderItem: this.props.cartStore.cartItems.map(({ size, qty, imgUrl, itemId, price }) => ({
-        size, qty, itemId, price, img: imgUrl,
+      orderItem: this.props.cartStore.cartItems.map(({ size, qty, imgUrl, itemId, price, images, texts }) => ({
+        size, qty, itemId, price, img: imgUrl, images, texts,
       })),
     };
 

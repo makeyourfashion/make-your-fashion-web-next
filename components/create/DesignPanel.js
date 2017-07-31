@@ -14,7 +14,6 @@ export default class DesignPanel extends React.Component {
     autorun(() => {
       if (this.props.designStore.showEditText !== currentEditText) {
         currentEditText = this.props.designStore.showEditText;
-        this.openTab();
         this.setState({
           tabIndex: 1,
         });

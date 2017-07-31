@@ -87,7 +87,6 @@ export default class Text extends React.Component {
     const diffX = this.deleteButton.getX() - this.rotateBtn.getX();
     const diffY = this.deleteButton.getY() - this.rotateBtn.getY();
     const degree = ((Math.atan(diffY / diffX)) * 180) / Math.PI;
-      // Magic number 64, don't know where it comes from!
     this.group.rotate(degree);
     this.rotateBtn.setX(-10);
     this.rotateBtn.setY(-10);
