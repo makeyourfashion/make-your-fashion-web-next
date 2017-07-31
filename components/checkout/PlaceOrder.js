@@ -3,7 +3,16 @@ import { inject, observer } from 'mobx-react';
 
 @inject('cartStore', 'productStore') @observer
 export default class PlaceOrder extends React.Component {
-  state = {}
+  state = {
+    submit: false,
+  }
+
+  handleSubmit = () => {
+    this.setState({
+      submit: true,
+    });
+    this.props.onNext();
+  }
 
   render() {
     const cartItems = this.props.cartStore.cartItems.slice();
@@ -122,8 +131,10 @@ export default class PlaceOrder extends React.Component {
           </div>
         </div>
         <div className="next-step">
-          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
-            确认无误，下单
+          <button disabled={this.state.submit} onClick={this.handleSubmit} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
+            {
+              this.state.submit ? '正在下单...' : '确认无误，下单'
+            }
           </button>
         </div>
       </div>

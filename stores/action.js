@@ -1,5 +1,7 @@
 import { action } from 'mobx';
 import Router from 'next/router';
+import 'es6-promise';
+import { flatten } from 'lodash';
 import initCartStore from '../stores/cart';
 import initIdentityStore from '../stores/identity';
 import initPictureStore from '../stores/picture';
@@ -29,34 +31,38 @@ function dataURItoBlob(dataURI) {
 }
 
 export const placeOrder = action(async (order, onSuccess) => {
-  await order.orderItem.map(item => item.images.map(async (img) => {
+  await Promise.all(flatten(order.orderItem.map(item => item.images.map((img) => {
     const design = img.design;
     const imgUrl = design.img_url;
     if (imgUrl.startsWith('data')) {
       const file = dataURItoBlob(imgUrl);
-      const pic = await pictureStore.uploadImage({
+      return pictureStore.uploadImage({
         file,
         tag: '',
+      }).then((pic) => {
+        design.img_url = pic.imgUrl;
       });
-      design.img_url = pic.imgUrl;
     }
 
     return null;
-  }));
-  const res = await fetch('/api/orders', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(order),
+  })))).then(() => {
+    fetch('/api/orders', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    }).then((res) => {
+      if (res.status === 201) {
+        onSuccess();
+        identityStore.histories = [];
+        cartStore.clearCart();
+        window.setTimeout(() => {
+          Router.push('/account/history');
+        }, 4000);
+      }
+    });
   });
-  if (res.status === 201) {
-    onSuccess();
-    identityStore.histories = [];
-    cartStore.clearCart();
-    window.setTimeout(() => {
-      Router.push('/account/history');
-    }, 4000);
-  }
+  
 });

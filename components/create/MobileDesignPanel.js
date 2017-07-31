@@ -5,7 +5,6 @@ import Link from 'next/link';
 import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
 import OrderForm from './OrderForm';
-import ShirtIcon from './ShirtIcon';
 
 @inject('designStore') @observer
 export default class MobileDesignPanel extends React.Component {
@@ -108,13 +107,16 @@ export default class MobileDesignPanel extends React.Component {
             display: block;
             flex-grow: 1;
             text-align: center;
-            min-height: 45px;
+            min-height: 34px;
             padding-top: 3px;
             color: #000;
+            padding-top: 14px;
+            font-size: 14px;
+            font-weight: 500;
           }
-          .bottom-button > div {
-            font-size: 11px;
-            font-weight: 600;
+
+          .bottom-button:not(:last-child) {
+            border-right: solid 1px #ccc;
           }
 
           @media (max-width: 600px) {
@@ -199,17 +201,14 @@ export default class MobileDesignPanel extends React.Component {
                   <nav>
                     <Link href="/shop?category=2">
                       <a className="bottom-button" href="0">
-                        <ShirtIcon />
-                        <div className="product-label">产品</div>
+                        产品
                       </a>
                     </Link>
                     <a className="bottom-button" href="2" onClick={this.handleTabClick}>
-                      <div><i className="material-icons" aria-hidden="true">collections</i></div>
-                      <div>图片</div>
+                      图片
                     </a>
                     <a className="bottom-button" href="1" onClick={this.handleTabClick}>
-                      <i className="material-icons" aria-hidden="true">text_fields</i>
-                      <div>文字</div>
+                      文字
                     </a>
                   </nav>
                 </div>
