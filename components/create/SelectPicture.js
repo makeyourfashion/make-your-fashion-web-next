@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 import PictureCard from './PictureCard';
 import UploadImageButton from './UploadImageButton';
+import Carousel from '../Carousel';
 
 @inject('pictureStore', 'designStore') @observer
 export default class SelectPicture extends React.Component {
@@ -28,12 +29,8 @@ export default class SelectPicture extends React.Component {
         <style jsx>{`
           .picture-list {
             margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
             margin: 40px 0 20px 0;
             max-height: 350px;
-            overflow: auto;
-            justify-content: flex-start;
           }
           .category-list {
             margin-top: 10px;
@@ -91,15 +88,17 @@ export default class SelectPicture extends React.Component {
           }
         </div>
         <div className="picture-list">
-          {
-            pictures.map(pic => (
-              <PictureCard
-                key={pic.id}
-                onSelect={this.props.onSelect}
-                picture={pic}
-              />
-            ))
-          }
+          <Carousel total={5}>
+            {
+              pictures.map(pic => (
+                <PictureCard
+                  key={pic.id}
+                  onSelect={this.props.onSelect}
+                  picture={pic}
+                />
+              ))
+            }
+          </Carousel>
         </div>
       </div>
     );

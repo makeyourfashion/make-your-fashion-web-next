@@ -103,7 +103,7 @@ export default class MAppBar extends React.Component {
           <nav className="mdc-temporary-drawer__drawer">
             <header className="mdc-temporary-drawer__header">
               <div className="mdc-temporary-drawer__header-content">
-                <Link href="/">
+                <Link prefetch href="/">
                   <a className="title">
                     意栈网
                   </a>
@@ -139,7 +139,7 @@ export default class MAppBar extends React.Component {
               <nav className="mdc-list">
                 {
                   this.props.productStore.categories.values().map(cat => (
-                    cat.name && <Link key={cat.id} href={`/shop?category=${cat.id}`}>
+                    cat.name && <Link prefetch key={cat.id} href={`/shop?category=${cat.id}`}>
                       <a className="mdc-list-item">{cat.name}</a>
                     </Link>
                   ))
@@ -154,7 +154,7 @@ export default class MAppBar extends React.Component {
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section align-center">
               <button onClick={this.toggleDrawer} className={`menu-button material-icons ${this.props.transparent ? 'transparent' : ''}`}>menu</button>
-              <Link href="/">
+              <Link prefetch href="/">
                 <a className={`title ${this.props.transparent ? 'transparent' : ''}`}>
                   意栈网
                 </a>

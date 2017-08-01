@@ -87,8 +87,6 @@ export default class Landing extends React.Component {
 
           .campaign-list {
             margin-bottom: 10px;
-            overflow: hidden;
-            white-space: nowrap;
           }
 
           .campaign-list:not(:last-child) {
@@ -230,7 +228,7 @@ export default class Landing extends React.Component {
           <div className="container">
             <div className="main-content">
               <h2 className="campaign-title">近期活动</h2>
-              <div className="campaign-list landing-category">
+              <div className="campaign-list">
                 <Carousel total={5}>
                   {
                     productStore.campaigns.values().map(campaign => (
@@ -252,7 +250,7 @@ export default class Landing extends React.Component {
                 </Carousel>
               </div>
               <h2 className="campaign-title">热门单品</h2>
-              <div className="campaign-list landing-category">
+              <div className="campaign-list">
                 <Carousel total={5}>
                   {
                     productStore.getProductsByCategory('all').map(product => (
@@ -274,7 +272,7 @@ export default class Landing extends React.Component {
                 </Carousel>
               </div>
               <h2 className="campaign-title">热门设计图片</h2>
-              <div className="campaign-list landing-category">
+              <div className="campaign-list">
                 <Carousel total={6}>
                   {
                     pictureStore.designs.values().map(pic => (

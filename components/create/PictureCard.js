@@ -13,7 +13,8 @@ export default class PictureCard extends React.Component {
       <div ref={(r) => { this.card = r; }} className="picture-card">
         <style jsx>{`
           .picture-card {
-            width: 24%;
+            display: inline-block;
+            width: 19%;
             max-width: 180px;
             margin-bottom: 20px;
             padding-right: 1%;
@@ -34,7 +35,7 @@ export default class PictureCard extends React.Component {
           }
         `}</style>
         <div>
-          <img crossOrigin="anonymous" alt={this.props.picture.name} className="picture-card-image" src={this.props.picture.imgUrl} />
+          <img crossOrigin="anonymous" alt={this.props.picture.name} className="picture-card-image image" src={this.props.picture.imgUrl} />
         </div>
       </div>
     );

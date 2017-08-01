@@ -47,6 +47,8 @@ export default class Carousel extends React.Component {
       <div ref={(r) => { this.container = r; }} className="img-contrainer">
         <style jsx>{`
           .img-contrainer {
+            overflow: hidden;
+            white-space: nowrap;
             position: relative;
           }
           i {

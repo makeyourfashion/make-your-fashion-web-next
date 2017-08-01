@@ -10,6 +10,7 @@ class SelectField extends React.Component {
       <div className="select-field-wrapper">
         <style jsx>{`
             .select-field {
+              max-width: 100%;
               width: 100% !important;
               background-image: none;
               color: #000;
@@ -24,7 +25,7 @@ class SelectField extends React.Component {
             }
             .icon-arrow {
               position: absolute;
-              right: 35px;
+              right: 10px;
               top: 50%;
               transform: translateY(-50%);
             }

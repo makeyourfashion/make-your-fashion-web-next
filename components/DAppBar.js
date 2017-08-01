@@ -85,7 +85,7 @@ export default class DeskAppBar extends React.Component {
           <div className="mdc-toolbar__row">
             <div className="mdc-toolbar__section left-place-holder" />
             <div className="mdc-toolbar__section">
-              <Link href="/">
+              <Link prefetch href="/">
                 <a className="title">
                   意栈网
                 </a>
