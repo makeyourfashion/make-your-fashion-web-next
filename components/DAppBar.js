@@ -24,9 +24,9 @@ export default class DeskAppBar extends React.Component {
     if (this.sticky !== sticky) {
       this.sticky = sticky;
       if (sticky) {
-        this.root.nextSibling.style.paddingTop = `${this.nav.offsetHeight + 20}px`;
+        document.querySelector('.container').style.paddingTop = `${this.nav.offsetHeight + 20}px`;
       } else {
-        this.root.nextSibling.style.paddingTop = '20px';
+        document.querySelector('.container').style.paddingTop = '20px';
       }
     }
   }

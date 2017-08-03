@@ -65,7 +65,7 @@ export default class Landing extends React.Component {
           .landing-background {
             width: 100%;
             flex: 1 1 auto;
-            background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/23e8a0f3-e0e7-4db8-bcb2-9f1111103025-background.jpg") no-repeat scroll center;
+            background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/priscilla-du-preez-228220.jpg") no-repeat scroll center;
             background-size: 100% auto;
             margin: auto;
             position: relative;
@@ -271,7 +271,7 @@ export default class Landing extends React.Component {
                   }
                 </Carousel>
               </div>
-              <h2 className="campaign-title">热门设计图片</h2>
+              {/* <h2 className="campaign-title">热门设计图片</h2>
               <div className="campaign-list">
                 <Carousel total={6}>
                   {
@@ -287,7 +287,7 @@ export default class Landing extends React.Component {
                     ))
                   }
                 </Carousel>
-              </div>
+              </div> */}
             </div>
           </div>
           <Footer />

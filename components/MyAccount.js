@@ -7,7 +7,11 @@ import { MDCSimpleMenu } from '@material/menu/dist/mdc.menu';
 export default class MyAccount extends React.Component {
   componentDidMount() {
     this.menu = new MDCSimpleMenu(this.menuDom);
-    document.querySelector('.mdc-menu-anchor').addEventListener('click', this.handleGotoHistory);
+    document.addEventListener('click', this.handleGotoHistory);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleGotoHistory);
   }
 
   handleToggleMenu = () => {
@@ -18,7 +22,7 @@ export default class MyAccount extends React.Component {
   }
 
   handleGotoHistory = (e) => {
-    if (e.target.className === 'mdc-list-item') {
+    if (e.target.className.includes('my-account-item')) {
       e.preventDefault();
       Router.push(e.target.querySelector('a').getAttribute('href'));
     }
@@ -77,10 +81,10 @@ export default class MyAccount extends React.Component {
             </div>
           </div>
           <ul className="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
-            <li className="mdc-list-item" role="menuitem">
+            <li className="mdc-list-item my-account-item" role="menuitem">
               <a href="/account/history" onClick={this.handleGotoHistory}>我的订单</a>
             </li>
-            <li className="mdc-list-item" role="menuitem">
+            <li className="mdc-list-item my-account-item" role="menuitem">
               <a href="/account/details" onClick={this.handleGotoHistory}>我的账号</a>
             </li>
           </ul>

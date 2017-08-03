@@ -50,7 +50,7 @@ export default class MAppBar extends React.Component {
             color: #000;
           }
           .title.transparent {
-            color: #fff;
+            color: #000;
           }
           .mdc-temporary-drawer__header-content .title {
             color: #fff;
@@ -60,7 +60,7 @@ export default class MAppBar extends React.Component {
             margin-right: 20px;
           }
           .login-button.transparent {
-            color: #fff;
+            color: #000;
           }
           .align-center {
             align-items: center;
@@ -85,7 +85,7 @@ export default class MAppBar extends React.Component {
             box-sizing: border-box;
           }
           .menu-button.transparent {
-            color: #fff;
+            color: #000;
           }
           .mdc-temporary-drawer__header-content {
             border-bottom: solid 1px #ccc;
@@ -168,7 +168,7 @@ export default class MAppBar extends React.Component {
                     <a className={`login-button ${this.props.transparent ? 'transparent' : ''}`}>登陆</a>
                   </Link>
               }
-              <ShoppingCart transparent={this.props.transparent} />
+              <ShoppingCart />
             </div>
           </div>
         </div>

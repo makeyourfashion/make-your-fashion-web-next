@@ -30,11 +30,9 @@ export default class Payment extends React.Component {
             微信支付
           </button>
         </div>
-        <div className="short-input">
-          <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
-            下一步
-          </button>
-        </div>
+        <button onClick={this.props.onNext} className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+          下一步
+        </button>
       </div>
     );
   }

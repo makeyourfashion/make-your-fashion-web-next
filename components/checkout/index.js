@@ -128,6 +128,7 @@ export default class Checkout extends React.Component {
           }
           .main-form {
             border-bottom: 1px solid #000;
+            max-width: 500px;
           }
           .summary {
             font-weight: bold;
