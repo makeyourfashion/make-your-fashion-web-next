@@ -10,7 +10,7 @@ function handleScroll() {
   window.scrollTo(0, window.innerHeight - 100);
 }
 
-@inject('productStore', 'pictureStore') @observer
+@inject('productStore') @observer
 export default class Landing extends React.Component {
   state = {
     transparent: true,
@@ -18,7 +18,6 @@ export default class Landing extends React.Component {
 
   componentDidMount() {
     this.props.productStore.fetchAllProducts();
-    this.props.pictureStore.init();
     document.addEventListener('scroll', this.handleScroll);
   }
 
@@ -41,7 +40,7 @@ export default class Landing extends React.Component {
   }
 
   render() {
-    const { productStore, pictureStore } = this.props;
+    const { productStore } = this.props;
     return (
       <div>
         <Head />

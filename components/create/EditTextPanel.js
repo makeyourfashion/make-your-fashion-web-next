@@ -106,6 +106,10 @@ export default class EditTextPanel extends React.Component {
           .edit-text-panel {
             margin: 20px 0 40px 0;
           }
+          label {
+            display: block;
+            padding-bottom: 10px;
+          }
           .active-text {
             border: 1px solid #ff5a5f;
           }
@@ -114,7 +118,7 @@ export default class EditTextPanel extends React.Component {
             flex-wrap: wrap;
             justify-content: space-between;
           }
-          .select-list div {
+          .select-list > div {
             width: 47.5%;
           }
           .select-list div:not(:last-child) {
@@ -166,16 +170,22 @@ export default class EditTextPanel extends React.Component {
             </label>
           </div>
         </div>
-        <label htmlFor="align-select">对齐</label>
-        <div className="form-field" id="align-select">
-          <i onClick={this.handleAlignCenter} className={`icon-button material-icons ${text.align === 'center' ? 'active-text' : ''}`}>format_align_center</i>
-          <i onClick={this.handleAlignLeft} className={`icon-button material-icons ${text.align === 'left' ? 'active-text' : ''}`}>format_align_left</i>
-          <i onClick={this.handleAlignRight} className={`icon-button material-icons ${text.align === 'right' ? 'active-text' : ''}`}>format_align_right</i>
-        </div>
-        <label htmlFor="format-select">字体格式</label>
-        <div className="form-field" id="format-select">
-          <i onClick={this.handleBoldSelect} className={`icon-button material-icons ${text.bold ? 'active-text' : ''}`}>format_bold</i>
-          <i onClick={this.handleItalicSelect} className={`icon-button material-icons ${text.italic ? 'active-text' : ''}`}>format_italic</i>
+        <div className="select-list form-field">
+          <div>
+            <label htmlFor="align-select">对齐</label>
+            <div id="align-select">
+              <i onClick={this.handleAlignCenter} className={`icon-button material-icons ${text.align === 'center' ? 'active-text' : ''}`}>format_align_center</i>
+              <i onClick={this.handleAlignLeft} className={`icon-button material-icons ${text.align === 'left' ? 'active-text' : ''}`}>format_align_left</i>
+              <i onClick={this.handleAlignRight} className={`icon-button material-icons ${text.align === 'right' ? 'active-text' : ''}`}>format_align_right</i>
+            </div>
+          </div>
+          <div>
+            <label htmlFor="format-select">字体格式</label>
+            <div id="format-select">
+              <i onClick={this.handleBoldSelect} className={`icon-button material-icons ${text.bold ? 'active-text' : ''}`}>format_bold</i>
+              <i onClick={this.handleItalicSelect} className={`icon-button material-icons ${text.italic ? 'active-text' : ''}`}>format_italic</i>
+            </div>
+          </div>
         </div>
         <label htmlFor="color-picker">颜色</label>
         <CirclePicker
