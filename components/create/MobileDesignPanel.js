@@ -5,6 +5,7 @@ import Link from 'next/link';
 import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
 import OrderForm from './OrderForm';
+import SelectProduct from './SelectProduct';
 
 @inject('designStore') @observer
 export default class MobileDesignPanel extends React.Component {
@@ -199,11 +200,7 @@ export default class MobileDesignPanel extends React.Component {
                   className="details-text-tab tab-with-finish-button"
                 >
                   <nav>
-                    <Link href="/shop?category=2">
-                      <a className="bottom-button" href="0">
-                        产品
-                      </a>
-                    </Link>
+                    <a className="bottom-button" href="3" onClick={this.handleTabClick}>产品</a>
                     <a className="bottom-button" href="2" onClick={this.handleTabClick}>
                       图片
                     </a>
@@ -233,6 +230,9 @@ export default class MobileDesignPanel extends React.Component {
                       }
                       if (this.state.tabIndex === 2) {
                         return <SelectPicture onSelect={this.props.onSelect} />;
+                      }
+                      if (this.state.tabIndex === 3) {
+                        return <SelectProduct />;
                       }
                       return null;
                     })()

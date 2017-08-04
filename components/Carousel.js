@@ -55,6 +55,7 @@ export default class Carousel extends React.Component {
             vertical-align: middle !important;
           }
           .arrow-button {
+            z-index: 2;
             position: absolute !important;
             top: 50%;
             transform: translateY(-50%);

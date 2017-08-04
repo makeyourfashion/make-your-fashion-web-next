@@ -34,6 +34,19 @@ export default class Design extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.product.id !== nextProps.product.id) {
+      const activeImage = nextProps.product.imgFront;
+      nextProps.designStore.setActiveImageId('imgFront');
+
+      const image = new window.Image();
+      image.setAttribute('crossOrigin', 'anonymous');
+      image.src = activeImage;
+      image.onload = () => {
+        this.setState({
+          image,
+        });
+      };
+    }
     if (nextProps.editable !== this.props.editable) {
       if (nextProps.editable) {
         this.rect.show();

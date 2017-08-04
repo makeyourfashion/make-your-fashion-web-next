@@ -122,7 +122,7 @@ export default class Landing extends React.Component {
               margin-top: 30px;
             }
             .campaign-img {
-              transition: all 0.5s;
+              transition: all 0.45s;
             }
             .campaign-img:hover {
               transform: scale(1.1);
@@ -267,23 +267,6 @@ export default class Landing extends React.Component {
                   }
                 </Carousel>
               </div>
-              {/* <h2 className="campaign-title">热门设计图片</h2>
-              <div className="campaign-list">
-                <Carousel total={6}>
-                  {
-                    pictureStore.designs.values().map(pic => (
-                      <div key={pic.id} className="design-card image">
-                        <div
-                          className="design-img"
-                          style={{
-                            backgroundImage: `url(${pic.imgUrl})`,
-                          }}
-                        />
-                      </div>
-                    ))
-                  }
-                </Carousel>
-              </div> */}
             </div>
           </div>
           <Footer />

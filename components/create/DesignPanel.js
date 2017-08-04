@@ -1,7 +1,7 @@
 import React from 'react';
 import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import Link from 'next/link';
+import SelectProduct from './SelectProduct';
 import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
 import OrderForm from './OrderForm';
@@ -126,9 +126,7 @@ export default class DesignPanel extends React.Component {
                 <a className={`mdc-tab ${this.state.tabIndex === 0 ? 'mdc-tab--active' : ''}`} href="0" onClick={this.handleTabClick}>商品详情</a>
               ) : null
             }
-            <Link href="/shop?category=2">
-              <a className="mdc-tab" href="0">产品</a>
-            </Link>
+            <a className={`mdc-tab ${this.state.tabIndex === 3 ? 'mdc-tab--active' : ''}`} href="3" onClick={this.handleTabClick}>产品</a>
             <a className={`mdc-tab ${this.state.tabIndex === 2 ? 'mdc-tab--active' : ''}`} href="2" onClick={this.handleTabClick}>图片</a>
             <a className={`mdc-tab ${this.state.tabIndex === 1 ? 'mdc-tab--active' : ''}`} href="1" onClick={this.handleTabClick}>文字</a>
             <span className="mdc-tab-bar__indicator" />
@@ -152,6 +150,9 @@ export default class DesignPanel extends React.Component {
               }
               if (this.state.tabIndex === 2) {
                 return <SelectPicture onSelect={this.props.onSelect} />;
+              }
+              if (this.state.tabIndex === 3) {
+                return <SelectProduct />;
               }
               return null;
             })()
