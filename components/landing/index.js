@@ -52,7 +52,7 @@ export default class Landing extends React.Component {
             display: flex;
             flex-flow: column;
             height: 100vh;
-            max-height: 900px;
+            max-height: 650px;
           }
           .header {
             flex: 0 1 auto;
@@ -85,6 +85,7 @@ export default class Landing extends React.Component {
           }
 
           .campaign-list {
+            padding-bottom: 20px;
             margin-bottom: 10px;
           }
 
@@ -95,15 +96,20 @@ export default class Landing extends React.Component {
             display: inline-block;
             width: 19.4%;
             margin-right: 1%;
-            height: 250px;
-            transition: width 0.5s, height 0.5s;
+            height: 220px;
           }
 
           .campaign-img {
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-repeat: no-repeat;
-            height: 80%;
+          }
+          .img-wrapper {
+            height: 100%;
             width: 100%;
+            overflow: hidden;
+            display: block;
           }
           .design-img {
             background-size: cover;
@@ -111,38 +117,38 @@ export default class Landing extends React.Component {
             height: 100%;
             width: 100%;
           }
-          .design-card {
-            display: inline-block;
-            width: 16%;
-            margin-right: 1%;
-            height: 170px;
-            margin-bottom: 20px;
-            transition: width 1s;
-          }
           @media (min-width: 600px) {
             .landing-background {
               margin-top: 30px;
             }
-            .campaign-card:hover {
-              width: 21%;
+            .campaign-img {
+              transition: all 0.5s;
+            }
+            .campaign-img:hover {
+              transform: scale(1.1);
+            }
+            .expand-icon {
+              display: none;
             }
           }
+
           @media (max-width: 600px) {
             .landing-background {
               height: 400px;
               background-size: auto 100%;
             }
+            .expand-icon {
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%) scaleX(1.5);
+              color: #fff;
+              background-color: rgba(0,0,0,0);
+            }
             .campaign-card {
               width: 49%;
               margin-right: 2%;
-              height: 250px;
-            }
-            .campaign-img {
-              height: 70%;
-            }
-            .design-card {
-              width: 33%;
-              height: 100px;
+              height: 150px;
             }
           }
 
@@ -170,7 +176,6 @@ export default class Landing extends React.Component {
             background-color: rgba(0,0,0, 0.9);
             color: #fff;
           }
-
           .action-button2:hover {
             background-color: #fff;
             color: #000;
@@ -190,14 +195,6 @@ export default class Landing extends React.Component {
             justify-content: center;
             height: 40px;
             color: #fff;
-          }
-          .expand-icon {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%) scaleX(1.5);
-            color: #fff;
-            background-color: rgba(0,0,0,0);
           }
         `}</style>
         <div>
@@ -233,7 +230,7 @@ export default class Landing extends React.Component {
                     productStore.campaigns.values().map(campaign => (
                       <div key={campaign.id} className="campaign-card image">
                         <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
-                          <a>
+                          <a className="img-wrapper">
                             <div
                               className="campaign-img"
                               style={{
@@ -255,7 +252,7 @@ export default class Landing extends React.Component {
                     productStore.getProductsByCategory('all').map(product => (
                       <div key={product.id} className="campaign-card image">
                         <Link key={product.id} href={`/create?product=${product.id}`}>
-                          <a>
+                          <a className="img-wrapper">
                             <div
                               className="campaign-img"
                               style={{

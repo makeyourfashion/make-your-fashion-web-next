@@ -59,7 +59,7 @@ export default class MAppBar extends React.Component {
           .login-button {
             margin-right: 20px;
           }
-          .login-button.transparent {
+          .login-button {
             color: #000;
           }
           .align-center {

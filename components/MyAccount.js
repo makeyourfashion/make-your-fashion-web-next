@@ -52,11 +52,8 @@ export default class MyAccount extends React.Component {
           .myaccount-button {
             margin-right: 5px;
             padding: 0;
-            background-color: rgba(255, 255,255,0) !important;
-          }
-
-          .myaccount-button.transparent {
             color: #fff;
+            background-color: rgba(255, 255,255,0) !important;
           }
 
           @media (min-width: 600px) {
