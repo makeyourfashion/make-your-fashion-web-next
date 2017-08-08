@@ -146,7 +146,6 @@ export default class MAppBar extends React.Component {
                 }
               </nav>
             </div>
-            
           </nav>
         </aside>
         <div className={`app-bar ${this.props.transparent ? 'transparent' : ''}`}>

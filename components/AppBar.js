@@ -6,7 +6,12 @@ import Desktop from './Desktop';
 
 function AppBar({ transparent }) {
   return (
-    <div>
+    <div className="wrapper">
+      <style jsx>{`
+        .wrapper {
+          background-color: #fff;
+        }
+      `}</style>
       <Mobile>
         <MAppBar transparent={transparent} />
       </Mobile>

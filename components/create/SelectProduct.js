@@ -56,7 +56,7 @@ export default class SelectProduct extends React.Component {
           } 
           .campaign-card {
             display: inline-block;
-            width: 24%;
+            width: 32%;
             margin-right: 1%;
             height: 130px;
           }

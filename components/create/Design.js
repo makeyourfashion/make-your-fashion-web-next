@@ -118,7 +118,7 @@ export default class Design extends React.Component {
     const showCallToAction = (!this.props.designStore.design.texts.length)
       && (!this.props.designStore.design.images.length);
     return (
-      <div className="">
+      <div>
         <style jsx>{`
           .thumbnail {
             width: 80px;

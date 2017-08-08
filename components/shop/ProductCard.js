@@ -11,24 +11,27 @@ export default class ProductCard extends React.Component {
       <div className="product-card" onClick={this.handleProductSelect}>
         <style jsx>{`
           .product-card {
+            padding-bottom: 10px;
             width: 32%;
             max-width: 350px;
             min-width: 100px;
             margin-bottom: 40px;
-            padding-right: 10px;
+            margin-right: 1%;
           }
+
           .product-card:hover {
             cursor: pointer;
           }
           .product-card-image {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
             width: 100%;
             height: 100%;
-            background-color: rgb(245, 245, 245);
+            background-color: #f1f1f1;
           }
           .description {
             font-size: 0.95em;
             font-weight: 400;
-            margin-top: 10px;
             text-align: center;
           }
           .price-label {
@@ -36,8 +39,8 @@ export default class ProductCard extends React.Component {
           }
           @media (max-width: 599px) {
             .product-card {
-              width: 49%;
-              padding-right: 1%;
+              width: 48%;
+              margin-right: 2%;
             }
           }
         `}</style>

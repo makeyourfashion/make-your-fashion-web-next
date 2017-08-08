@@ -43,7 +43,7 @@ export default class DesignPanel extends React.Component {
 
   render() {
     return (
-      <div className="design-panel">
+      <div className="design-panel mdc-card">
         <style jsx>{`
           .details-text-tab {
             border-bottom: 1px solid #dedede;
@@ -54,9 +54,8 @@ export default class DesignPanel extends React.Component {
           }
           .design-panel {
             margin-top: 5%;
-          }
-          .mdc-tab {  
-            min-width: 0;
+            padding: 20px;
+            margin-bottom: 20px;
           }
           .mdc-tab-bar {
             width: 100%;

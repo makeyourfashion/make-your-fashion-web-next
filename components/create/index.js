@@ -205,15 +205,17 @@ export default class CreateView extends React.Component {
     const product = this.getProduct();
 
     return (
-      <div>
+      <div className="design-root">
         <style jsx>{`
+          .design-root {
+            background-color: #f4f7fa !important;
+          }
           .container {
-            max-width: 1280px;
+            max-width: 1100px;
           }
           .design-container {
             position: relative;
           }
-
           .select-list {
             display: flex;
             justify-content: space-between;
@@ -223,10 +225,6 @@ export default class CreateView extends React.Component {
           }
           .select-list div:not(:last-child) {
             margin-right: 5%;
-          }
-
-          @media (max-width: 600px) {
-            
           }
 
           .detail-img {
@@ -381,9 +379,9 @@ export default class CreateView extends React.Component {
                 />
                 <div className="desktop-button">
                   {
-                    this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--primary button-full-width add-to-cart-button">
+                    this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
                       更新购物车
-                    </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+                    </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
                       添加到购物车
                     </button>
                   }

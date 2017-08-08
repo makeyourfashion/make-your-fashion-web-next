@@ -63,7 +63,7 @@ export default class Landing extends React.Component {
           }
           .landing-background {
             width: 100%;
-            flex: 1 1 auto;
+            height: 60vh;
             background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/priscilla-du-preez-228220.jpg") no-repeat scroll center;
             background-size: 100% auto;
             margin: auto;
@@ -119,7 +119,7 @@ export default class Landing extends React.Component {
           }
           @media (min-width: 600px) {
             .landing-background {
-              margin-top: 30px;
+              margin-top: 84px;
             }
             .campaign-img {
               transition: all 0.45s;
@@ -134,8 +134,11 @@ export default class Landing extends React.Component {
 
           @media (max-width: 600px) {
             .landing-background {
-              height: 400px;
+              height: 100vh;
               background-size: auto 100%;
+            }
+            .container {
+              margin-top: 0 !important;
             }
             .expand-icon {
               position: absolute;
@@ -198,28 +201,21 @@ export default class Landing extends React.Component {
           }
         `}</style>
         <div>
-          <div className="initial-screen">
-            <div className="header">
-              {/* <div className="promotion-bar">
-                <div>开业大吉，全体商品最低八折！</div>
-              </div> */}
-              <AppBar transparent={this.state.transparent} />
+          <AppBar transparent={this.state.transparent} />
+          <div className="landing-background">
+            <div className="welcome">
+              <h2>开启你的时尚之旅</h2>
+              <Link href="/create?product=1">
+                <a className="mdc-button action-button action-button2">设计</a>
+              </Link>
+              <span style={{ margin: '0 15px 0 15px' }}>或</span>
+              <Link prefetch href="/shop?category=2">
+                <a className="mdc-button action-button action-button1">购物</a>
+              </Link>
             </div>
-            <div className="landing-background">
-              <div className="welcome">
-                <h2>开启你的时尚之旅</h2>
-                <Link href="/create?product=1">
-                  <a className="mdc-button action-button action-button2">设计</a>
-                </Link>
-                <span style={{ margin: '0 15px 0 15px' }}>或</span>
-                <Link prefetch href="/shop?category=2">
-                  <a className="mdc-button action-button action-button1">购物</a>
-                </Link>
-              </div>
-              <button onClick={handleScroll} className="icon-button expand-icon">
-                <i className="material-icons">expand_more</i>
-              </button>
-            </div>
+            <button onClick={handleScroll} className="icon-button expand-icon">
+              <i className="material-icons">expand_more</i>
+            </button>
           </div>
           <div className="container">
             <div className="main-content">
