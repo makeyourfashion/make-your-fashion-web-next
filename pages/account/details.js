@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
-import Head from '../../components/Head';
 import initCartStore from '../../stores/cart';
 import initIdentityStore from '../../stores/identity';
 import DetailsView from '../../components/account/details';
@@ -20,7 +19,6 @@ export default class History extends React.Component {
   render() {
     return (
       <div>
-        <Head />
         <Provider
           cartStore={initCartStore()}
           identityStore={this.identityStore}

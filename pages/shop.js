@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 import 'es6-promise';
-import Head from '../components/Head';
 import initProductStore from '../stores/product';
 import initCartStore from '../stores/cart';
 import ShopView from '../components/shop';
@@ -37,7 +36,6 @@ export default class Shop extends React.Component {
   render() {
     return (
       <div>
-        <Head />
         <Provider
           cartStore={initCartStore()}
           productStore={this.productStore}

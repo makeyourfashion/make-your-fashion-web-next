@@ -52,7 +52,8 @@ export default class MyAccount extends React.Component {
           .myaccount-button {
             margin-right: 5px;
             padding: 0;
-            color: #fff;
+            color: #000;
+            font-size: 1em;
             background-color: rgba(255, 255,255,0) !important;
           }
 

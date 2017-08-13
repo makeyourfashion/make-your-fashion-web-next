@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
-import Head from '../components/Head';
 import initCartStore from '../stores/cart';
 import initIdentityStore from '../stores/identity';
 import initProductStore from '../stores/product';
@@ -9,7 +8,6 @@ import LoginView from '../components/login';
 function Login({ redirect }) {
   return (
     <div>
-      <Head />
       <Provider
         cartStore={initCartStore()}
         identityStore={initIdentityStore()}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { autorun } from 'mobx';
+import { MDCTabBar } from '@material/tabs/dist/mdc.tabs';
 import { inject, observer } from 'mobx-react';
 import SelectProduct from './SelectProduct';
 import SelectPicture from './SelectPicture';
@@ -22,7 +23,11 @@ export default class DesignPanel extends React.Component {
   }
 
   state = {
-    tabIndex: this.props.tabId || 0,
+    tabIndex: this.props.tabId || 2,
+  }
+
+  componentDidMount() {
+    MDCTabBar.attachTo(this.tabs);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,7 +58,7 @@ export default class DesignPanel extends React.Component {
             position: relative;
           }
           .design-panel {
-            margin-top: 5%;
+            margin-top: 10%;
             padding: 20px;
             margin-bottom: 20px;
           }
@@ -119,7 +124,7 @@ export default class DesignPanel extends React.Component {
         <div
           className="details-text-tab"
         >
-          <nav className="mdc-tab-bar">
+          <nav ref={(r) => { this.tabs = r; }} className="mdc-tab-bar">
             {
               this.props.isDetailsVisible ? (
                 <a className={`mdc-tab ${this.state.tabIndex === 0 ? 'mdc-tab--active' : ''}`} href="0" onClick={this.handleTabClick}>商品详情</a>

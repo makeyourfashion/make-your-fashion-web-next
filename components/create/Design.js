@@ -7,7 +7,6 @@ import {
   RECT_WIDTH,
   RECT_HEIGHT,
 } from './consts';
-import BubbleButton from '../BubbleButton';
 
 @inject('designStore') @observer
 export default class Design extends React.Component {
@@ -173,20 +172,6 @@ export default class Design extends React.Component {
           }
         `}</style>
         <div style={{ height: `${CANVAS_HEIGHT}px` }} id="create-shirt-canvas">
-          {
-            showCallToAction ? (
-              <div className="call-to-action">
-                <BubbleButton data-tab-id={2} onTouchStart={this.handleMenuClick} onClick={this.handleMenuClick}>
-                  <i className="material-icons">add</i>
-                </BubbleButton>
-              </div>
-            ) : null
-          }
-          {
-            showCallToAction ? (
-              <div className="action-des">点击开设定制</div>
-            ) : null
-          }
           {
             (() => {
               if (typeof window === 'undefined') {

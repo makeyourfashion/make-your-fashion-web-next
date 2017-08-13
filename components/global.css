@@ -16,7 +16,7 @@ button {
   font-family: Helvetica Neue For Number,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,sans-serif;
 }
 body {
-  background-color: #fff;
+  background-color: #fdfdf9;
 }
 
 a {
@@ -44,6 +44,7 @@ ul {
   border: none;
   background-color: rgba(255,255,255,0);
   margin-right: 10px;
+  color: #000;
 }
 
 .mdc-card {
@@ -65,7 +66,7 @@ ul {
   margin: auto;
   padding: 10px 8px 0 8px;
   max-width: 1280px;
-  min-height: 72vh;
+  min-height: 78vh;
 }
 
 .button-full-width {
@@ -128,4 +129,20 @@ body {
     min-height: 0;
     padding: 10px;
   }
+}
+
+.mdc-tab-bar__indicator {
+  height: 3px;
+  background-color: #ff5a5f;
+}
+.mdc-toolbar__row {
+  padding: 0;
+}
+
+.border-button {
+  padding: 10px 54px 10px 54px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  border: 2px solid #000;
 }

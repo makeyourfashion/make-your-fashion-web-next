@@ -1,15 +1,14 @@
-import Head from 'next/head';
-import React from 'react';
-import styles from './global.css';
+import Document, { Main, NextScript, Head } from 'next/document';
+import styles from '../components/global.css';
 
-export default class _Head extends React.Component {
+export default class MyDocument extends Document {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
-  render() {
+  render () {
     return (
-      <div>
+      <html lang="en-US">
         <Head>
           <title>意栈网</title>
           {/*<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
@@ -20,7 +19,11 @@ export default class _Head extends React.Component {
           <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500" />
           <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
         </Head>
-      </div>
-    )
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 let store = null;
 class CartStore {
@@ -15,6 +15,10 @@ class CartStore {
 
   getCartItem(id) {
     return this.cartItems.slice().find(item => +id === item.id);
+  }
+
+  @computed get numOfItems() {
+    return this.cartItems.map(c => c.qty).reduce((a, b) => a + b, 0);
   }
 
   @action addCartItem(item) {

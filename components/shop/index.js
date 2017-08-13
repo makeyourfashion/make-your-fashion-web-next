@@ -150,21 +150,6 @@ export default class ShopView extends React.Component {
                             <ProductCard key={product.id} product={product} />
                           ))
                         }
-                        {
-                          campaigns.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                          ))
-                        }
-                        {
-                          campaigns.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                          ))
-                        }
-                        {
-                          campaigns.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                          ))
-                        }
                       </div>
                     );
                   }

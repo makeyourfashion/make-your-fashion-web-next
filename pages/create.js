@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
-import Head from '../components/Head';
 import initProductStore from '../stores/product';
 import initCartStore from '../stores/cart';
 import CreateView from '../components/create';
@@ -48,7 +47,6 @@ export default class Create extends React.Component {
   render() {
     return (
       <div>
-        <Head />
         <Provider
           cartStore={this.cartStore}
           identityStore={initIdentityStore()}

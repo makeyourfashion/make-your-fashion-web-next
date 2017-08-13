@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider } from 'mobx-react';
 import initCartStore from '../stores/cart';
 import initIdentityStore from '../stores/identity';
-import CheckoutView from '../components/checkout';
+import CartView from '../components/cart';
 import initProductStore from '../stores/product';
 
-function Checkout({ redirect }) {
+function Cart({ redirect }) {
   return (
     <div>
       <Provider
@@ -13,10 +13,10 @@ function Checkout({ redirect }) {
         identityStore={initIdentityStore()}
         productStore={initProductStore()}
       >
-        <CheckoutView redirect={redirect} />
+        <CartView redirect={redirect} />
       </Provider>
     </div>
   );
 }
 
-export default Checkout;
+export default Cart;

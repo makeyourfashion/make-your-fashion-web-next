@@ -2,8 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { isEmpty, range } from 'lodash';
 import Router from 'next/router';
-import AppBar from '../AppBar';
-import Footer from '../Footer';
+import withLayout from '../Layout';
 import Design from './Design';
 import Snackbar from '../Snackbar';
 import DesignPanel from './DesignPanel';
@@ -24,7 +23,7 @@ function getCanvasImgUrl() {
   return resizedCanvas.toDataURL();
 }
 
-@inject('productStore', 'cartStore', 'identityStore', 'designStore') @observer
+@withLayout @inject('productStore', 'cartStore', 'identityStore', 'designStore') @observer
 export default class CreateView extends React.Component {
   constructor(props) {
     super(props);
@@ -205,14 +204,8 @@ export default class CreateView extends React.Component {
     const product = this.getProduct();
 
     return (
-      <div className="design-root">
+      <div>
         <style jsx>{`
-          .design-root {
-            background-color: #f4f7fa !important;
-          }
-          .container {
-            max-width: 1100px;
-          }
           .design-container {
             position: relative;
           }
@@ -226,7 +219,6 @@ export default class CreateView extends React.Component {
           .select-list div:not(:last-child) {
             margin-right: 5%;
           }
-
           .detail-img {
             width: 100%;
             margin-top: 20px;
@@ -348,7 +340,6 @@ export default class CreateView extends React.Component {
             </div>
           </div>
         </Modal>
-        <AppBar />
         <div className="container">
           <div className="mdc-layout-grid design-container">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-7 mdc-layout-grid__cell--span-12-tablet">
@@ -419,7 +410,6 @@ export default class CreateView extends React.Component {
             message="成功添加至购物车"
           />
         </div>
-        <Footer />
       </div>
     );
   }

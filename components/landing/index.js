@@ -1,16 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { inject, observer } from 'mobx-react';
-import Head from '../Head';
-import AppBar from '../AppBar';
-import Footer from '../Footer';
+import withLayout from '../Layout';
 import Carousel from '../Carousel';
+import Ratings from '../Ratings';
 
 function handleScroll() {
   window.scrollTo(0, window.innerHeight - 100);
 }
 
-@inject('productStore') @observer
+@withLayout @inject('productStore') @observer
 export default class Landing extends React.Component {
   state = {
     transparent: true,
@@ -43,7 +42,6 @@ export default class Landing extends React.Component {
     const { productStore } = this.props;
     return (
       <div>
-        <Head />
         <style jsx>{`
           .container {
             margin: auto;
@@ -60,6 +58,14 @@ export default class Landing extends React.Component {
           .main-content {
             max-width: 1050px;
             margin: auto;
+            margin-top: 40px;
+          }
+          .cat-label {
+            margin-bottom: 40px;
+            text-align: center;
+          }
+          .cat-label h3 {
+            margin: 20px 0 30px;
           }
           .landing-background {
             width: 100%;
@@ -68,7 +74,42 @@ export default class Landing extends React.Component {
             background-size: 100% auto;
             margin: auto;
             position: relative;
-            max-width: 1440px;
+            max-width: 1800px;
+          }
+          .split-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #9b9b9b;
+            margin-bottom: 40px;
+          }
+          .split-line .line {
+            background-color: #ccc;
+            width: 47%;
+            height: 1px;
+          }
+          .split-line .label {
+            white-space: nowrap;
+          }
+          .categories-container {
+            margin-top: 40px;
+            padding-bottom: 20px;
+            border-bottom: solid 1px #ccc;
+          }
+          .woman-tee, .man-tee {
+            width: 100%;
+            background-size: 100% auto;
+            margin: auto;
+            height: 300px;
+          }
+          .woman-tee {
+            background: url("/static/image/ladies_tshirts.jpg") no-repeat scroll center;
+          }
+          .man-tee {
+            background: url("/static/image/mens_tshirts.jpg") no-repeat scroll center;
+          }
+          .description {
+            font-size: 11px !important;
           }
           .welcome {
             position: absolute;
@@ -89,13 +130,12 @@ export default class Landing extends React.Component {
             margin-bottom: 10px;
           }
 
-          .campaign-list:not(:last-child) {
-            border-bottom: solid 1px #ccc;
-          }
           .campaign-card {
             display: inline-block;
-            width: 19.4%;
-            margin-right: 1%;
+            margin-bottom: 5px;
+            width: calc(20% - 10px);
+            position: relative;
+            margin: 2px 9px 2px 1px;
             height: 220px;
           }
 
@@ -137,6 +177,9 @@ export default class Landing extends React.Component {
               height: 100vh;
               background-size: auto 100%;
             }
+            .woman-tee, .man-tee {
+              background-size: auto 100%;
+            }
             .container {
               margin-top: 0 !important;
             }
@@ -159,10 +202,8 @@ export default class Landing extends React.Component {
             background: rgba(0, 0, 0, .4);
           }
           .campaign-title {
-            margin-top: 50px;
             padding-bottom: 5px;
             font-size: 1.3em;
-            border-bottom: solid 1px #ccc;
           }
           .action-button {
             height: 48px;
@@ -172,12 +213,12 @@ export default class Landing extends React.Component {
             transition: background-color 0.7s ease;
           }
           .action-button1 {
-            background-color: rgba(255,255,255, 0.9);
+            background-color: rgba(255,255,255, 0.95);
             color: #000;
           }
           .action-button2 {
-            background-color: rgba(0,0,0, 0.9);
-            color: #fff;
+            background-color: rgba(255,212,35, 0.95);
+            color: #000;
           }
           .action-button2:hover {
             background-color: #fff;
@@ -187,8 +228,22 @@ export default class Landing extends React.Component {
             background-color: #000;
             color: #fff;
           }
-          .campaign-card h4 {
+          .campaign-card .details {
+            position: absolute;
+            bottom: 0;
+            left: -1px;
+            width: 96%;
+            background: rgba(0, 0, 0, .4);
+            padding: 5% 0 5% 5%;
+          }
+          .details h4 {
+            color: #fff;
             text-align: center;
+            margin: 5px 0 5px 0;
+          }
+          .details div {
+            font-size: 13px;
+            color: #ccc;
           }
           .promotion-bar {
             text-align: center;
@@ -199,18 +254,28 @@ export default class Landing extends React.Component {
             height: 40px;
             color: #fff;
           }
+          .campaign-title span {
+            font-size: 13px;
+            color: #9b9b9b;
+            padding-left: 10px;
+            font-weight: 300;
+          }
+          .rating :global(.ratings-list) {
+            transform: scale(0.8);
+            margin: auto;
+          }
+          .line1 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
         `}</style>
         <div>
-          <AppBar transparent={this.state.transparent} />
           <div className="landing-background">
             <div className="welcome">
-              <h2>开启你的时尚之旅</h2>
+              <h2>定制你的专属世界</h2>
               <Link href="/create?product=1">
-                <a className="mdc-button action-button action-button2">设计</a>
-              </Link>
-              <span style={{ margin: '0 15px 0 15px' }}>或</span>
-              <Link prefetch href="/shop?category=2">
-                <a className="mdc-button action-button action-button1">购物</a>
+                <a className="mdc-button action-button action-button2">开始定制</a>
               </Link>
             </div>
             <button onClick={handleScroll} className="icon-button expand-icon">
@@ -218,13 +283,39 @@ export default class Landing extends React.Component {
             </button>
           </div>
           <div className="container">
+            <div className="categories-container">
+              <div className="split-line">
+                <div className="line" />
+                <div className="label">热门类别</div>
+                <div className="line" />
+              </div>
+              <div className="woman-tee" />
+              <div className="cat-label">
+                <h3>女士体恤</h3>
+                <Link href="shop?category=2">
+                  <a className="border-button">立即前往</a>
+                </Link>
+              </div>
+              <div className="man-tee" />
+              <div className="cat-label">
+                <h3>男士体恤</h3>
+                <Link href="shop?category=1">
+                  <a className="border-button">立即前往</a>
+                </Link>
+              </div>
+            </div>
             <div className="main-content">
-              <h2 className="campaign-title">近期活动</h2>
+              <div className="line1">
+                <h2 className="campaign-title">近期活动</h2>
+                <Link href="/shop?campaign=1">
+                  <a>更多</a>
+                </Link>
+              </div>
               <div className="campaign-list">
                 <Carousel total={5}>
                   {
                     productStore.campaigns.values().map(campaign => (
-                      <div key={campaign.id} className="campaign-card image">
+                      <div key={campaign.id} className="mdc-elevation--z1 campaign-card image">
                         <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
                           <a className="img-wrapper">
                             <div
@@ -235,18 +326,25 @@ export default class Landing extends React.Component {
                             />
                           </a>
                         </Link>
-                        <h4>{campaign.name}</h4>
+                        <div className="details">
+                          <h4>{campaign.name}</h4>
+                        </div>
                       </div>
                     ))
                   }
                 </Carousel>
               </div>
-              <h2 className="campaign-title">热门单品</h2>
+              <div className="line1">
+                <h2 className="campaign-title">热门单品<span>你的专属定制，一件即可定制</span></h2>
+                <Link href="/shop?category=1">
+                  <a>更多</a>
+                </Link>
+              </div>
               <div className="campaign-list">
                 <Carousel total={5}>
                   {
                     productStore.getProductsByCategory('all').map(product => (
-                      <div key={product.id} className="campaign-card image">
+                      <div key={product.id} className="mdc-elevation--z1 campaign-card product-card image">
                         <Link key={product.id} href={`/create?product=${product.id}`}>
                           <a className="img-wrapper">
                             <div
@@ -257,7 +355,13 @@ export default class Landing extends React.Component {
                             />
                           </a>
                         </Link>
-                        <h4>{product.name}</h4>
+                        <div className="details">
+                          <div className="line1">
+                            <h4>{product.name}</h4>
+                            <span className="rating"><Ratings rating={product.ratings} /></span>
+                          </div>
+                          <div className="description">{product.description}</div>
+                        </div>
                       </div>
                     ))
                   }
@@ -265,7 +369,6 @@ export default class Landing extends React.Component {
               </div>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     );
