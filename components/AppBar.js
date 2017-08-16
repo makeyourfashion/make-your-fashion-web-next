@@ -91,17 +91,17 @@ export default class DeskAppBar extends React.Component {
               display: none;
             }
             aside {
-              margin-top: 46px;
+              margin-top: 50px;
             }
             .mdc-toolbar__row {
-              min-height: 46px !important;
+              min-height: 50px !important;
             }
             .mdc-tab-bar {
-              min-height: 46px;
-              height: 46px;
+              min-height: 50px;
+              height: 50px;
             }
             :global(div.container) {
-              margin-top: 46px;
+              margin-top: 50px;
             }
             .promotion-bar {
               height: 2px;

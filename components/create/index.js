@@ -200,22 +200,25 @@ export default class CreateView extends React.Component {
     const product = this.getProduct();
 
     return (
-      <div>
+      <div className="create-design">
         <style jsx>{`
           .design-container {
             position: relative;
             border-bottom: solid 1px #dedede;
             max-width: 1150px;
           }
+          .create-design :global(.mdc-dialog__surface) {
+            max-width: 600px;
+          }
           .select-list {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
           }
           .select-list > div {
-            width: 47.5%;
-          }
-          .select-list div:not(:last-child) {
-            margin-right: 5%;
+            max-width: 400px;
+            margin: 20px 0 20px;
+            width: 100%;
           }
           .detail-img {
             width: 100%;
@@ -266,9 +269,6 @@ export default class CreateView extends React.Component {
             .add-to-cart-button {
               margin-top: 0;
               width: 50%;
-            }
-            .select-list {
-              margin-bottom: 40px;
             }
           }
         `}</style>

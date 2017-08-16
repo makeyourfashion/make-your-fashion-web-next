@@ -91,6 +91,9 @@ export default class Cart extends React.Component {
             align-items: center;
             justify-content: space-between;
           }
+          .container {
+            max-width: 600px !important;
+          }
 
           .cart-item {
             margin: auto;
@@ -136,9 +139,7 @@ export default class Cart extends React.Component {
             margin: auto;
             max-width: 350px;
           }
-          .container {
-            max-width: 1024px;
-          }
+
           .steps {
             display: flex;
             justify-content: space-between;

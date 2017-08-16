@@ -16,13 +16,12 @@ export default class Modal extends React.Component {
         <style jsx>{`
           .modal-body {
             max-height: 80%;
-          }
-          .mdc-dialog__surface {
-            max-height: 100%;
+            min-height: 76vh;
           }
           @media (max-width: 599px) {
             .mdc-dialog__surface {
-              width: 100%;
+              min-width: 100%;
+              min-height: 100vh;
             }
           }
         `}</style>
