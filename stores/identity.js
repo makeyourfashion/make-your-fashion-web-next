@@ -14,16 +14,21 @@ class IdentityStore {
   @observable error = null
   @observable histories = []
 
-  constructor(histories = []) {
+  constructor(histories = [], { id, phone, name, address, email } = {}) {
     this.isServer = typeof window === 'undefined';
-    if (!this.isServer) {
-      this.initSession();
-    }
     this.histories = histories;
+    this.id = id;
+    this.name = name;
+    this.phone = phone;
+    this.address = address;
+    this.email = email;
   }
 
   async initSession() {
-    const res = await fetch('/api/users', {
+    if (this.id) {
+      return;
+    }
+    const res = await fetch(`${HOST}api/users`, {
       credentials: 'include',
     });
     try {
@@ -46,7 +51,7 @@ class IdentityStore {
   @action async login(userInfo) {
     this.isLoading = true;
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch('api/login', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -54,7 +59,9 @@ class IdentityStore {
         },
         body: JSON.stringify(userInfo),
       });
-      const user = await res.json();
+      const response = await res.json();
+      const { user, token } = response;
+      document.cookie = `user_id=${token}`;
       this.id = user.id;
       this.name = user.name;
       this.address = user.address;
@@ -67,13 +74,6 @@ class IdentityStore {
 
     this.isLoading = false;
   }
-
-  // @action async saveAccountDetails(details) {
-  //   this.name = details.name;
-  //   this.phone = details.phone;
-  //   this.address = details.address;
-  //   this.email = details.email;
-  // }
 
   @action async fetchHistories() {
     if (!this.histories.length) {
@@ -90,20 +90,12 @@ class IdentityStore {
     this.isLoading = false;
   }
 
-  @action async logout() {
-    await fetch('/api/logout', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(() => {
-      this.name = null;
-      this.phone = null;
-      this.address = null;
-      this.email = null;
-      Router.push('/login');
-    });
+  logout() {
+    this.name = null;
+    this.phone = null;
+    this.address = null;
+    this.email = null;
+    document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
   @action async createAccount(account) {
@@ -157,9 +149,9 @@ class IdentityStore {
   }
 }
 
-export default function init(histories) {
+export default function init(histories, identity) {
   if (store === null || typeof window === 'undefined') {
-    store = new IdentityStore(histories);
+    store = new IdentityStore(histories, identity);
   }
   return store;
 }

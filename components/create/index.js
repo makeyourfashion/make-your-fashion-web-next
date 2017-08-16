@@ -106,11 +106,7 @@ export default class CreateView extends React.Component {
   }
 
   handleCheckout = () => {
-    if (this.props.identityStore.isLoggedIn) {
-      Router.push('/checkout');
-    } else {
-      Router.push(`/login?redirect=${encodeURIComponent('/checkout')}`);
-    }
+    Router.push('/checkout');
   }
 
   handleAddToCart = () => {
@@ -208,6 +204,8 @@ export default class CreateView extends React.Component {
         <style jsx>{`
           .design-container {
             position: relative;
+            border-bottom: solid 1px #dedede;
+            max-width: 1150px;
           }
           .select-list {
             display: flex;
@@ -222,9 +220,6 @@ export default class CreateView extends React.Component {
           .detail-img {
             width: 100%;
             margin-top: 20px;
-          }
-          .design-container {
-            border-bottom: solid 1px #dedede;
           }
           .detail-img-list {
             max-width: 800px;

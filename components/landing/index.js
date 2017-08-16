@@ -211,22 +211,11 @@ export default class Landing extends React.Component {
             font-size: 16px;
             font-weight: bold;
             transition: background-color 0.7s ease;
-          }
-          .action-button1 {
-            background-color: rgba(255,255,255, 0.95);
-            color: #000;
-          }
-          .action-button2 {
             background-color: rgba(255,212,35, 0.95);
-            color: #000;
           }
-          .action-button2:hover {
+          .action-button:hover {
             background-color: #fff;
             color: #000;
-          }
-          .action-button1:hover {
-            background-color: #000;
-            color: #fff;
           }
           .campaign-card .details {
             position: absolute;
@@ -275,7 +264,7 @@ export default class Landing extends React.Component {
             <div className="welcome">
               <h2>定制你的专属世界</h2>
               <Link href="/create?product=1">
-                <a className="mdc-button action-button action-button2">开始定制</a>
+                <a className="mdc-button action-button">开始定制</a>
               </Link>
             </div>
             <button onClick={handleScroll} className="icon-button expand-icon">

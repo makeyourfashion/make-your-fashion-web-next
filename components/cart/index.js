@@ -122,6 +122,11 @@ export default class Cart extends React.Component {
             text-align: center;
             border-bottom: 1px solid #dedede;
           }
+          .empty-tag {
+            text-align: center;
+            margin: 40px 0 40px;
+            border-bottom: solid 1px #ccc;
+          }
           .main-form {
             border-bottom: 1px solid #000;
             max-width: 500px;
@@ -146,6 +151,9 @@ export default class Cart extends React.Component {
           .active-step {
             color: #000;
           }
+          .design-button {
+            margin: 40px 0 40px;
+          }
           .des-line1 {
             display: flex;
             justify-content: space-between;
@@ -162,47 +170,62 @@ export default class Cart extends React.Component {
         <div className="container">
           <div>
             <h2>购物车</h2>
-            <ul className="cart-list">
             {
-              cartItems.map((item) => {
-                const productDetail = this.props.productStore
-                  .getProduct(item.productId) || {};
-                return (
-                  <div key={item.id} className="cart-item">
-                    <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
-                    <div className="cart-des">
-                      <div className="des-line1">
-                        <div className="product-name">{productDetail.name}</div>
-                        <div>
-                          <Link href={`/create?cart=${item.id}`}>
-                            <a className="edit-link">编辑</a>
-                          </Link>
-                          <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+              cartItems.length ? (
+                <div>
+                  <ul className="cart-list">
+                  {
+                    cartItems.map((item) => {
+                      const productDetail = this.props.productStore
+                        .getProduct(item.productId) || {};
+                      return (
+                        <div key={item.id} className="cart-item">
+                          <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
+                          <div className="cart-des">
+                            <div className="des-line1">
+                              <div className="product-name">{productDetail.name}</div>
+                              <div>
+                                <Link href={`/create?cart=${item.id}`}>
+                                  <a className="edit-link">编辑</a>
+                                </Link>
+                                <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+                              </div>
+                            </div>
+                            <div className="label">¥100</div>
+                            <div className="label label-list">
+                              <div>尺码：</div>
+                              <div>{item.size}</div>
+                            </div>
+                            <div className="label label-list">
+                              <div>数量：</div>
+                              <div>{item.qty}</div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="label">¥100</div>
-                      <div className="label label-list">
-                        <div>尺码：</div>
-                        <div>{item.size}</div>
-                      </div>
-                      <div className="label label-list">
-                        <div>数量：</div>
-                        <div>{item.qty}</div>
-                      </div>
+                      );
+                    })
+                  }
+                  </ul>
+                  <div className="summary">
+                    <div className="label-list">
+                      <div>商品总价：<span>¥{totalPrice}</span></div>
+                      <Link href="/checkout">
+                        <a className="border-button">结账</a>
+                      </Link>
                     </div>
                   </div>
-                );
-              })
+                </div>
+              ) : (
+                <div className="empty-tag">
+                  您的购物车为空
+                  <div className="design-button">
+                    <Link href="/create?product=1">
+                      <a className="border-button">立即开始定制</a>
+                    </Link>
+                  </div>
+                </div>
+              )
             }
-            </ul>
-            <div className="summary">
-              <div className="label-list">
-                <div>商品总价：<span>¥{totalPrice}</span></div>
-                <Link href="/checkout">
-                  <a className="border-button">结账</a>
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </div>
