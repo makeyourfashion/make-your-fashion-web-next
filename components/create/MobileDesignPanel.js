@@ -94,7 +94,6 @@ export default class MobileDesignPanel extends React.Component {
             width: 100%;
             max-width: 600px;
           }
-
           .main-content {
             margin-top: 20px;
           }
@@ -126,7 +125,7 @@ export default class MobileDesignPanel extends React.Component {
               top: 0;
               right: 0;
             }
-            
+
             .tab-with-finish-button {
               width: 70% !important;
               margin-left: 0;
@@ -221,7 +220,7 @@ export default class MobileDesignPanel extends React.Component {
               </div>
             ) : (
               <div>
-                <button onTouchStart={this.handleToggleMobileOpen} onClick={this.handleToggleMobileOpen} className="close-button icon-button">&#10006;</button>
+                <button onTouchStart={this.handleToggleMobileOpen} className="close-button icon-button">&#10006;</button>
                 <div className="main-content">
                   {
                     (() => {

@@ -219,7 +219,10 @@ export default class Checkout extends React.Component {
                               <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
                             </div>
                           </div>
-                          <div className="label">¥100</div>
+                          <div className="label label-list">
+                            <div>单价：</div>
+                            <div>¥{item.price}</div>
+                          </div>
                           <div className="label label-list">
                             <div>尺码：</div>
                             <div>{item.size}</div>

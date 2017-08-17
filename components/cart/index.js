@@ -85,6 +85,10 @@ export default class Cart extends React.Component {
         <style jsx>{`
           .cart-list {
             border-bottom: 1px solid #dedede;
+            margin-bottom: 40px;
+          }
+          .card-container {
+            margin-top: 20px;
           }
           .label-list {
             display: flex;
@@ -97,31 +101,28 @@ export default class Cart extends React.Component {
 
           .cart-item {
             margin: auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             height: 100%;
             display: flex;
             justify-content: space-between;
             width: 350px;
             max-width: 100%;
           }
-          .cart-image {
-            width: 34%;
-          }
+
           .cart-des {
             width: 66%;
             padding-left: 20px;
           }
           .label {
-            font-size: 0.9em;
+            font-size: 0.8em;
+            font-weight: bold;
             margin: 5px 0 5px 0;
           }
           .product-name {
             font-weight: bold;
-            font-size: 1.1em;
           }
           h2 {
-            padding-bottom: 10px;
+            padding-bottom: 30px;
             text-align: center;
             border-bottom: 1px solid #dedede;
           }
@@ -155,13 +156,11 @@ export default class Cart extends React.Component {
           .design-button {
             margin: 40px 0 40px;
           }
-          .des-line1 {
-            display: flex;
-            justify-content: space-between;
-          }
           .edit-link {
             color: #ff5a5f;
             border: none;
+            font-size: 0.8em;
+            padding-right: 0;
             background-color: #fdfdf9;
           }
           .edit-link:hover {
@@ -169,21 +168,21 @@ export default class Cart extends React.Component {
           }
         `}</style>
         <div className="container">
-          <div>
+          <div className="card-container">
             <h2>购物车</h2>
             {
               cartItems.length ? (
                 <div>
-                  <ul className="cart-list">
+                  <ul className="mdc-list cart-list">
                   {
                     cartItems.map((item) => {
                       const productDetail = this.props.productStore
                         .getProduct(item.productId) || {};
                       return (
-                        <div key={item.id} className="cart-item">
-                          <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
+                        <li key={item.id} className="mdc-list-item cart-item">
+                          <img className="cart-image" alt="product" height={150} width={150} src={item.imgUrl} />
                           <div className="cart-des">
-                            <div className="des-line1">
+                            <div>
                               <div className="product-name">{productDetail.name}</div>
                               <div>
                                 <Link href={`/create?cart=${item.id}`}>
@@ -192,7 +191,10 @@ export default class Cart extends React.Component {
                                 <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
                               </div>
                             </div>
-                            <div className="label">¥100</div>
+                            <div className="label label-list">
+                              <div>单价：</div>
+                              <div>¥{item.price}</div>
+                            </div>
                             <div className="label label-list">
                               <div>尺码：</div>
                               <div>{item.size}</div>
@@ -202,7 +204,7 @@ export default class Cart extends React.Component {
                               <div>{item.qty}</div>
                             </div>
                           </div>
-                        </div>
+                        </li>
                       );
                     })
                   }

@@ -28,7 +28,7 @@ function CartIcon({ cartStore }) {
           justify-content: center;
         }
       `}</style>
-      <Link href="cart">
+      <Link href="/cart">
         <a>
           <div className="cart-icon">
             <i className="material-icons icon-button">shopping_cart</i>

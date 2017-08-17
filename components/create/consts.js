@@ -2,7 +2,7 @@ let canvasWidth = 100;
 let canvasHeight = 100;
 if (typeof window !== 'undefined') {
   if (window.matchMedia('(min-width: 700px)').matches) {
-    const maxWidth = window.innerHeight * 0.6;
+    const maxWidth = window.innerHeight * 0.7;
     canvasWidth = maxWidth > 650 ? 650 : maxWidth;
     canvasHeight = canvasWidth;
   } else {

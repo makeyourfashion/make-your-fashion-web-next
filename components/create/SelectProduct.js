@@ -70,6 +70,7 @@ export default class SelectProduct extends React.Component {
             }
             .campaign-card {
               height: 70px;
+              width: 19%;
             }
           }
           .img-wrapper {
