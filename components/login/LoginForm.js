@@ -79,28 +79,51 @@ export default class LoginForm extends React.Component {
           .login-button {
             margin-top: 20px;
           }
+
+          .form-field-wrapper {
+            display: inline-block;
+            max-width: 300px;
+            width: 100%;
+          }
+          .mdc-list-item {
+            height: inherit;
+          }
         `}</style>
-        <div className="form-container">
-          <h2 className="text-center">已经拥有账号</h2>
+        <div>
+          <h2 className="text-center">登录账户</h2>
           <form noValidate onSubmit={this.handleLogin}>
-            <TextInput
-              label="手机号"
-              type="tel"
-              displayError={this.state.phoneError}
-              onChange={this.handlePhoneChange}
-              onBlur={this.handlePhoneValidation}
-              value={this.state.phone}
-            />
-            <TextInput
-              label="密码"
-              displayError={this.state.passwordError}
-              type="password"
-              onChange={this.handlePasswordChange}
-              onBlur={this.handlePasswordValidation}
-              value={this.state.password}
-            />
-            <Checkbox checked={this.state.rememberPassword} onChange={this.handleRememberPasswordChange}>记住密码</Checkbox>
-            <button type="submit" className="login-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+            <ul className="mdc-list">
+              <li className="mdc-list-item">
+                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">phone</i>
+                <div className="form-field-wrapper">
+                  <TextInput
+                    label="手机号"
+                    type="tel"
+                    displayError={this.state.phoneError}
+                    onChange={this.handlePhoneChange}
+                    onBlur={this.handlePhoneValidation}
+                    value={this.state.phone}
+                  />
+                </div>
+              </li>
+              <li className="mdc-list-item">
+                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">vpn_key</i>
+                <div className="form-field-wrapper">
+                  <TextInput
+                    label="密码"
+                    displayError={this.state.passwordError}
+                    type="password"
+                    onChange={this.handlePasswordChange}
+                    onBlur={this.handlePasswordValidation}
+                    value={this.state.password}
+                  />
+                </div>
+              </li>
+            </ul>
+            <button onClick={this.props.onRegister} className="link-button">
+              还没有帐号？点击注册
+            </button>
+            <button type="submit" className="login-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
               登录
             </button>
           </form>

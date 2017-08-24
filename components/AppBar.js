@@ -22,9 +22,6 @@ export default class DeskAppBar extends React.Component {
     return (
       <div>
         <style jsx>{`
-          aside {
-            margin-top: 64px;
-          }
           .mdc-toolbar__row {
             min-height: 64px !important;
           }
@@ -38,8 +35,8 @@ export default class DeskAppBar extends React.Component {
           }
 
           .app-bar {
-            z-index: 99999;
-            background-color: rgba(253,253,249, 1);
+            z-index: 2;
+            background-color: rgba(255,255,255, 1);
             position: fixed;
             top: 0;
             left: 0;
@@ -89,9 +86,6 @@ export default class DeskAppBar extends React.Component {
             }
             .top-nav {
               display: none;
-            }
-            aside {
-              margin-top: 55px;
             }
             .mdc-toolbar__row {
               min-height: 55px !important;

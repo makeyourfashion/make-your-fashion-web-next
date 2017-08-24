@@ -8,8 +8,9 @@ import initDesignStore from '../stores/design';
 import initPictureStore from '../stores/picture';
 
 export default class Create extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ query, req }) {
     const productStore = initProductStore();
+    const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
     if (query.product) {
       await productStore.fetchProduct(query.product);
     }
@@ -17,6 +18,7 @@ export default class Create extends React.Component {
       products: productStore.products,
       productId: query.product,
       cartId: query.cart,
+      userAgent,
     };
   }
 
@@ -54,7 +56,7 @@ export default class Create extends React.Component {
           designStore={this.designStore}
           pictureStore={this.pictureStore}
         >
-          <CreateView productId={this.props.productId} cartId={this.props.cartId} />
+          <CreateView userAgent={this.props.userAgent} productId={this.props.productId} cartId={this.props.cartId} />
         </Provider>
       </div>
     );

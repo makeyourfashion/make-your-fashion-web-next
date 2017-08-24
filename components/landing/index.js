@@ -211,7 +211,7 @@ export default class Landing extends React.Component {
             font-size: 16px;
             font-weight: bold;
             transition: background-color 0.7s ease;
-            background-color: rgba(255,212,35, 0.95);
+            background-color: rgba(255,235,59, 0.95);
           }
           .action-button:hover {
             background-color: #fff;

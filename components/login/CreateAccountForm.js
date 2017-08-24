@@ -92,35 +92,60 @@ export default class CreateAccountForm extends React.Component {
           .create-account-button {
             margin-top: 20px;
           }
+          .form-field-wrapper {
+            display: inline-block;
+            max-width: 300px;
+            width: 100%;
+          }
+          .mdc-list-item {
+            height: inherit;
+          }
         `}</style>
-        <div className="form-container">
-          <h2 className="text-center">还没有账号</h2>
+        <div>
+          <h2 className="text-center">注册新用户</h2>
           <form noValidate onSubmit={this.handleCreateAccount}>
-            <TextInput
-              label="手机号"
-              type="tel"
-              displayError={this.state.phoneError}
-              onChange={this.handlePhoneChange}
-              onBlur={this.handlePhoneValidation}
-              value={this.state.phone}
-            />
-            <TextInput
-              label="密码(至少8位)"
-              displayError={this.state.passwordError}
-              type="password"
-              onChange={this.handlePasswordChange}
-              onBlur={this.handlePasswordValidation}
-              value={this.state.password}
-            />
-            <TextInput
-              label="确认密码"
-              displayError={this.state.passwordConfirmError}
-              type="password"
-              onChange={this.handlePasswordConfirmChange}
-              onBlur={this.handlePasswordConfirmValidation}
-              value={this.state.passwordConfirm}
-            />
-            <button type="submit" className="create-account-button mdc-button mdc-button--raised mdc-button--primary button-full-width">
+            <ul className="mdc-list">
+              <li className="mdc-list-item">
+                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">phone</i>
+                <div className="form-field-wrapper">
+                  <TextInput
+                    label="手机号"
+                    type="tel"
+                    displayError={this.state.phoneError}
+                    onChange={this.handlePhoneChange}
+                    onBlur={this.handlePhoneValidation}
+                    value={this.state.phone}
+                  />
+                </div>
+              </li>
+              <li className="mdc-list-item">
+                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">vpn_key</i>
+                <div className="form-field-wrapper">
+                  <TextInput
+                    label="密码(至少8位)"
+                    displayError={this.state.passwordError}
+                    type="password"
+                    onChange={this.handlePasswordChange}
+                    onBlur={this.handlePasswordValidation}
+                    value={this.state.password}
+                  />
+                </div>
+              </li>
+              <li className="mdc-list-item">
+                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">vpn_key</i>
+                <div className="form-field-wrapper">
+                  <TextInput
+                    label="确认密码"
+                    displayError={this.state.passwordConfirmError}
+                    type="password"
+                    onChange={this.handlePasswordConfirmChange}
+                    onBlur={this.handlePasswordConfirmValidation}
+                    value={this.state.passwordConfirm}
+                  />
+                </div>
+              </li>
+            </ul>
+            <button type="submit" className="create-account-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
               创建账号
             </button>
           </form>

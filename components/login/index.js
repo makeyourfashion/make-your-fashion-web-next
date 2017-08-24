@@ -2,40 +2,51 @@ import React from 'react';
 import Router from 'next/router';
 import LoginForm from './LoginForm';
 import CreateAccountForm from './CreateAccountForm';
-import AppBar from '../AppBar';
-import Footer from '../Footer';
+import withLayout from '../Layout';
 
+@withLayout
 export default class LoginView extends React.Component {
+  state = {
+    showCreateAccount: false,
+  }
   handleRedirect = () => {
     Router.push(this.props.redirect || '/');
+  }
+
+  handleRegister = () => {
+    this.setState({
+      showCreateAccount: true,
+    });
   }
 
   render() {
     return (
       <div>
         <style global jsx>{`
-          .form-container {
+          .login-card {
+            max-width: 400px;
+            background-color: #fff;
             margin: auto;
-            max-width: 350px;
+            margin-top: 20px;
+            padding: 20px 20px 40px 20px;
           }
-          @media (min-width: 840px) {
-            .create-account-section {
-              border-left: 1px solid #dedede;
+          @media (min-width: 600px) {
+            .login-card {
+              margin-top: 64px;
             }
           }
         `}</style>
-        <AppBar />
         <div className="container">
-          <div className="mdc-layout-grid">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-              <LoginForm onSuccess={this.handleRedirect} />
-            </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 create-account-section">
-              <CreateAccountForm onSuccess={this.handleRedirect} />
-            </div>
+          <div className="mdc-elevation--z1 login-card">
+            {
+              this.state.showCreateAccount ? (
+                <CreateAccountForm onSuccess={this.handleRedirect} />
+              ) : (
+                <LoginForm onRegister={this.handleRegister} onSuccess={this.handleRedirect} />
+              )
+            }
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

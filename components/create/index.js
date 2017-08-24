@@ -1,5 +1,6 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { inject, observer, Provider } from 'mobx-react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { isEmpty, range } from 'lodash';
 import Router from 'next/router';
 import withLayout from '../Layout';
@@ -11,6 +12,8 @@ import Desktop from '../Desktop';
 import Mobile from '../Mobile';
 import MobileDesignPanel from './MobileDesignPanel';
 import { SelectField, SelectItem } from '../SelectField';
+import ViewStore from './viewStore';
+import Stepper from './Stepper';
 
 function getCanvasImgUrl() {
   const canvas = document.querySelector('canvas');
@@ -25,35 +28,27 @@ function getCanvasImgUrl() {
 
 @withLayout @inject('productStore', 'cartStore', 'identityStore', 'designStore') @observer
 export default class CreateView extends React.Component {
-  constructor(props) {
-    super(props);
-    let order;
-    if (this.props.cartId) {
-      const { size, qty } = this.props.cartStore.getCartItem(this.props.cartId);
-      order = {
-        size, qty, sizeError: '', qtyError: '',
-      };
-    } else {
-      order = { sizeError: '', qtyError: '' };
-    }
-    this.state = {
-      isPromptNextOpen: false,
-      editable: true,
-      tabId: 0,
-      showSuccessMessage: false,
-      order,
-      isSelectPicModalOpen: false,
-    };
-  }
-
+  state = {
+    isPromptNextOpen: false,
+    editable: true,
+    showSuccessMessage: false,
+    order: {},
+    showDesignPanel: true,
+  };
   componentDidMount() {
     document.addEventListener('click', this.handleToggleEditable);
     document.addEventListener('touchstart', this.handleToggleEditable);
+    if (window.matchMedia('(min-width: 840px)').matches) {
+      document.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleToggleEditable);
     document.removeEventListener('touchstart', this.handleToggleEditable);
+    if (window.matchMedia('(min-width: 840px)').matches) {
+      document.removeEventListener('scroll', this.handleScroll);
+    }
   }
 
   getProduct() {
@@ -70,11 +65,26 @@ export default class CreateView extends React.Component {
     return this.props.productStore.getProduct(productId);
   }
 
+  viewStore = new ViewStore();
+
   handleSelect = (id, imgUrl) => {
     this.props.designStore.addImage(id, imgUrl);
-    this.setState({
-      isSelectPicModalOpen: false,
-    });
+  }
+
+  handleScroll = () => {
+    if (window.pageYOffset < 400) {
+      if (!this.state.showDesignPanel) {
+        this.setState({
+          showDesignPanel: true,
+        });
+      }
+    } else {
+      if (this.state.showDesignPanel) {
+        this.setState({
+          showDesignPanel: false,
+        });
+      }
+    }
   }
 
   handleToggleEditable = (e) => {
@@ -92,24 +102,19 @@ export default class CreateView extends React.Component {
     }
   }
 
-  handleClosePictureModal = () => {
-    this.setState({
-      isSelectPicModalOpen: false,
-    });
-  }
-
-  handleSelectPicture = (tabId) => {
-    this.setState({
-      isSelectPicModalOpen: true,
-      tabId,
-    });
-  }
-
   handleCheckout = () => {
     Router.push('/checkout');
   }
 
-  handleAddToCart = () => {
+  nextStep = () => {
+    if (this.viewStore.step === 3) {
+      return this.handleAddToCart(false);
+    } else {
+      return this.viewStore.nextStep();
+    }
+  }
+
+  handleAddToCart = (openModal = true) => {
     const { size, qty } = this.state.order;
     const errors = {};
 
@@ -125,7 +130,7 @@ export default class CreateView extends React.Component {
           ...this.state.order,
           ...errors,
         },
-        isPromptNextOpen: true,
+        isPromptNextOpen: true && openModal,
       });
       return;
     }
@@ -160,30 +165,6 @@ export default class CreateView extends React.Component {
     }, 4000);
   }
 
-  handleUpdateCart = () => {
-    this.setState({
-      showSuccessMessage: true,
-      editable: false,
-    }, () => {
-      window.setTimeout(() => {
-        const { size, qty } = this.state.order;
-        const newCartItem = {
-          id: +this.props.cartId,
-          size,
-          qty: +qty,
-          imgUrl: getCanvasImgUrl(),
-          ...this.props.designStore.design,
-        };
-        this.props.cartStore.updateCartItem(newCartItem);
-      }, 500);
-    });
-    window.setTimeout(() => {
-      this.setState({
-        showSuccessMessage: false,
-      });
-    }, 4000);
-  }
-
   handleOrderChange = (order) => {
     this.setState({
       order,
@@ -198,214 +179,270 @@ export default class CreateView extends React.Component {
 
   render() {
     const product = this.getProduct();
+    const viewStore = this.viewStore;
+    const step = viewStore.step;
 
     return (
-      <div className="create-design">
-        <style jsx>{`
-          .design-container {
-            position: relative;
-            border-bottom: solid 1px #dedede;
-            max-width: 1150px;
-          }
-          .create-design :global(.mdc-dialog__surface) {
-            max-width: 600px;
-          }
-          .select-list {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-          .select-list > div {
-            max-width: 400px;
-            margin: 20px 0 20px;
-            width: 100%;
-          }
-          .detail-img {
-            width: 100%;
-            margin-top: 20px;
-          }
-          .detail-img-list {
-            max-width: 800px;
-            margin: auto;
-          }
-          .title {
-            margin: 40px 0 10px 0;
-            padding-bottom: 10px;
-            border-bottom: solid 1px #dedede;
-            font-weight: 500;
-          }
-          .desktop-button .add-to-cart-button {
-            height: 50px !important;
-            font-weight: bold !important;
-          }
-          
-          @media (min-width: 600px) {
-            .action-area {
-              display: none;
+      <Provider viewStore={this.viewStore} >
+        <div className="create-design">
+          <Desktop><Stepper /></Desktop>
+          <style jsx>{`
+            .design-container {
+              position: relative;
+              border-bottom: solid 1px #dedede;
+              max-width: 1150px;
             }
-          }
 
-          @media (max-width: 600px) {
-            .action-area {
+            .create-design :global(.mdc-dialog__surface) {
+              max-width: 600px;
+            }
+            .select-list {
               display: flex;
-              justify-content: space-around;
+              flex-direction: column;
               align-items: center;
-              position: fixed;
-              bottom: 0;
-              left: 0;
+            }
+            .select-list > div {
+              max-width: 400px;
+              margin: 20px 0 20px;
               width: 100%;
-              background-color: rgba(253,253,249, 1);
-              border-top: 1px solid #dedede;
-              height: 60px;
             }
-            .rate-img {
-              width: 70px;
-              height: 12px;
+            .detail-img {
+              width: 100%;
+              margin-top: 20px;
             }
-            .price-tag {
-              font-size: 13px;
-              font-weight: bold;
+            .detail-img-list {
+              max-width: 800px;
+              margin: auto;
             }
-            .add-to-cart-button {
-              margin-top: 0;
-              width: 50%;
+            .title {
+              margin: 40px 0 10px 0;
+              padding-bottom: 10px;
+              border-bottom: solid 1px #dedede;
+              font-weight: 500;
             }
-          }
-        `}</style>
-        <Modal onClose={this.handleClosePictureModal} open={this.state.isSelectPicModalOpen} title="选择设计图案" >
-          <DesignPanel
-            onOrderChange={this.handleOrderChange}
-            editable={this.state.editable}
-            product={product}
-            order={this.state.order}
-            onSelect={this.handleSelect}
-            tabId={this.state.tabId}
-          />
-        </Modal>
-        <Modal
-          onClose={this.closePromptNext}
-          open={this.state.isPromptNextOpen}
-          onAccept={this.handleAddToCart}
-          title="选择尺码与数量"
-        >
-          <div className="select-list">
-            <div>
-              <label htmlFor="select-size">
-                选择尺码：
-                <SelectField
-                  id="select-size"
-                  value={this.state.order.size}
-                  onChange={(value) => {
-                    this.handleOrderChange({
-                      ...this.state.order,
-                      size: value,
-                    });
-                  }}
-                >
-                  {
-                    product.sizes.split(',').map(n =>
-                      <SelectItem key={n} value={n}>{n}</SelectItem>,
-                    )
-                  }
-                </SelectField>
-              </label>
-              <div className="error-msg">{this.state.order.sizeError}</div>
-            </div>
-            <div>
-              <label htmlFor="select-size">
-                选择数量：
-                <SelectField
-                  id="select-size"
-                  value={this.state.order.qty}
-                  onChange={(value) => {
-                    this.handleOrderChange({
-                      ...this.state.order,
-                      qty: value,
-                    });
-                  }}
-                >
-                  {
-                    range(1, 12).map(n =>
-                      <SelectItem key={n} value={n}>{n}</SelectItem>,
-                    )
-                  }
-                </SelectField>
-              </label>
-              <div className="error-msg">{this.state.order.qtyError}</div>
-            </div>
-          </div>
-        </Modal>
-        <div className="container">
-          <div className="mdc-layout-grid design-container">
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-7 mdc-layout-grid__cell--span-12-tablet">
-              {
-                product ? (
-                  <div className="design-area">
-                    <Design
-                      onSelectPicture={this.handleSelectPicture}
-                      editable={this.state.editable}
-                      product={product}
-                    />
-                  </div>
-                ) : null
+            .desktop-button {
+              padding-top: 20px;
+              border-top: solid 1px #ccc;
+              display: flex;
+            }
+            .desktop-button .add-to-cart-button {
+              height: 50px !important;
+              font-weight: bold !important;
+            }
+
+            .desktop-button button:not(:last-child) {
+              margin-right: 20px;
+            }
+            .design-panel {
+              padding: 20px;
+              margin-bottom: 20px;
+              background-color: #fff;
+            }
+            @media (min-width: 840px) {
+              .design-panel {
+                width: 400px;
+                max-width: 30%;
+                position: fixed;
+                top: 100px;
               }
+            }
+            .panel-container-main {
+              height: 550px;
+            }
+
+            .design-panel-enter {
+              opacity: 0.01;
+            }
+
+            .design-panel-enter.design-panel-enter-active {
+              opacity: 1;
+              transition: opacity 500ms ease-in;
+            }
+
+            .design-panel-leave {
+              opacity: 1;
+            }
+
+            .design-panel-leave.design-panel-leave-active {
+              opacity: 0.01;
+              transition: opacity 500ms ease-in;
+            }
+            
+            @media (min-width: 600px) {
+              .action-area {
+                display: none;
+              }
+              .container {
+                margin-top: 80px !important;
+              }
+            }
+
+            @media (max-width: 600px) {
+              .action-area {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: rgba(253,253,249, 1);
+                border-top: 1px solid #dedede;
+                height: 60px;
+              }
+              .rate-img {
+                width: 70px;
+                height: 12px;
+              }
+              .price-tag {
+                font-size: 13px;
+                font-weight: bold;
+              }
+              .add-to-cart-button {
+                margin-top: 0;
+                width: 50%;
+              }
+            }
+          `}</style>
+          <Modal
+            onClose={this.closePromptNext}
+            open={this.state.isPromptNextOpen}
+            onAccept={this.handleAddToCart}
+            title="选择尺码与数量"
+          >
+            <div className="select-list">
+              <div>
+                <label htmlFor="select-size">
+                  选择尺码：
+                  <SelectField
+                    id="select-size"
+                    value={this.state.order.size}
+                    onChange={(value) => {
+                      this.handleOrderChange({
+                        ...this.state.order,
+                        size: value,
+                      });
+                    }}
+                  >
+                    {
+                      product.sizes.split(',').map(n =>
+                        <SelectItem key={n} value={n}>{n}</SelectItem>,
+                      )
+                    }
+                  </SelectField>
+                </label>
+                <div className="error-msg">{this.state.order.sizeError}</div>
+              </div>
+              <div>
+                <label htmlFor="select-size">
+                  选择数量：
+                  <SelectField
+                    id="select-size"
+                    value={this.state.order.qty}
+                    onChange={(value) => {
+                      this.handleOrderChange({
+                        ...this.state.order,
+                        qty: value,
+                      });
+                    }}
+                  >
+                    {
+                      range(1, 12).map(n =>
+                        <SelectItem key={n} value={n}>{n}</SelectItem>,
+                      )
+                    }
+                  </SelectField>
+                </label>
+                <div className="error-msg">{this.state.order.qtyError}</div>
+              </div>
             </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet">
-              <Desktop>
-                <DesignPanel
-                  onOrderChange={this.handleOrderChange}
-                  editable={this.state.editable}
-                  product={product}
-                  order={this.state.order}
-                  onSelect={this.handleSelect}
-                  onUpdateCart={this.handleUpdateCart}
-                  onAddToCart={this.handleAddToCart}
-                  tabId={0}
-                  isDetailsVisible
-                />
-                <div className="desktop-button">
-                  {
-                    this.props.cartId ? <button onClick={this.handleUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                      更新购物车
-                    </button> : <button onClick={this.handleAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                      添加到购物车
-                    </button>
-                  }
-                </div>
-              </Desktop>
+          </Modal>
+          <div className="container">
+            <div className="mdc-layout-grid design-container">
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--order-2">
+                <Desktop>
+                  <ReactCSSTransitionGroup
+                    transitionName="design-panel"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                  >
+                    {
+                      this.state.showDesignPanel ? (
+                        <div className="mdc-elevation--z1 design-panel">
+                          <div className="panel-container-main">
+                            <DesignPanel
+                              onOrderChange={this.handleOrderChange}
+                              editable={this.state.editable}
+                              product={product}
+                              order={this.state.order}
+                              onSelect={this.handleSelect}
+                              onAddToCart={this.handleAddToCart}
+                              isDetailsVisible
+                            />
+                          </div>
+                          <div className="desktop-button">
+                            {
+                              step > 0 ? <button onClick={viewStore.preStep} className="add-to-cart-button mdc-button--raised mdc-button button-full-width">
+                                <i className="material-icons">keyboard_arrow_left</i>
+                                {viewStore.preStepName}
+                              </button> : null
+                            }
+                            <button onClick={this.nextStep} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                              {
+                                step === 3 ? '添加至购物车' : `${viewStore.nextStepName}`
+                              }
+                              <i className="material-icons">keyboard_arrow_right</i>
+                            </button>
+                          </div>
+                        </div>
+                      ) : null
+                    }
+                  </ReactCSSTransitionGroup>
+                </Desktop>
+              </div>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-7 mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--order-1">
+                {
+                  product ? (
+                    <div className="design-area">
+                      <Design
+                        editable={this.state.editable}
+                        product={product}
+                      />
+                    </div>
+                  ) : null
+                }
+              </div>
             </div>
-          </div>
-          <Mobile>
-            <MobileDesignPanel
-              onOrderChange={this.handleOrderChange}
-              editable={this.state.editable}
-              product={product}
-              order={this.state.order}
-              onSelect={this.handleSelect}
-              onUpdateCart={this.handleUpdateCart}
-              onAddToCart={this.handleAddToCart}
-              tabId={0}
-              showFinishButton
-              isDetailsVisible
+            <div className="detail-img-list">
+              <h3 className="title">商品详情：</h3>
+              <img className="detail-img" src="/static/image/1.jpg" alt="img" />
+              <img className="detail-img" src="/static/image/2.jpg" alt="img" />
+              <img className="detail-img" src="/static/image/3.jpg" alt="img" />
+              <img id="size-chart" className="detail-img" src="/static/image/4.png" alt="img" />
+              <img className="detail-img" src="/static/image/5.jpg" alt="img" />
+              <img className="detail-img" src="/static/image/6.jpg" alt="img" />
+            </div>
+            <Mobile>
+              <MobileDesignPanel
+                onOrderChange={this.handleOrderChange}
+                editable={this.state.editable}
+                product={product}
+                order={this.state.order}
+                onSelect={this.handleSelect}
+                onAddToCart={this.handleAddToCart}
+                showFinishButton
+                isDetailsVisible
+              />
+            </Mobile>
+            <Snackbar
+              open={this.state.showSuccessMessage}
+              onAction={this.handleCheckout}
+              actionText="结账"
+              message="成功添加至购物车"
             />
-          </Mobile>
-          <div className="detail-img-list">
-            <h3 className="title">商品详情：</h3>
-            <img className="detail-img" src="/static/image/1.jpg" alt="img" />
-            <img className="detail-img" src="/static/image/2.jpg" alt="img" />
-            <img className="detail-img" src="/static/image/3.jpg" alt="img" />
-            <img className="detail-img" src="/static/image/4.png" alt="img" />
-            <img className="detail-img" src="/static/image/5.jpg" alt="img" />
-            <img className="detail-img" src="/static/image/6.jpg" alt="img" />
           </div>
-          <Snackbar
-            open={this.state.showSuccessMessage}
-            onAction={this.handleCheckout}
-            actionText="结账"
-            message="成功添加至购物车"
-          />
         </div>
-      </div>
+      </Provider>
     );
   }
 }

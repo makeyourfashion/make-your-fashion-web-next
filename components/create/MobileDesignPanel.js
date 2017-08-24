@@ -209,13 +209,9 @@ export default class MobileDesignPanel extends React.Component {
                   </nav>
                 </div>
                 <div className="mobile-button">
-                  {
-                    this.props.cartId ? <button onClick={this.props.onUpdateCart} className="mdc-button mdc-button--raised mdc-button--accent button-full-width add-to-cart-button">
-                      更新购物车
-                    </button> : <button onClick={this.props.onAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                      加入购物车
-                    </button>
-                  }
+                  <button onClick={this.props.onAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                    加入购物车
+                  </button>
                 </div>
               </div>
             ) : (

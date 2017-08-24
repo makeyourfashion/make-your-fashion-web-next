@@ -1,14 +1,13 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';
-import AppBar from '../../AppBar';
-import Footer from '../../Footer';
+import withLayout from '../../Layout';
 
 const STATUS = {
   placed: '已下单',
 };
 
-@inject('identityStore') @observer
+@withLayout @inject('identityStore') @observer
 export default class HistoryView extends React.Component {
 
   render() {
@@ -101,7 +100,6 @@ export default class HistoryView extends React.Component {
             margin-bottom: 40px
           }
         `}</style>
-        <AppBar />
         <div className="container">
           <h1>购物历史</h1>
           {
@@ -180,7 +178,6 @@ export default class HistoryView extends React.Component {
             })
           }
         </div>
-        <Footer />
       </div>
     );
   }

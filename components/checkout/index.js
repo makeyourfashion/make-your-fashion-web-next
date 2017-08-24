@@ -1,17 +1,15 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import Router from 'next/router';
 import Link from 'next/link';
 import 'isomorphic-fetch';
-import AppBar from '../AppBar';
-import Footer from '../Footer';
+import withLayout from '../Layout';
 import ShippingDetail from './ShippingDetail';
 import Payment from './Payment';
 import PlaceOrder from './PlaceOrder';
 import Snackbar from '../Snackbar';
 import { placeOrder } from '../../stores/action';
 
-@inject('cartStore', 'productStore', 'identityStore') @observer
+@withLayout @inject('cartStore', 'productStore', 'identityStore') @observer
 export default class Checkout extends React.Component {
   state = {
     step: 0,
@@ -127,7 +125,6 @@ export default class Checkout extends React.Component {
             padding-bottom: 5px;
           }
           .main-form {
-            border-bottom: 1px solid #000;
             max-width: 500px;
           }
           .summary {
@@ -163,7 +160,6 @@ export default class Checkout extends React.Component {
             cursor: pointer;
           }
         `}</style>
-        <AppBar />
         <div className="container">
           <div className="mdc-layout-grid">
             <div className="main-form mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
@@ -262,7 +258,6 @@ export default class Checkout extends React.Component {
             message="成功下单"
           />
         </div>
-        <Footer />
       </div>
     );
   }

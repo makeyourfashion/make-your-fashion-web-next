@@ -1,12 +1,11 @@
 import React from 'react';
 import { observable, autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import AppBar from '../../AppBar';
-import Footer from '../../Footer';
+import withLayout from '../../Layout';
 import TextInput from '../../TextInput';
 import Snackbar from '../../Snackbar';
 
-@inject('identityStore') @observer
+@withLayout @inject('identityStore') @observer
 export default class HistoryView extends React.Component {
   constructor(props) {
     super(props);
@@ -63,71 +62,57 @@ export default class HistoryView extends React.Component {
             letter-spacing: 2px;
             padding-bottom: 5px;
             border-bottom: 2px solid #000;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
           }
-          .container {
+          .login-container {
             max-width: 500px;
-          }
-          .short-input {
-            max-width: 500px;
+            margin: auto;
+            margin-top: 64px;
           }
           form {
             margin-bottom: 40px;
           }
-          @media (max-width: 600px) {
-            .short-input {
-              max-width: 100%;
-            }
-            .save-button {
-              width: 100%;
-            }
+          button {
+            margin-top: 20px; 
           }
         `}</style>
-        <AppBar />
         <div className="container">
-          <h1>我的个人信息</h1>
-          <form onSubmit={this.handleSave}>
-            <div className="short-input">
+          <div className="login-container mdc-elevation--z1">
+            <h1>我的个人信息</h1>
+            <form onSubmit={this.handleSave}>
               <TextInput
                 label="姓名："
                 onChange={this.handleNameChange}
                 value={this.name}
               />
-            </div>
-            <div className="short-input">
               <TextInput
                 label="详细地址："
                 multiline
                 onChange={this.handleAddressChange}
                 value={this.address}
               />
-            </div>
-            <div className="short-input">
               <TextInput
                 label="手机号："
                 type="tel"
                 onChange={this.handlePhoneChange}
                 value={this.phone}
               />
-            </div>
-            <div className="short-input">
               <TextInput
                 label="Email："
                 type="email"
                 onChange={this.handleEmailChange}
                 value={this.email}
               />
-            </div>
-            <button type="submit" className="mdc-button mdc-button--raised button-full-width mdc-button--primary save-button">
-              更新个人信息
-            </button>
-          </form>
-          <Snackbar
-            open={this.showSuccessMessage}
-            message="成功修改个人信息"
-          />
+              <button type="submit" className="mdc-button mdc-button--raised button-full-width mdc-button--accent save-button">
+                更新个人信息
+              </button>
+            </form>
+            <Snackbar
+              open={this.showSuccessMessage}
+              message="成功修改个人信息"
+            />
+          </div>
         </div>
-        <Footer />
       </div>
     );
   }

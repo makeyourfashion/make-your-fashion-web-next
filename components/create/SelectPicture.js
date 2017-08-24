@@ -30,7 +30,10 @@ export default class SelectPicture extends React.Component {
           .picture-list {
             margin-top: 10px;
             margin: 40px 0 20px 0;
-            max-height: 350px;
+            display: flex;
+            flex-wrap: wrap;
+            max-height: 450px;
+            overflow: auto;
           }
           .category-list {
             margin-top: 10px;
@@ -88,17 +91,15 @@ export default class SelectPicture extends React.Component {
           }
         </div>
         <div className="picture-list">
-          <Carousel total={5}>
-            {
-              pictures.map(pic => (
-                <PictureCard
-                  key={pic.id}
-                  onSelect={this.props.onSelect}
-                  picture={pic}
-                />
-              ))
-            }
-          </Carousel>
+          {
+            pictures.map(pic => (
+              <PictureCard
+                key={pic.id}
+                onSelect={this.props.onSelect}
+                picture={pic}
+              />
+            ))
+          }
         </div>
       </div>
     );

@@ -31,13 +31,10 @@ export default class ShopView extends React.Component {
 
   render() {
     const menu = (
-      <div className="left-menu">
+      <div>
         <style jsx>{`
           .label {
             border-bottom: 2px solid #000;
-          }
-          .category-list {
-            margin-bottom: 10px;
           }
           @media (min-width: 600px) {
             .label {
@@ -46,38 +43,40 @@ export default class ShopView extends React.Component {
             }
           }
         `}</style>
-        <div><span className="label">热门主题</span></div>
-        <ul>
-          {
-            this.props.productStore.campaigns.values().map(campaign => (
-              <li key={campaign.id} className="category-list">
-                <Link href={`/shop?campaign=${campaign.id}`}>
-                  <a
-                    style={{
-                      color: `${campaign.id === +this.props.campaign ? '#00b2a6' : '#737373'}`,
-                    }}
-                  >{campaign.name}</a>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-        <div><span className="label">类别</span></div>
-        <ul>
-          {
-            this.props.productStore.categories.values().map(cat => (
-              <li className="category-list" key={cat.id}>
-                <Link href={`/shop?category=${cat.id}`}>
-                  <a
-                    style={{
-                      color: `${cat.id === +this.props.category ? '#00b2a6' : '#737373'}`,
-                    }}
-                  >{cat.name}</a>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
+        <div className="mdc-list-group">
+          <h3 className="mdc-list-group__subheader">热门主题</h3>
+          <ul className="mdc-list mdc-list--dense">
+            {
+              this.props.productStore.campaigns.values().map(campaign => (
+                <li key={campaign.id} className="mdc-list-item">
+                  <Link href={`/shop?campaign=${campaign.id}`}>
+                    <a
+                      style={{
+                        color: `${campaign.id === +this.props.campaign ? '#00b2a6' : '#737373'}`,
+                      }}
+                    >{campaign.name}</a>
+                  </Link>
+                </li>
+              ))
+            }
+          </ul>
+          <h3 className="mdc-list-group__subheader">类别</h3>
+          <ul className="mdc-list mdc-list--dense">
+            {
+              this.props.productStore.categories.values().filter(cat => cat.id).map(cat => (
+                <li className="mdc-list-item" key={cat.id}>
+                  <Link href={`/shop?category=${cat.id}`}>
+                    <a
+                      style={{
+                        color: `${cat.id === +this.props.category ? '#00b2a6' : '#737373'}`,
+                      }}
+                    >{cat.name}</a>
+                  </Link>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     );
 
@@ -93,12 +92,15 @@ export default class ShopView extends React.Component {
             justify-content: flex-start;
           }
           .category {
-            text-align: center;
-            font-size: 2em;
-            font-weight: 600;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #dedede;
-            letter-spacing: 5px;
+            margin-left: 1.5%;
+          }
+          .category span {
+            color: #ff5a5f;
+          }
+          @media (max-width: 599px) {
+            .category {
+              display: none;
+            }
           }
           .sub-category {
             text-align: center;
@@ -118,9 +120,6 @@ export default class ShopView extends React.Component {
         `}</style>
         <AppBar />
         <div className="container">
-          <h1 className="category">
-            { headLine }
-          </h1>
           <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-12-phone">
               <Desktop>
@@ -135,6 +134,7 @@ export default class ShopView extends React.Component {
               </div>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+              <h3 className="category"><span>"{ headLine }" </span>搜索结果</h3>
               {
                 (() => {
                   const campaigns = this.props.campaign

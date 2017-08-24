@@ -60,6 +60,11 @@ export default class SelectProduct extends React.Component {
             margin-right: 1%;
             height: 130px;
           }
+          @media (min-width: 600px) and (max-width: 840px) {
+            .campaign-card {
+              height: 230px;
+            }
+          }
           @media (max-width: 600px) {
             .product-list {
               padding-bottom: 10px;
@@ -82,7 +87,7 @@ export default class SelectProduct extends React.Component {
           .campaign-img {
             width: 100%;
             height: 100%;
-            background-size: cover;
+            background-size: 100% auto;
             background-repeat: no-repeat;
           }
           .active-product {

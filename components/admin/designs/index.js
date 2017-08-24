@@ -2,11 +2,10 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import Router from 'next/router';
-import AppBar from '../../AppBar';
-import Footer from '../../Footer';
+import withLayout from '../../Layout';
 import Snackbar from '../../Snackbar';
 
-@inject('identityStore', 'pictureStore') @observer
+@withLayout @inject('identityStore', 'pictureStore') @observer
 export default class Designs extends React.Component {
   componentDidMount() {
     if (!this.props.identityStore.isLoggedIn) {
@@ -168,7 +167,6 @@ export default class Designs extends React.Component {
             }
           }
         `}</style>
-        <AppBar />
         <div className="container">
           <div className="mdc-layout-grid">
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-9 mdc-layout-grid__cell--span-12-phone mdc-layout-grid__cell--span-12-tablet">
@@ -265,7 +263,6 @@ export default class Designs extends React.Component {
           open={this.showInvalidImageFormat}
           message="请选择正确图片格式"
         />
-        <Footer />
       </div>
     );
   }

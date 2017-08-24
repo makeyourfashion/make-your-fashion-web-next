@@ -14,18 +14,6 @@ function CartIcon({ cartStore }) {
           position: absolute;
           right: 10px;
           top: -10px;
-          width: 17px;
-          height: 17px;
-          background-color: #ff5a5f;
-          border-radius: 50%;
-          color: white;
-          font-size: 12px;
-          font-weight: 500;
-          pointer-events: none;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
         }
       `}</style>
       <Link href="/cart">

@@ -91,8 +91,8 @@ export default class ShippingDetail extends React.Component {
     return (
       <div >
         <style jsx>{`
-          .short-input {
-            max-width: 500px;
+          .shipping-card {
+            margin-top: 20px;
           }
           form {
             margin-bottom: 40px;
@@ -101,49 +101,39 @@ export default class ShippingDetail extends React.Component {
             border-bottom: 1px solid #000;
             padding-bottom: 5px;
           }
-          @media (max-width: 600px) {
-            .short-input {
-              max-width: 100%;
-            }
+          button {
+            margin-top: 20px;
           }
         `}</style>
-        <div>
+        <div className="mdc-elevation--z1 shipping-card">
           <h3>请输入您的邮寄地址：</h3>
           <form noValidate onSubmit={this.handleNext}>
-            <div className="short-input">
-              <TextInput
-                label="姓名："
-                displayError={this.state.nameError}
-                onChange={this.handleNameChange}
-                onBlur={this.handleNameValidation}
-                value={this.state.name}
-              />
-            </div>
-            <div className="short-input">
-              <TextInput
-                label="详细地址："
-                multiline
-                displayError={this.state.addressError}
-                onChange={this.handleAddressChange}
-                onBlur={this.handleAddressValidation}
-                value={this.state.address}
-              />
-            </div>
-            <div className="short-input">
-              <TextInput
-                label="手机号："
-                type="tel"
-                displayError={this.state.phoneError}
-                onChange={this.handlePhoneChange}
-                onBlur={this.handlePhoneValidation}
-                value={this.state.phone}
-              />
-            </div>
-            <div className="short-input">
-              <button type="submit" className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
-                下一步
-              </button>
-            </div>
+            <TextInput
+              label="姓名："
+              displayError={this.state.nameError}
+              onChange={this.handleNameChange}
+              onBlur={this.handleNameValidation}
+              value={this.state.name}
+            />
+            <TextInput
+              label="详细地址："
+              multiline
+              displayError={this.state.addressError}
+              onChange={this.handleAddressChange}
+              onBlur={this.handleAddressValidation}
+              value={this.state.address}
+            />
+            <TextInput
+              label="手机号："
+              type="tel"
+              displayError={this.state.phoneError}
+              onChange={this.handlePhoneChange}
+              onBlur={this.handlePhoneValidation}
+              value={this.state.phone}
+            />
+            <button type="submit" className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+              下一步
+            </button>
           </form>
         </div>
       </div>

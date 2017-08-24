@@ -8,23 +8,24 @@ export default class ProductCard extends React.Component {
 
   render() {
     return (
-      <div className="product-card" onClick={this.handleProductSelect}>
+      <div className="mdc-elevation--z1 product-card" onClick={this.handleProductSelect}>
         <style jsx>{`
           .product-card {
             padding-bottom: 10px;
-            width: 32%;
+            width: 30%;
             max-width: 350px;
             min-width: 100px;
             margin-bottom: 40px;
-            margin-right: 1%;
+            margin-left: 1.5%;
+            margin-right: 1.5%;
+            background-color: #fff;
           }
 
           .product-card:hover {
             cursor: pointer;
           }
           .product-card-image {
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            border-bottom: solid 1px #ccc;
             width: 100%;
             height: 100%;
           }
@@ -39,8 +40,9 @@ export default class ProductCard extends React.Component {
           }
           @media (max-width: 599px) {
             .product-card {
-              width: 48%;
-              margin-right: 2%;
+              width: 45%;
+              margin-right: 2.5%;
+              margin-left: 2.5%;
             }
           }
         `}</style>
