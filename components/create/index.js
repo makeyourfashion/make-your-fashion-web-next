@@ -247,7 +247,9 @@ export default class CreateView extends React.Component {
               }
             }
             .panel-container-main {
-              height: 550px;
+              height: 50vh;
+              max-height: 500px;
+              overflow: auto;
             }
 
             .design-panel-enter {

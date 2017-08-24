@@ -32,7 +32,6 @@ export default class SelectPicture extends React.Component {
             margin: 40px 0 20px 0;
             display: flex;
             flex-wrap: wrap;
-            max-height: 450px;
             overflow: auto;
           }
           .category-list {
