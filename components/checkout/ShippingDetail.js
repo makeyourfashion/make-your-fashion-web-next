@@ -105,7 +105,7 @@ export default class ShippingDetail extends React.Component {
             margin-top: 20px;
           }
         `}</style>
-        <div className="mdc-elevation--z1 shipping-card">
+        <div className="mdc-elevation--z1 shipping-card yz-card">
           <h3>请输入您的邮寄地址：</h3>
           <form noValidate onSubmit={this.handleNext}>
             <TextInput
@@ -131,7 +131,7 @@ export default class ShippingDetail extends React.Component {
               onBlur={this.handlePhoneValidation}
               value={this.state.phone}
             />
-            <button type="submit" className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+            <button type="submit" className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
               下一步
             </button>
           </form>

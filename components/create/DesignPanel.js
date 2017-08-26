@@ -12,6 +12,12 @@ export default class DesignPanel extends React.Component {
     const step = viewStore.step;
     return (
       <div>
+        <style jsx>{`
+          h3 {
+            border-bottom: 1px solid #dedede;
+            padding-bottom: 12px;
+          }
+        `}</style>
         <h3>{`第${viewStore.step + 1}步： ${viewStore.stepName}`}</h3>
         {
           (() => {

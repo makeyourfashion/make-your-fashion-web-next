@@ -31,7 +31,7 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }));
-    cfg.plugins.push(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/));
+    cfg.plugins.push(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/));
     return cfg
   },
 }

@@ -131,7 +131,7 @@ export default class PlaceOrder extends React.Component {
           </div>
         </div>
         <div className="next-step">
-          <button disabled={this.state.submit} onClick={this.handleSubmit} className="mdc-button mdc-button--raised mdc-button--primary button-full-width">
+          <button disabled={this.state.submit} onClick={this.handleSubmit} className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
             {
               this.state.submit ? '正在下单...' : '确认无误，下单'
             }

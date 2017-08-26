@@ -119,10 +119,12 @@ export default class LoginForm extends React.Component {
                   />
                 </div>
               </li>
+              <li className="mdc-list-item">
+                <button onClick={this.props.onRegister} className="link-button">
+                  还没有帐号？点击注册
+                </button>
+              </li>
             </ul>
-            <button onClick={this.props.onRegister} className="link-button">
-              还没有帐号？点击注册
-            </button>
             <button type="submit" className="login-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
               登录
             </button>

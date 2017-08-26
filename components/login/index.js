@@ -13,7 +13,8 @@ export default class LoginView extends React.Component {
     Router.push(this.props.redirect || '/');
   }
 
-  handleRegister = () => {
+  handleRegister = (e) => {
+    e.preventDefault();
     this.setState({
       showCreateAccount: true,
     });

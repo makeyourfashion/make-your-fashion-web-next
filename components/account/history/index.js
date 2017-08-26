@@ -18,8 +18,6 @@ export default class HistoryView extends React.Component {
             font-size: 18px;
             letter-spacing: 3px;
             padding-bottom: 5px;
-            border-bottom: 2px solid #000;
-            margin-bottom: 40px;
           }
           .date {
             font-weight: bold;
@@ -38,8 +36,7 @@ export default class HistoryView extends React.Component {
             max-width: 800px;
           }
           .title {
-            margin-top: 40px;
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid #dedede;
             padding-bottom: 5px;
             margin-bottom: 10px;
             line-height: 2;
@@ -106,7 +103,7 @@ export default class HistoryView extends React.Component {
             this.props.identityStore.histories.map((history) => {
               const priceTotal = history.orderItem.map(item => +item.price).reduce((a, b) => a + b);
               return (
-                <div key={history.id}>
+                <div className="mdc-elevation--z1 yz-card" key={history.id}>
                   <div className="title">
                     <div className="date">{moment(history.createdAt).lang('zh-cn').format('LLL')}</div>
                     <div className="status">

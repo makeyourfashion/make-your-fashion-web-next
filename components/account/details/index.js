@@ -61,7 +61,7 @@ export default class HistoryView extends React.Component {
             font-size: 18px;
             letter-spacing: 2px;
             padding-bottom: 5px;
-            border-bottom: 2px solid #000;
+            border-bottom: 1px solid #dedede;
             margin-bottom: 20px;
           }
           .login-container {
@@ -77,7 +77,7 @@ export default class HistoryView extends React.Component {
           }
         `}</style>
         <div className="container">
-          <div className="login-container mdc-elevation--z1">
+          <div className="login-container mdc-elevation--z1 yz-card">
             <h1>我的个人信息</h1>
             <form onSubmit={this.handleSave}>
               <TextInput
