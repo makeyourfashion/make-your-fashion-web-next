@@ -178,3 +178,8 @@ body {
   background-color: #fff;
   padding: 20px;
 }
+.form-field-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+

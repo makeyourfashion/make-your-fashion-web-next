@@ -92,11 +92,6 @@ export default class CreateAccountForm extends React.Component {
           .create-account-button {
             margin-top: 20px;
           }
-          .form-field-wrapper {
-            display: inline-block;
-            max-width: 300px;
-            width: 100%;
-          }
           .mdc-list-item {
             height: inherit;
           }
@@ -144,10 +139,12 @@ export default class CreateAccountForm extends React.Component {
                   />
                 </div>
               </li>
+              <li className="mdc-list-item">
+                <button type="submit" className="create-account-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                  创建账号
+                </button>
+              </li>
             </ul>
-            <button type="submit" className="create-account-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-              创建账号
-            </button>
           </form>
         </div>
       </div>

@@ -38,6 +38,7 @@ export default class EditTextPanel extends React.Component {
 
   handleChangeFontSize = (fontSize) => {
     const text = this.props.designStore.selectedText || defaultText;
+    console.log(text)
     this.props.designStore.updateText({
       id: text.id,
       font_size: +fontSize,

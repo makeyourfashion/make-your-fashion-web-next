@@ -123,6 +123,7 @@ export default class Checkout extends React.Component {
           h2 {
             border-bottom: 1px solid #000;
             padding-bottom: 5px;
+            margin-top: 0;
           }
           .main-form {
             max-width: 500px;
@@ -162,7 +163,7 @@ export default class Checkout extends React.Component {
         `}</style>
         <div className="container">
           <div className="mdc-layout-grid">
-            <div className="main-form mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+            <div className="mdc-elevation--z1 yz-card mdc-layout-grid__cell mdc-layout-grid__cell--span-7">
               <h2>结账</h2>
               <div className="steps">
                 <a href="/checkout" onClick={this.goToShipping} className={this.state.step === 0 ? 'active-step' : ''}>邮寄地址</a>
@@ -195,60 +196,62 @@ export default class Checkout extends React.Component {
                 })()
               }
             </div>
-            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
-              <h2>总结</h2>
-              {
-                cartItems.map((item) => {
-                  const productDetail = this.props.productStore
-                    .getProduct(item.productId) || {};
-                  return (
-                    <ul className="cart-list" key={item.id}>
-                      <div className="cart-item">
-                        <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
-                        <div className="cart-des">
-                          <div className="des-line1">
-                            <div className="product-name">{productDetail.name}</div>
-                            <div>
-                              <Link href={`/create?cart=${item.id}`}>
-                                <a className="edit-link">编辑</a>
-                              </Link>
-                              <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+            <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">
+              <div className="mdc-elevation--z1 yz-card">
+                <h2>总结</h2>
+                {
+                  cartItems.map((item) => {
+                    const productDetail = this.props.productStore
+                      .getProduct(item.productId) || {};
+                    return (
+                      <ul className="cart-list" key={item.id}>
+                        <div className="cart-item">
+                          <img className="cart-image" alt="product" height={100} width={100} src={item.imgUrl} />
+                          <div className="cart-des">
+                            <div className="des-line1">
+                              <div className="product-name">{productDetail.name}</div>
+                              <div>
+                                <Link href={`/create?cart=${item.id}`}>
+                                  <a className="edit-link">编辑</a>
+                                </Link>
+                                <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+                              </div>
+                            </div>
+                            <div className="label label-list">
+                              <div>单价：</div>
+                              <div>¥{item.price}</div>
+                            </div>
+                            <div className="label label-list">
+                              <div>尺码：</div>
+                              <div>{item.size}</div>
+                            </div>
+                            <div className="label label-list">
+                              <div>数量：</div>
+                              <div>{item.qty}</div>
                             </div>
                           </div>
-                          <div className="label label-list">
-                            <div>单价：</div>
-                            <div>¥{item.price}</div>
-                          </div>
-                          <div className="label label-list">
-                            <div>尺码：</div>
-                            <div>{item.size}</div>
-                          </div>
-                          <div className="label label-list">
-                            <div>数量：</div>
-                            <div>{item.qty}</div>
-                          </div>
                         </div>
-                      </div>
-                    </ul>
-                  );
-                })
-              }
-              <div className="summary">
-                <div className="label-list">
-                  <div>商品总价：</div>
-                  <div>¥{totalPrice}</div>
-                </div>
-                <div className="label-list">
-                  <div>运费：</div>
-                  <div>¥10</div>
-                </div>
-                <div className="label-list">
-                  <div>折扣：</div>
-                  <div>－¥7.5</div>
-                </div>
-                <div className="label-list">
-                  <div>总计：</div>
-                  <div>¥{totalPrice + 2.5}</div>
+                      </ul>
+                    );
+                  })
+                }
+                <div className="summary">
+                  <div className="label-list">
+                    <div>商品总价：</div>
+                    <div>¥{totalPrice}</div>
+                  </div>
+                  <div className="label-list">
+                    <div>运费：</div>
+                    <div>¥10</div>
+                  </div>
+                  <div className="label-list">
+                    <div>折扣：</div>
+                    <div>－¥7.5</div>
+                  </div>
+                  <div className="label-list">
+                    <div>总计：</div>
+                    <div>¥{totalPrice + 2.5}</div>
+                  </div>
                 </div>
               </div>
             </div>

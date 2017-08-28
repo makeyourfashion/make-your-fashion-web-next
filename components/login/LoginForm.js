@@ -79,12 +79,6 @@ export default class LoginForm extends React.Component {
           .login-button {
             margin-top: 20px;
           }
-
-          .form-field-wrapper {
-            display: inline-block;
-            max-width: 300px;
-            width: 100%;
-          }
           .mdc-list-item {
             height: inherit;
           }
@@ -124,10 +118,12 @@ export default class LoginForm extends React.Component {
                   还没有帐号？点击注册
                 </button>
               </li>
+              <li className="mdc-list-item">
+                <button type="submit" className="login-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                  登录
+                </button>
+              </li>
             </ul>
-            <button type="submit" className="login-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-              登录
-            </button>
           </form>
         </div>
       </div>

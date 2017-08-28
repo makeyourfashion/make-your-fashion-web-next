@@ -75,37 +75,64 @@ export default class HistoryView extends React.Component {
           button {
             margin-top: 20px; 
           }
+          .mdc-list-item {
+            height: inherit;
+          }
         `}</style>
         <div className="container">
           <div className="login-container mdc-elevation--z1 yz-card">
             <h1>我的个人信息</h1>
             <form onSubmit={this.handleSave}>
-              <TextInput
-                label="姓名："
-                onChange={this.handleNameChange}
-                value={this.name}
-              />
-              <TextInput
-                label="详细地址："
-                multiline
-                onChange={this.handleAddressChange}
-                value={this.address}
-              />
-              <TextInput
-                label="手机号："
-                type="tel"
-                onChange={this.handlePhoneChange}
-                value={this.phone}
-              />
-              <TextInput
-                label="Email："
-                type="email"
-                onChange={this.handleEmailChange}
-                value={this.email}
-              />
-              <button type="submit" className="mdc-button mdc-button--raised button-full-width mdc-button--accent save-button">
-                更新个人信息
-              </button>
+              <ul className="mdc-list">
+                <li className="mdc-list-item">
+                  <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">account_circle</i>
+                  <div className="form-field-wrapper">
+                    <TextInput
+                      label="姓名："
+                      onChange={this.handleNameChange}
+                      value={this.name}
+                    />
+                  </div>
+                </li>
+                <li className="mdc-list-item">
+                  <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">location_city</i>
+                  <div className="form-field-wrapper">
+                    <TextInput
+                      label="详细地址："
+                      multiline
+                      onChange={this.handleAddressChange}
+                      value={this.address}
+                    />
+                  </div>
+                </li>
+                <li className="mdc-list-item">
+                  <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">phone</i>
+                  <div className="form-field-wrapper">
+                    <TextInput
+                      label="手机号："
+                      type="tel"
+                      onChange={this.handlePhoneChange}
+                      value={this.phone}
+                    />
+                  </div>
+                </li>
+                <li className="mdc-list-item">
+                  <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">email</i>
+                  <div className="form-field-wrapper">
+                    <TextInput
+                      label="Email："
+                      type="email"
+                      onChange={this.handleEmailChange}
+                      value={this.email}
+                    />
+                  </div>
+                </li>
+                <li className="mdc-list-item">
+                  <button type="submit" className="mdc-button mdc-button--raised button-full-width mdc-button--accent save-button">
+                    更新个人信息
+                  </button>
+                </li>
+              </ul>
             </form>
             <Snackbar
               open={this.showSuccessMessage}

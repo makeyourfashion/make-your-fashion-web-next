@@ -60,12 +60,18 @@ export default class Landing extends React.Component {
             margin: auto;
             margin-top: 40px;
           }
+          .mdc-layout-grid {
+            grid-gap: 0;
+          }
           .cat-label {
             margin-bottom: 40px;
             text-align: center;
           }
           .cat-label h3 {
             margin: 20px 0 30px;
+          }
+          .cat-image {
+            position: relative;
           }
           .landing-background {
             width: 100%;
@@ -74,7 +80,13 @@ export default class Landing extends React.Component {
             background-size: 100% auto;
             margin: auto;
             position: relative;
+          }
+          .categories-container, .landing-background {
             max-width: 1800px;
+            margin: auto;
+          }
+          .mdc-layout-grid {
+            padding: 0;
           }
           .split-line {
             display: flex;
@@ -88,13 +100,16 @@ export default class Landing extends React.Component {
             width: 47%;
             height: 1px;
           }
+          .border-button {
+            color: #fff;
+            border-color: #fff;
+          }
           .split-line .label {
             white-space: nowrap;
           }
           .categories-container {
             margin-top: 40px;
             padding-bottom: 20px;
-            border-bottom: solid 1px #ccc;
           }
           .woman-tee, .man-tee {
             width: 100%;
@@ -271,28 +286,39 @@ export default class Landing extends React.Component {
               <i className="material-icons">expand_more</i>
             </button>
           </div>
-          <div className="container">
-            <div className="categories-container">
-              <div className="split-line">
-                <div className="line" />
-                <div className="label">热门类别</div>
-                <div className="line" />
+          <div className="categories-container">
+            <div className="split-line">
+              <div className="line" />
+              <div className="label">热门类别</div>
+              <div className="line" />
+            </div>
+            <div className="mdc-layout-grid">
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                <div className="cat-image">
+                  <div className="woman-tee" />
+                  <div className="cat-label welcome">
+                    <h3>女士体恤</h3>
+                    <Link href="shop?category=2">
+                      <a className="border-button">立即前往</a>
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <div className="woman-tee" />
-              <div className="cat-label">
-                <h3>女士体恤</h3>
-                <Link href="shop?category=2">
-                  <a className="border-button">立即前往</a>
-                </Link>
-              </div>
-              <div className="man-tee" />
-              <div className="cat-label">
-                <h3>男士体恤</h3>
-                <Link href="shop?category=1">
-                  <a className="border-button">立即前往</a>
-                </Link>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                <div className="cat-image">
+                  <div className="man-tee" />
+                  <div className="cat-label welcome">
+                    <h3>男士体恤</h3>
+                    <Link href="shop?category=1">
+                      <a className="border-button">立即前往</a>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+          <div className="container">
+            
             <div className="main-content">
               <div className="line1">
                 <h2 className="campaign-title">近期活动</h2>
