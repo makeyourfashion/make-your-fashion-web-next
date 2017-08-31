@@ -9,7 +9,7 @@ export default class TextInput extends React.Component {
   render() {
     const { onChange, value, type, displayError, multiline, ...props } = this.props;
     return (
-      <div ref={(r) => { this.root = r; }} className={`mdc-textfield ${multiline ? 'mdc-textfield--multiline' : null}`}>
+      <div ref={(r) => { this.root = r; }} className={`mdc-textfield mdc-textfield--upgraded ${multiline ? 'mdc-textfield--multiline' : null}`}>
         <style jsx>{`
           .mdc-textfield {
             width: 100%;
@@ -34,7 +34,7 @@ export default class TextInput extends React.Component {
             {displayError}
           </p> : null
         }
-        <label className="mdc-textfield__label">
+        <label className={`mdc-textfield__label ${value ? 'mdc-textfield__label--float-above' : ''}`}>
           {this.props.label}
         </label>
       </div>

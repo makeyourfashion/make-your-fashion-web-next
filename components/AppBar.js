@@ -55,7 +55,7 @@ export default class DeskAppBar extends React.Component {
           }
           .mdc-temporary-drawer__header-content {
             border-bottom: solid 1px #ccc;
-            background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/priscilla-du-preez-228220.jpg") no-repeat scroll center;
+            background: url("/static/image/tshirt-247818_1280.jpg") no-repeat scroll center;
             background-size: 100% auto;
           }
           .title {

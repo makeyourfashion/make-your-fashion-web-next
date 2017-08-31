@@ -76,7 +76,7 @@ export default class Landing extends React.Component {
           .landing-background {
             width: 100%;
             height: 60vh;
-            background: url("//makeyourfashion.oss-cn-shanghai.aliyuncs.com/priscilla-du-preez-228220.jpg") no-repeat scroll center;
+            background: url("/static/image/tshirt-247818_1280.jpg") no-repeat scroll center;
             background-size: 100% auto;
             margin: auto;
             position: relative;
@@ -85,15 +85,20 @@ export default class Landing extends React.Component {
             max-width: 1800px;
             margin: auto;
           }
+          .categories-container {
+            max-width: 1400px;
+            margin-top: 150px;
+            padding-bottom: 20px;
+          }
           .mdc-layout-grid {
             padding: 0;
           }
           .split-line {
+            margin: 20px 0 20px 0
             display: flex;
             align-items: center;
             justify-content: space-between;
             color: #9b9b9b;
-            margin-bottom: 40px;
           }
           .split-line .line {
             background-color: #ccc;
@@ -107,13 +112,10 @@ export default class Landing extends React.Component {
           .split-line .label {
             white-space: nowrap;
           }
-          .categories-container {
-            margin-top: 40px;
-            padding-bottom: 20px;
-          }
-          .woman-tee, .man-tee {
+
+          .woman-tee, .man-tee, .phone-case {
             width: 100%;
-            background-size: 100% auto;
+            background-size: auto 100%;
             margin: auto;
             height: 300px;
           }
@@ -123,6 +125,9 @@ export default class Landing extends React.Component {
           .man-tee {
             background: url("/static/image/mens_tshirts.jpg") no-repeat scroll center;
           }
+          .phone-case {
+            background: url("/static/image/mobile-phone-1861020_1280.jpg") no-repeat scroll center;
+          }
           .description {
             font-size: 11px !important;
           }
@@ -131,13 +136,21 @@ export default class Landing extends React.Component {
             color: #fff;
             text-align: center;
             width: 100%;
-            bottom: 30%;
-            transform: translateY(30%)
+            bottom: 50%;
+            transform: translateY(50%);
           }
           .landing-background h2 {
             text-shadow: 0 0 10px rgba(20,20,20,.7);
+            font-size: 1.8em;
+            font-weight: 500;
+            color: rgba(255,235,59, 0.95);;
+          }
+          .landing-background h1 {
+            text-shadow: 0 0 10px rgba(20,20,20,.7);
             font-size: 2.2em;
             font-weight: bold;
+            margin-bottom: 50px;
+            color: rgba(255,235,59, 0.95);;
           }
 
           .campaign-list {
@@ -209,7 +222,7 @@ export default class Landing extends React.Component {
             .campaign-card {
               width: 49%;
               margin-right: 2%;
-              height: 150px;
+              height: 190px;
             }
           }
 
@@ -249,6 +262,42 @@ export default class Landing extends React.Component {
             font-size: 13px;
             color: #ccc;
           }
+          .campaign-list-line1 {
+            max-width: 800px;
+            width: 100%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            padding: 5px 10px 5px 10px;
+            background-color: rgba(255,255,255,1);
+            margin: auto;
+            position: absolute;
+            bottom: 0;
+          }
+          @media (max-width: 600px) {
+            .campaign-list-line1 {
+              transform: translate(-50%, 0);
+            }
+            .categories-container {
+              margin-top: 50px;
+            }
+          }
+          .campaign-list-line1 .campaign-card2 {
+            height: 100px;
+            display: inline-block;
+            width: calc(20% - 10px);
+            position: relative;
+            margin: 2px 9px 2px 1px;
+          }
+          .campaign-card2 .details {
+            position: absolute;
+            bottom: 0;
+            left: -1px;
+            width: 100%;
+            background: rgba(0, 0, 0, .4);
+            padding: 5% 0 5% 5%;
+            padding: 0;
+          }
+
           .promotion-bar {
             text-align: center;
             background-color: #000;
@@ -277,6 +326,7 @@ export default class Landing extends React.Component {
         <div>
           <div className="landing-background">
             <div className="welcome">
+              <h1>意栈网</h1>
               <h2>定制你的专属世界</h2>
               <Link href="/create?product=1">
                 <a className="mdc-button action-button">开始定制</a>
@@ -285,6 +335,29 @@ export default class Landing extends React.Component {
             <button onClick={handleScroll} className="icon-button expand-icon">
               <i className="material-icons">expand_more</i>
             </button>
+            <div className="mdc-elevation--z1 campaign-list-line1">
+              <Carousel total={5}>
+                {
+                  productStore.campaigns.values().map(campaign => (
+                    <div key={campaign.id} className="mdc-elevation--z1 campaign-card2 image">
+                      <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
+                        <a className="img-wrapper">
+                          <div
+                            className="campaign-img"
+                            style={{
+                              backgroundImage: `url(${campaign.img})`,
+                            }}
+                          />
+                        </a>
+                      </Link>
+                      <div className="details">
+                        <h4>{campaign.name}</h4>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Carousel>
+            </div>
           </div>
           <div className="categories-container">
             <div className="split-line">
@@ -293,7 +366,7 @@ export default class Landing extends React.Component {
               <div className="line" />
             </div>
             <div className="mdc-layout-grid">
-              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
                 <div className="cat-image">
                   <div className="woman-tee" />
                   <div className="cat-label welcome">
@@ -315,73 +388,58 @@ export default class Landing extends React.Component {
                   </div>
                 </div>
               </div>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                <div className="cat-image">
+                  <div className="phone-case" />
+                  <div className="cat-label welcome">
+                    <h3>手机壳</h3>
+                    <Link href="shop?category=4">
+                      <a className="border-button">立即前往</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="container">
-            
-            <div className="main-content">
-              <div className="line1">
-                <h2 className="campaign-title">近期活动</h2>
-                <Link href="/shop?campaign=1">
-                  <a>更多</a>
-                </Link>
-              </div>
-              <div className="campaign-list">
-                <Carousel total={5}>
-                  {
-                    productStore.campaigns.values().map(campaign => (
-                      <div key={campaign.id} className="mdc-elevation--z1 campaign-card image">
-                        <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
-                          <a className="img-wrapper">
-                            <div
-                              className="campaign-img"
-                              style={{
-                                backgroundImage: `url(${campaign.img})`,
-                              }}
-                            />
-                          </a>
-                        </Link>
-                        <div className="details">
-                          <h4>{campaign.name}</h4>
+          <div className="main-content">
+            {/* <div className="line1">
+              <h2 className="campaign-title">近期活动</h2>
+              <Link href="/shop?campaign=1">
+                <a>更多</a>
+              </Link>
+            </div> */}
+            <div className="line1">
+              <h2 className="campaign-title">热门单品<span>你的专属定制，一件即可定制</span></h2>
+              <Link href="/shop?category=1">
+                <a>更多</a>
+              </Link>
+            </div>
+            <div className="campaign-list">
+              <Carousel total={5}>
+                {
+                  productStore.getProductsByCategory('all').map(product => (
+                    <div key={product.id} className="mdc-elevation--z1 campaign-card product-card image">
+                      <Link key={product.id} href={`/create?product=${product.id}`}>
+                        <a className="img-wrapper">
+                          <div
+                            className="campaign-img"
+                            style={{
+                              backgroundImage: `url(${product.img})`,
+                            }}
+                          />
+                        </a>
+                      </Link>
+                      <div className="details">
+                        <div className="line1">
+                          <h4>{product.name}</h4>
+                          <span className="rating"><Ratings rating={product.ratings} /></span>
                         </div>
+                        <div className="description">{product.description}</div>
                       </div>
-                    ))
-                  }
-                </Carousel>
-              </div>
-              <div className="line1">
-                <h2 className="campaign-title">热门单品<span>你的专属定制，一件即可定制</span></h2>
-                <Link href="/shop?category=1">
-                  <a>更多</a>
-                </Link>
-              </div>
-              <div className="campaign-list">
-                <Carousel total={5}>
-                  {
-                    productStore.getProductsByCategory('all').map(product => (
-                      <div key={product.id} className="mdc-elevation--z1 campaign-card product-card image">
-                        <Link key={product.id} href={`/create?product=${product.id}`}>
-                          <a className="img-wrapper">
-                            <div
-                              className="campaign-img"
-                              style={{
-                                backgroundImage: `url(${product.img})`,
-                              }}
-                            />
-                          </a>
-                        </Link>
-                        <div className="details">
-                          <div className="line1">
-                            <h4>{product.name}</h4>
-                            <span className="rating"><Ratings rating={product.ratings} /></span>
-                          </div>
-                          <div className="description">{product.description}</div>
-                        </div>
-                      </div>
-                    ))
-                  }
-                </Carousel>
-              </div>
+                    </div>
+                  ))
+                }
+              </Carousel>
             </div>
           </div>
         </div>
