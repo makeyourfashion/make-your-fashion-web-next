@@ -1,23 +1,12 @@
 import React from 'react';
 import Router from 'next/router';
 import LoginForm from './LoginForm';
-import CreateAccountForm from './CreateAccountForm';
 import withLayout from '../Layout';
 
 @withLayout
 export default class LoginView extends React.Component {
-  state = {
-    showCreateAccount: false,
-  }
   handleRedirect = () => {
     Router.push(this.props.redirect || '/');
-  }
-
-  handleRegister = (e) => {
-    e.preventDefault();
-    this.setState({
-      showCreateAccount: true,
-    });
   }
 
   render() {
@@ -39,13 +28,7 @@ export default class LoginView extends React.Component {
         `}</style>
         <div className="container">
           <div className="mdc-elevation--z1 login-card">
-            {
-              this.state.showCreateAccount ? (
-                <CreateAccountForm onSuccess={this.handleRedirect} />
-              ) : (
-                <LoginForm onRegister={this.handleRegister} onSuccess={this.handleRedirect} />
-              )
-            }
+            <LoginForm onRegister={this.handleRegister} onSuccess={this.handleRedirect} />
           </div>
         </div>
       </div>

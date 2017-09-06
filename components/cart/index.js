@@ -88,7 +88,9 @@ export default class Cart extends React.Component {
             margin-bottom: 40px;
           }
           .card-container {
+            padding: 20px 0 20px 0;
             margin-top: 20px;
+            background-color: #fff;
           }
           .label-list {
             display: flex;
@@ -122,7 +124,8 @@ export default class Cart extends React.Component {
             font-weight: bold;
           }
           h2 {
-            padding-bottom: 30px;
+            margin-top: 0;
+            padding-bottom: 10px;
             text-align: center;
             border-bottom: 1px solid #dedede;
           }
@@ -168,7 +171,7 @@ export default class Cart extends React.Component {
           }
         `}</style>
         <div className="container">
-          <div className="card-container">
+          <div className="mdc-elevation--z1 card-container">
             <h2>购物车</h2>
             {
               cartItems.length ? (

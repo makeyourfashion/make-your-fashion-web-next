@@ -183,3 +183,6 @@ body {
   width: 100%;
 }
 
+.mdc-list-item__start-detail {
+  margin-right: 12px;
+}
