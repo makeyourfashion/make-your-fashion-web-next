@@ -63,6 +63,7 @@ export default class HistoryView extends React.Component {
             padding-bottom: 5px;
             border-bottom: 1px solid #dedede;
             margin-bottom: 20px;
+            text-align: center;
           }
           .login-container {
             max-width: 500px;
@@ -128,7 +129,7 @@ export default class HistoryView extends React.Component {
                   </div>
                 </li>
                 <li className="mdc-list-item">
-                  <button type="submit" className="mdc-button mdc-button--raised button-full-width mdc-button--accent save-button">
+                  <button type="submit" className="mdc-button mdc-button--raised round-button button-full-width mdc-button--accent save-button">
                     更新个人信息
                   </button>
                 </li>

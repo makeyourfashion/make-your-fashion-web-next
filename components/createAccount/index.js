@@ -93,6 +93,10 @@ export default class LoginView extends React.Component {
     return (
       <div>
         <style jsx>{`
+          h2 {
+            padding-bottom: 12px;
+            border-bottom: solid 1px #dedede;
+          }
           .login-card {
             max-width: 400px;
             background-color: #fff;
@@ -160,11 +164,11 @@ export default class LoginView extends React.Component {
                     </li>
                     <li className="mdc-list-item">
                       <Link href="/login">
-                        <a className="link-button">登录</a>
+                        <a className="link-button">已经拥有账号？点击登录</a>
                       </Link>
                     </li>
                     <li className="mdc-list-item">
-                      <button type="submit" className="create-account-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                      <button type="submit" className="create-account-button mdc-button mdc-button--raised round-button mdc-button--accent button-full-width">
                         创建账号
                       </button>
                     </li>

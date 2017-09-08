@@ -186,3 +186,7 @@ body {
 .mdc-list-item__start-detail {
   margin-right: 12px;
 }
+
+.round-button {
+  border-radius: 25px;
+}

@@ -94,6 +94,7 @@ export default class Cart extends React.Component {
           }
           .label-list {
             display: flex;
+            margin: 0 10px 0 10px;
             align-items: center;
             justify-content: space-between;
           }
@@ -177,40 +178,40 @@ export default class Cart extends React.Component {
               cartItems.length ? (
                 <div>
                   <ul className="mdc-list cart-list">
-                  {
-                    cartItems.map((item) => {
-                      const productDetail = this.props.productStore
-                        .getProduct(item.productId) || {};
-                      return (
-                        <li key={item.id} className="mdc-list-item cart-item">
-                          <img className="cart-image" alt="product" height={150} width={150} src={item.imgUrl} />
-                          <div className="cart-des">
-                            <div>
-                              <div className="product-name">{productDetail.name}</div>
+                    {
+                      cartItems.map((item) => {
+                        const productDetail = this.props.productStore
+                          .getProduct(item.productId) || {};
+                        return (
+                          <li key={item.id} className="mdc-list-item cart-item">
+                            <img className="cart-image" alt="product" height={150} width={150} src={item.imgUrl} />
+                            <div className="cart-des">
                               <div>
-                                <Link href={`/create?cart=${item.id}`}>
-                                  <a className="edit-link">编辑</a>
-                                </Link>
-                                <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+                                <div className="product-name">{productDetail.name}</div>
+                                <div>
+                                  <Link href={`/create?cart=${item.id}`}>
+                                    <a className="edit-link">编辑</a>
+                                  </Link>
+                                  <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
+                                </div>
+                              </div>
+                              <div className="label label-list">
+                                <div>单价：</div>
+                                <div>¥{item.price}</div>
+                              </div>
+                              <div className="label label-list">
+                                <div>尺码：</div>
+                                <div>{item.size}</div>
+                              </div>
+                              <div className="label label-list">
+                                <div>数量：</div>
+                                <div>{item.qty}</div>
                               </div>
                             </div>
-                            <div className="label label-list">
-                              <div>单价：</div>
-                              <div>¥{item.price}</div>
-                            </div>
-                            <div className="label label-list">
-                              <div>尺码：</div>
-                              <div>{item.size}</div>
-                            </div>
-                            <div className="label label-list">
-                              <div>数量：</div>
-                              <div>{item.qty}</div>
-                            </div>
-                          </div>
-                        </li>
-                      );
-                    })
-                  }
+                          </li>
+                        );
+                      })
+                    }
                   </ul>
                   <div className="summary">
                     <div className="label-list">

@@ -15,6 +15,9 @@ export default class TextInput extends React.Component {
             width: 100%;
             margin: 20px 0 20px 0;
           }
+          .mdc-textfield.mdc-textfield--multiline {
+            margin-top: 30px;
+          }
           .error-msg {
             white-space: nowrap;
           }

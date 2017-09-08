@@ -77,6 +77,10 @@ export default class LoginForm extends React.Component {
     return (
       <div>
         <style jsx>{`
+          h2 {
+            padding-bottom: 12px;
+            border-bottom: solid 1px #dedede;
+          }
           .login-button {
             margin-top: 20px;
           }
@@ -120,7 +124,7 @@ export default class LoginForm extends React.Component {
                 </Link>
               </li>
               <li className="mdc-list-item">
-                <button type="submit" className="login-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                <button type="submit" className="login-button mdc-button mdc-button--raised round-button mdc-button--accent button-full-width">
                   登录
                 </button>
               </li>

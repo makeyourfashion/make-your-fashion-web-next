@@ -56,16 +56,13 @@ export default class CreateView extends React.Component {
     if (this.props.productId) {
       productId = this.props.productId;
     } else {
-      const cartItem = this.props.cartStore.getCartItem(this.props.cartId);
-      if (cartItem) {
-        productId = cartItem.productId;
-      }
+      productId = 1;
     }
 
     return this.props.productStore.getProduct(productId);
   }
 
-  viewStore = new ViewStore();
+  viewStore = new ViewStore(this.props.step);
 
   handleSelect = (id, imgUrl) => {
     this.props.designStore.addImage(id, imgUrl);

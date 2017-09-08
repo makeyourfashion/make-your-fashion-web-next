@@ -328,7 +328,7 @@ export default class Landing extends React.Component {
             <div className="welcome">
               <h1>意栈网</h1>
               <h2>定制你的专属世界</h2>
-              <Link href="/create?product=1">
+              <Link href="/create">
                 <a className="mdc-button action-button">开始定制</a>
               </Link>
             </div>

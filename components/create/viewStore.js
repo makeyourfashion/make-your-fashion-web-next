@@ -11,7 +11,10 @@ const STEP_NAME = {
 };
 
 export default class ViewStore {
-  @observable step = 0;
+  @observable step;
+  constructor(step = 0) {
+    this.step = step;
+  }
 
   @action preStep = () => {
     this.step = this.step - 1;

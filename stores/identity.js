@@ -109,7 +109,9 @@ class IdentityStore {
         },
         body: JSON.stringify(account),
       });
-      const user = await res.json();
+      const response = await res.json();
+      const { user, token } = response;
+      document.cookie = `user_id=${token}`;
       this.id = user.id;
       this.phone = user.phone;
       this.name = user.name;
