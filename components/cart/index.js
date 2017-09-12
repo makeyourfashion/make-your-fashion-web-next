@@ -199,10 +199,14 @@ export default class Cart extends React.Component {
                                 <div>单价：</div>
                                 <div>¥{item.price}</div>
                               </div>
-                              <div className="label label-list">
-                                <div>尺码：</div>
-                                <div>{item.size}</div>
-                              </div>
+                              {
+                                item.size && (
+                                  <div className="label label-list">
+                                    <div>尺码：</div>
+                                    <div>{item.size}</div>
+                                  </div>
+                                )
+                              }
                               <div className="label label-list">
                                 <div>数量：</div>
                                 <div>{item.qty}</div>

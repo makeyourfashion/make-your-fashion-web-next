@@ -111,7 +111,7 @@ export default class Design extends React.Component {
   }
 
   render() {
-    const lineColor = 'white';
+    const lineColor = this.props.product.color === 'white' ? '#333' : 'white';
     const images = this.props.designStore.activeImages || [];
     const texts = this.props.designStore.activeTexts || [];
     const showCallToAction = (!this.props.designStore.design.texts.length)
@@ -208,16 +208,19 @@ export default class Design extends React.Component {
                         stroke={lineColor}
                       />
                       {
-                        images.map(image => <DesignImage
-                          key={image.id}
-                          onDragEnd={this.handleDragEnd}
-                          onDrag={this.handleDrag}
-                          offsetX={(CANVAS_WIDTH - RECT_WIDTH) / 2}
-                          offsetY={(CANVAS_HEIGHT - RECT_HEIGHT) / 2}
-                          editible={this.props.editable}
-                          onChangeLayer={this.handlLayerChange}
-                          design={image}
-                        />)
+                        images.map(image => (
+                          <DesignImage
+                            key={image.id}
+                            onDragEnd={this.handleDragEnd}
+                            onDrag={this.handleDrag}
+                            offsetX={(CANVAS_WIDTH - RECT_WIDTH) / 2}
+                            offsetY={(CANVAS_HEIGHT - RECT_HEIGHT) / 2}
+                            editible={this.props.editable}
+                            onChangeLayer={this.handlLayerChange}
+                            design={image}
+                            lineColor={lineColor}
+                          />
+                        ))
                       }
                       {
                         texts.map(text => (
@@ -250,14 +253,18 @@ export default class Design extends React.Component {
             })()
           }
         </div>
-        <div className="thumbnails">
-          <a onClick={this.handleSelectImage} href="imgFront">
-            <img crossOrigin="anonymous" src={this.props.product.imgFront} alt="small" className={`thumbnail ${this.props.designStore.activeImageId === 'imgFront' ? 'active' : ''}`} />
-          </a>
-          <a onClick={this.handleSelectImage} href="imgBack">
-            <img crossOrigin="anonymous" src={this.props.product.imgBack} alt="small" className={`thumbnail ${this.props.designStore.activeImageId === 'imgBack' ? 'active' : ''}`} />
-          </a>
-        </div>
+        {
+          this.props.product.imgFront && this.props.product.imgBack ? (
+            <div className="thumbnails">
+              <a onClick={this.handleSelectImage} href="imgFront">
+                <img crossOrigin="anonymous" src={this.props.product.imgFront} alt="small" className={`thumbnail ${this.props.designStore.activeImageId === 'imgFront' ? 'active' : ''}`} />
+              </a>
+              <a onClick={this.handleSelectImage} href="imgBack">
+                <img crossOrigin="anonymous" src={this.props.product.imgBack} alt="small" className={`thumbnail ${this.props.designStore.activeImageId === 'imgBack' ? 'active' : ''}`} />
+              </a>
+            </div>
+          ) : null
+        }
       </div>
     );
   }

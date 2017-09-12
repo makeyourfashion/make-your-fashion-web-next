@@ -1,10 +1,8 @@
 import React from 'react';
 import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import Link from 'next/link';
 import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
-import OrderForm from './OrderForm';
 import SelectProduct from './SelectProduct';
 
 @inject('designStore') @observer
@@ -62,9 +60,6 @@ export default class MobileDesignPanel extends React.Component {
     return (
       <div>
         <style jsx>{`
-          .details {
-            margin-top: 20px;
-          }
           .m-design-panel {
             max-height: 45%;
             overflow: auto;
@@ -183,14 +178,6 @@ export default class MobileDesignPanel extends React.Component {
             }
           }
         `}</style>
-        <div className="details">
-          <OrderForm
-            onOrderChange={this.props.onOrderChange}
-            editable={this.props.editable}
-            product={this.props.product}
-            order={this.props.order}
-          />
-        </div>
         <div className="m-design-panel">
           {
             !this.state.isMobileOpen ? (

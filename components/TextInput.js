@@ -27,7 +27,7 @@ export default class TextInput extends React.Component {
         `}</style>
         {
           multiline ? (
-            <textarea value={value} onChange={onChange} {...props} className="mdc-textfield__input" rows="4" cols="40"></textarea>
+            <textarea value={value} onChange={onChange} {...props} className="mdc-textfield__input" rows="4" cols="40" />
           ) : (
             <input type={type || 'text'} value={value} onChange={onChange} {...props} className="mdc-textfield__input" />
           )

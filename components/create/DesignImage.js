@@ -196,7 +196,7 @@ export default class DesignImage extends React.Component {
         <Rect
           strokeWidth={1}
           ref={(r) => { this.rect = r; }}
-          stroke="white"
+          stroke={this.props.lineColor}
           width={adjWidth}
           height={adjHeight}
           dash={[10, 5]}

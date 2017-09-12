@@ -14,6 +14,7 @@ import MobileDesignPanel from './MobileDesignPanel';
 import { SelectField, SelectItem } from '../SelectField';
 import ViewStore from './viewStore';
 import Stepper from './Stepper';
+import OrderForm from './OrderForm';
 
 function getCanvasImgUrl() {
   const canvas = document.querySelector('canvas');
@@ -40,6 +41,16 @@ export default class CreateView extends React.Component {
     document.addEventListener('touchstart', this.handleToggleEditable);
     if (window.matchMedia('(min-width: 840px)').matches) {
       document.addEventListener('scroll', this.handleScroll);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.productId !== this.props.productId) {
+      console.log(nextProps.productId);
+      // const designDetail = this.productStore.getProduct(nextProps.productId).designDetail;
+      // const textDetail = this.productStore.getProduct(nextProps.productId).textDetail;
+      // this.designStore = initDesignStore(nextProps.productId, designDetail, textDetail);
+      this.props.designStore.design.productId = nextProps.productId;
     }
   }
 
@@ -115,7 +126,7 @@ export default class CreateView extends React.Component {
     const { size, qty } = this.state.order;
     const errors = {};
 
-    if (!size) {
+    if (this.getProduct().sizes && !size) {
       errors.sizeError = '请选择尺码';
     }
     if (!qty) {
@@ -187,7 +198,7 @@ export default class CreateView extends React.Component {
             .design-container {
               position: relative;
               border-bottom: solid 1px #dedede;
-              max-width: 1150px;
+              max-width: 1400px;
             }
 
             .create-design :global(.mdc-dialog__surface) {
@@ -238,7 +249,7 @@ export default class CreateView extends React.Component {
             @media (min-width: 840px) {
               .design-panel {
                 width: 400px;
-                max-width: 30%;
+                max-width: 25%;
                 position: fixed;
                 top: 100px;
               }
@@ -302,6 +313,9 @@ export default class CreateView extends React.Component {
                 width: 50%;
               }
             }
+            .detail {
+              max-width: 250px
+            }
           `}</style>
           <Modal
             onClose={this.closePromptNext}
@@ -310,28 +324,32 @@ export default class CreateView extends React.Component {
             title="选择尺码与数量"
           >
             <div className="select-list">
-              <div>
-                <label htmlFor="select-size">
-                  选择尺码：
-                  <SelectField
-                    id="select-size"
-                    value={this.state.order.size}
-                    onChange={(value) => {
-                      this.handleOrderChange({
-                        ...this.state.order,
-                        size: value,
-                      });
-                    }}
-                  >
-                    {
-                      product.sizes.split(',').map(n =>
-                        <SelectItem key={n} value={n}>{n}</SelectItem>,
-                      )
-                    }
-                  </SelectField>
-                </label>
-                <div className="error-msg">{this.state.order.sizeError}</div>
-              </div>
+              {
+                product.sizes ? (
+                  <div>
+                    <label htmlFor="select-size">
+                      选择尺码：
+                      <SelectField
+                        id="select-size"
+                        value={this.state.order.size}
+                        onChange={(value) => {
+                          this.handleOrderChange({
+                            ...this.state.order,
+                            size: value,
+                          });
+                        }}
+                      >
+                        {
+                          product.sizes.split(',').map(n =>
+                            <SelectItem key={n} value={n}>{n}</SelectItem>,
+                          )
+                        }
+                      </SelectField>
+                    </label>
+                    <div className="error-msg">{this.state.order.sizeError}</div>
+                  </div>
+                ) : null
+              }
               <div>
                 <label htmlFor="select-size">
                   选择数量：
@@ -358,7 +376,20 @@ export default class CreateView extends React.Component {
           </Modal>
           <div className="container">
             <div className="mdc-layout-grid design-container">
-              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5 mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--order-2">
+              
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-layout-grid__cell--span-12-tablet">
+                {
+                  product ? (
+                    <div className="design-area">
+                      <Design
+                        editable={this.state.editable}
+                        product={product}
+                      />
+                    </div>
+                  ) : null
+                }
+              </div>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-12-tablet">
                 <Desktop>
                   <ReactCSSTransitionGroup
                     transitionName="design-panel"
@@ -399,27 +430,6 @@ export default class CreateView extends React.Component {
                   </ReactCSSTransitionGroup>
                 </Desktop>
               </div>
-              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-7 mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--order-1">
-                {
-                  product ? (
-                    <div className="design-area">
-                      <Design
-                        editable={this.state.editable}
-                        product={product}
-                      />
-                    </div>
-                  ) : null
-                }
-              </div>
-            </div>
-            <div className="detail-img-list">
-              <h3 className="title">商品详情：</h3>
-              <img className="detail-img" src="/static/image/1.jpg" alt="img" />
-              <img className="detail-img" src="/static/image/2.jpg" alt="img" />
-              <img className="detail-img" src="/static/image/3.jpg" alt="img" />
-              <img id="size-chart" className="detail-img" src="/static/image/4.png" alt="img" />
-              <img className="detail-img" src="/static/image/5.jpg" alt="img" />
-              <img className="detail-img" src="/static/image/6.jpg" alt="img" />
             </div>
             <Mobile>
               <MobileDesignPanel
@@ -433,6 +443,27 @@ export default class CreateView extends React.Component {
                 isDetailsVisible
               />
             </Mobile>
+            <div className="detail-img-list">
+              <h3 className="title">商品详情：</h3>
+              <div className="detail">
+                <OrderForm
+                  product={product}
+                  order={this.state.order}
+                />
+              </div>
+              {
+                product.productType === 'apparel' ? (
+                  <div>
+                    <img className="detail-img" src="/static/image/1.jpg" alt="img" />
+                    <img className="detail-img" src="/static/image/2.jpg" alt="img" />
+                    <img className="detail-img" src="/static/image/3.jpg" alt="img" />
+                    <img id="size-chart" className="detail-img" src="/static/image/4.png" alt="img" />
+                    <img className="detail-img" src="/static/image/5.jpg" alt="img" />
+                    <img className="detail-img" src="/static/image/6.jpg" alt="img" />
+                  </div>
+                ) : null
+              }
+            </div>
             <Snackbar
               open={this.state.showSuccessMessage}
               onAction={this.handleCheckout}

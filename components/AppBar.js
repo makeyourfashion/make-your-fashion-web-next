@@ -40,7 +40,7 @@ export default class DeskAppBar extends React.Component {
             position: fixed;
             top: 0;
             left: 0;
-            box-shadow: 0 1px 3px rgba(0,0,0,.14);
+            border-bottom: solid 1px #dedede;
             width: 100%;
           }
           .menu-button {

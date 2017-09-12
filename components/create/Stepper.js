@@ -14,7 +14,7 @@ export default class Stepper extends React.Component {
             top: 64px;
             height: 50px;
             width: 100%;
-            box-shadow: 0 1px 3px rgba(0,0,0,.14);
+            border-bottom: solid 1px #dedede;
             background-color: rgba(255,255,255,1);
             z-index: 1;
           }

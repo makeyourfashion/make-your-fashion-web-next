@@ -211,9 +211,9 @@ export default class Checkout extends React.Component {
                             <div className="des-line1">
                               <div className="product-name">{productDetail.name}</div>
                               <div>
-                                <Link href={`/create?cart=${item.id}`}>
+                                {/* <Link href={`/create?cart=${item.id}`}>
                                   <a className="edit-link">编辑</a>
-                                </Link>
+                                </Link> */}
                                 <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
                               </div>
                             </div>
@@ -221,10 +221,14 @@ export default class Checkout extends React.Component {
                               <div>单价：</div>
                               <div>¥{item.price}</div>
                             </div>
-                            <div className="label label-list">
-                              <div>尺码：</div>
-                              <div>{item.size}</div>
-                            </div>
+                            {
+                              item.size && (
+                                <div className="label label-list">
+                                  <div>尺码：</div>
+                                  <div>{item.size}</div>
+                                </div>
+                              )
+                            }
                             <div className="label label-list">
                               <div>数量：</div>
                               <div>{item.qty}</div>

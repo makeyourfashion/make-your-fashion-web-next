@@ -1,7 +1,5 @@
 import React from 'react';
-import { range } from 'lodash';
 import { inject, observer } from 'mobx-react';
-import { SelectField, SelectItem } from '../SelectField';
 import Ratings from '../Ratings';
 
 @inject('designStore') @observer
@@ -62,6 +60,7 @@ export default class OrderForm extends React.Component {
           
           .details {
             display: flex;
+            justify-content: space-between;
           }
           .details > .form-field:nth-child(2) {
             margin-left: 2.5rem;
@@ -82,44 +81,6 @@ export default class OrderForm extends React.Component {
             <span>¥{product.price}</span>
           </div>
         </div>
-        <form noValidate>
-          <div className="form-field select-list">
-            <div>
-              <label htmlFor="select-size">
-                选择尺码：
-                <SelectField
-                  id="select-size"
-                  value={this.props.order.size}
-                  onChange={this.handleSelectSize}
-                >
-                  {
-                    product.sizes.split(',').map(n =>
-                      <SelectItem key={n} value={n}>{n}</SelectItem>,
-                    )
-                  }
-                </SelectField>
-              </label>
-              <div className="error-msg">{this.props.order.sizeError}</div>
-            </div>
-            <div>
-              <label htmlFor="select-size">
-                选择数量：
-                <SelectField
-                  id="select-size"
-                  value={this.props.order.qty}
-                  onChange={this.handleSelectQty}
-                >
-                  {
-                    range(1, 12).map(n =>
-                      <SelectItem key={n} value={n}>{n}</SelectItem>,
-                    )
-                  }
-                </SelectField>
-              </label>
-              <div className="error-msg">{this.props.order.qtyError}</div>
-            </div>
-          </div>
-        </form>
       </div>
     );
   }

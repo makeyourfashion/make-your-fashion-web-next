@@ -40,26 +40,30 @@ export default class SelectQtyAndSize extends React.Component {
         `}</style>
         <form noValidate>
           <div className="form-field select-list">
-            <div>
-              <label htmlFor="select-size">
-                <div className="select-size-label">
-                  <div>选择尺码：</div>
-                  <a href="#size-chart">尺码表</a>
+            {
+              product.sizes ? (
+                <div>
+                  <label htmlFor="select-size">
+                    <div className="select-size-label">
+                      <div>选择尺码：</div>
+                      <a href="#size-chart">尺码表</a>
+                    </div>
+                    <SelectField
+                      id="select-size"
+                      value={this.props.order.size}
+                      onChange={this.handleSelectSize}
+                    >
+                      {
+                        product.sizes.split(',').map(n =>
+                          <SelectItem key={n} value={n}>{n}</SelectItem>,
+                        )
+                      }
+                    </SelectField>
+                  </label>
+                  <div className="error-msg">{this.props.order.sizeError}</div>
                 </div>
-                <SelectField
-                  id="select-size"
-                  value={this.props.order.size}
-                  onChange={this.handleSelectSize}
-                >
-                  {
-                    product.sizes.split(',').map(n =>
-                      <SelectItem key={n} value={n}>{n}</SelectItem>,
-                    )
-                  }
-                </SelectField>
-              </label>
-              <div className="error-msg">{this.props.order.sizeError}</div>
-            </div>
+              ) : null
+            }
             <div>
               <label htmlFor="select-size">
                 选择数量：

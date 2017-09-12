@@ -263,7 +263,7 @@ export default class Landing extends React.Component {
             color: #ccc;
           }
           .campaign-list-line1 {
-            max-width: 800px;
+            max-width: 1400px;
             width: 100%;
             left: 50%;
             transform: translate(-50%, 50%);
@@ -273,20 +273,24 @@ export default class Landing extends React.Component {
             position: absolute;
             bottom: 0;
           }
-          @media (max-width: 600px) {
-            .campaign-list-line1 {
-              transform: translate(-50%, 0);
-            }
-            .categories-container {
-              margin-top: 50px;
-            }
-          }
           .campaign-list-line1 .campaign-card2 {
-            height: 100px;
+            height: 150px;
             display: inline-block;
             width: calc(20% - 10px);
             position: relative;
             margin: 2px 9px 2px 1px;
+          }
+          @media (max-width: 600px) {
+            .campaign-list-line1 {
+              transform: translate(-50%, 0);
+            }
+            .campaign-card2 {
+              height: 70px !important;
+              width: calc(33% - 10px) !important;
+            }
+            .categories-container {
+              margin-top: 50px;
+            }
           }
           .campaign-card2 .details {
             position: absolute;

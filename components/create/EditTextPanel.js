@@ -131,6 +131,7 @@ export default class EditTextPanel extends React.Component {
         `}</style>
         <div className="form-field">
           <TextInput
+            autoFocus
             ref={(r) => { this.input = r ? r.inputRef : null; }}
             multiline
             label="文字"
