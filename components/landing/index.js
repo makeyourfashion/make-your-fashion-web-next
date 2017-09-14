@@ -9,6 +9,9 @@ function handleScroll() {
   window.scrollTo(0, window.innerHeight - 100);
 }
 
+const isDesktop = typeof window === 'object' && window.matchMedia('(min-width: 800px)').matches;
+console.log(isDesktop);
+
 @withLayout @inject('productStore') @observer
 export default class Landing extends React.Component {
   state = {
@@ -56,7 +59,7 @@ export default class Landing extends React.Component {
             flex: 0 1 auto;
           }
           .main-content {
-            max-width: 1050px;
+            max-width: 1150px;
             margin: auto;
             margin-top: 40px;
           }
@@ -69,9 +72,6 @@ export default class Landing extends React.Component {
           }
           .cat-label h3 {
             margin: 20px 0 30px;
-          }
-          .cat-image {
-            position: relative;
           }
           .landing-background {
             width: 100%;
@@ -86,15 +86,14 @@ export default class Landing extends React.Component {
             margin: auto;
           }
           .categories-container {
-            max-width: 1400px;
-            margin-top: 150px;
+            max-width: 1150px;
             padding-bottom: 20px;
           }
           .mdc-layout-grid {
             padding: 0;
           }
           .split-line {
-            margin: 20px 0 20px 0
+            margin: 40px 0 0 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -113,20 +112,27 @@ export default class Landing extends React.Component {
             white-space: nowrap;
           }
 
-          .woman-tee, .man-tee, .phone-case {
-            width: 100%;
+          .woman-tee, .man-tee, .phone-case, .campaigh-image {
             background-size: auto 100%;
             margin: auto;
+          }
+          .woman-tee, .man-tee, .phone-case {
+            height: 400px;
+          }
+          .campaigh-image {
             height: 300px;
           }
           .woman-tee {
             background: url("/static/image/ladies_tshirts.jpg") no-repeat scroll center;
+            background-size: auto 100%;
           }
           .man-tee {
             background: url("/static/image/mens_tshirts.jpg") no-repeat scroll center;
+            background-size: auto 100%;
           }
           .phone-case {
             background: url("/static/image/mobile-phone-1861020_1280.jpg") no-repeat scroll center;
+            background-size: auto 100%;
           }
           .description {
             font-size: 11px !important;
@@ -263,7 +269,7 @@ export default class Landing extends React.Component {
             color: #ccc;
           }
           .campaign-list-line1 {
-            max-width: 1400px;
+            max-width: 1150px;
             width: 100%;
             left: 50%;
             transform: translate(-50%, 50%);
@@ -274,7 +280,7 @@ export default class Landing extends React.Component {
             bottom: 0;
           }
           .campaign-list-line1 .campaign-card2 {
-            height: 150px;
+            height: 120px;
             display: inline-block;
             width: calc(20% - 10px);
             position: relative;
@@ -326,6 +332,57 @@ export default class Landing extends React.Component {
             align-items: center;
             justify-content: space-between;
           }
+          
+          .campaign-details h3 {
+            font-size: 24px;
+          }
+          .cat-details h3 {
+            font-size: 20px;
+            font-weight: 400;
+          }
+          @media (min-width: 800px) {
+            .details-container {
+              margin: 80px 0 0 -100px !important;
+              padding: 0 30px 80px 30px;
+              background-color: #fff;
+            }
+            .campaign-details {
+              margin-left: 180px;
+            }
+          }
+          @media (max-width: 800px) {
+            .details-container {
+              text-align:center;
+            }
+          }
+          .cat-details {
+            text-align: center;
+          }
+          .details-container.inverse {
+            margin: 80px -100px 0 0 !important;
+            text-align: right;
+          }
+          .inverse .campaign-details {
+            margin: 0 180px 0 0;
+          }
+          .cat-image {
+            z-index: 1;
+          }
+          .campaign-details p {
+            margin: 36px 0 36px 0;
+            color: #676767;
+          }
+          @media (min-width: 450px) {
+            .cat-image {
+              padding: 0 12px 0 12px;
+            }
+          }
+          .cat-details p {
+            color: #676767;
+          }
+          .mdc-layout-grid > div {
+            margin-top: 40px;
+          }
         `}</style>
         <div>
           <div className="landing-background">
@@ -339,68 +396,82 @@ export default class Landing extends React.Component {
             <button onClick={handleScroll} className="icon-button expand-icon">
               <i className="material-icons">expand_more</i>
             </button>
-            <div className="mdc-elevation--z1 campaign-list-line1">
-              <Carousel total={5}>
-                {
-                  productStore.campaigns.values().map(campaign => (
-                    <div key={campaign.id} className="mdc-elevation--z1 campaign-card2 image">
-                      <Link key={campaign.id} href={`/shop?campaign=${campaign.id}`}>
-                        <a className="img-wrapper">
-                          <div
-                            className="campaign-img"
-                            style={{
-                              backgroundImage: `url(${campaign.img})`,
-                            }}
-                          />
-                        </a>
-                      </Link>
-                      <div className="details">
-                        <h4>{campaign.name}</h4>
-                      </div>
-                    </div>
-                  ))
-                }
-              </Carousel>
-            </div>
           </div>
           <div className="categories-container">
+            <div className="split-line">
+              <div className="line" />
+              <div className="label">热门主题</div>
+              <div className="line" />
+            </div>
+            {
+              productStore.campaigns.values().map((campaign, index) => (
+                <div key={campaign.id} className="mdc-layout-grid">
+                  <div className={`mdc-layout-grid__cell mdc-layout-grid__cell--span-5 cat-image ${index % 2 === 1 && isDesktop ? 'mdc-layout-grid__cell--order-2' : ''}`}>
+                    <div
+                      className="campaigh-image"
+                      style={{
+                        backgroundImage: `url(${campaign.img})`,
+                      }}
+                    />
+                  </div>
+                  <div className={`mdc-layout-grid__cell mdc-layout-grid__cell--span-7 details-container  ${index % 2 === 1 && isDesktop ? 'mdc-layout-grid__cell--order-1 inverse' : ''}`}>
+                    <div className="campaign-details">
+                      <h3>{campaign.name}</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                      <Link href={`/shop?campaign=${campaign.id}`}>
+                        <a className="mdc-button action-button">
+                          立即前往
+                          <i className="material-icons">keyboard_arrow_right</i>
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
             <div className="split-line">
               <div className="line" />
               <div className="label">热门类别</div>
               <div className="line" />
             </div>
             <div className="mdc-layout-grid">
-              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                <div className="cat-image">
-                  <div className="woman-tee" />
-                  <div className="cat-label welcome">
-                    <h3>女士体恤</h3>
-                    <Link href="shop?category=2">
-                      <a className="border-button">立即前往</a>
-                    </Link>
-                  </div>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
+                <div className="woman-tee" />
+                <div className="cat-details">
+                  <h3>女士体恤</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                  <Link href="shop?category=2">
+                    <a className="mdc-button action-button">
+                      立即前往
+                      <i className="material-icons">keyboard_arrow_right</i>
+                    </a>
+                  </Link>
                 </div>
               </div>
-              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-                <div className="cat-image">
-                  <div className="man-tee" />
-                  <div className="cat-label welcome">
-                    <h3>男士体恤</h3>
-                    <Link href="shop?category=1">
-                      <a className="border-button">立即前往</a>
-                    </Link>
-                  </div>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
+                <div className="man-tee" />
+                <div className="cat-details">
+                  <h3>男士体恤</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                  <Link href="shop?category=1">
+                    <a className="mdc-button action-button">
+                      立即前往
+                      <i className="material-icons">keyboard_arrow_right</i>
+                    </a>
+                  </Link>
                 </div>
               </div>
-              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-                <div className="cat-image">
-                  <div className="phone-case" />
-                  <div className="cat-label welcome">
-                    <h3>手机壳</h3>
-                    <Link href="shop?category=4">
-                      <a className="border-button">立即前往</a>
-                    </Link>
-                  </div>
+              <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
+                <div className="phone-case" />
+                <div className="cat-details">
+                  <h3>手机壳</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                  <Link href="shop?category=4">
+                    <a className="mdc-button action-button">
+                      立即前往
+                      <i className="material-icons">keyboard_arrow_right</i>
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

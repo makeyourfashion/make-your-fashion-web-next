@@ -33,7 +33,6 @@
     "react-color": "^2.11.7",
     "react-dom": "^15.5.4",
     "react-konva": "^1.1.1",
-    "semantic-ui-react": "^0.73.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {

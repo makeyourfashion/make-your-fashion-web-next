@@ -12,8 +12,10 @@ const STEP_NAME = {
 
 export default class ViewStore {
   @observable step;
-  constructor(step = 0) {
+  @observable productId;
+  constructor(step = 0, productId) {
     this.step = step;
+    this.productId = productId;
   }
 
   @action preStep = () => {

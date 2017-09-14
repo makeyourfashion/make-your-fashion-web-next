@@ -5,20 +5,27 @@ import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
 import SelectQtyAndSize from './SelectQtyAndSize';
 
-@inject('designStore', 'viewStore') @observer
+@inject('designStore', 'viewStore', 'productStore') @observer
 export default class DesignPanel extends React.Component {
   render() {
-    const viewStore = this.props.viewStore;
+    const { productStore, viewStore } = this.props;
     const step = viewStore.step;
+    const product = productStore.getProduct(viewStore.productId);
     return (
       <div>
         <style jsx>{`
-          h3 {
+          .line1 {
             border-bottom: 1px solid #dedede;
-            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
           }
         `}</style>
-        <h3>{`第${viewStore.step + 1}步： ${viewStore.stepName}`}</h3>
+        <div className="line1">
+          <h3>{`第${viewStore.step + 1}步： ${viewStore.stepName}`}</h3>
+          <div>单价：¥{product.price}</div>
+        </div>
+        
         {
           (() => {
             if (step === 3) {

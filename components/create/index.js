@@ -73,7 +73,7 @@ export default class CreateView extends React.Component {
     return this.props.productStore.getProduct(productId);
   }
 
-  viewStore = new ViewStore(this.props.step);
+  viewStore = new ViewStore(this.props.step, this.props.productId);
 
   handleSelect = (id, imgUrl) => {
     this.props.designStore.addImage(id, imgUrl);
