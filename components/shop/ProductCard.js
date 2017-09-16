@@ -8,7 +8,7 @@ export default class ProductCard extends React.Component {
 
   render() {
     return (
-      <div className="mdc-elevation--z1 product-card" onClick={this.handleProductSelect}>
+      <div className="mk-card product-card" onClick={this.handleProductSelect}>
         <style jsx>{`
           .product-card {
             padding-bottom: 10px;

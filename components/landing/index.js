@@ -75,7 +75,7 @@ export default class Landing extends React.Component {
           }
           .landing-background {
             width: 100%;
-            height: 60vh;
+            height: 50vh;
             background: url("/static/image/tshirt-247818_1280.jpg") no-repeat scroll center;
             background-size: 100% auto;
             margin: auto;
@@ -135,7 +135,9 @@ export default class Landing extends React.Component {
             background-size: auto 100%;
           }
           .description {
-            font-size: 11px !important;
+            font-size: 14px !important;
+            color: #676767 !important;
+            margin: 12px 0 12px 0;
           }
           .welcome {
             position: absolute;
@@ -164,13 +166,18 @@ export default class Landing extends React.Component {
             margin-bottom: 10px;
           }
 
-          .campaign-card {
+          .product-card {
             display: inline-block;
             margin-bottom: 5px;
-            width: calc(20% - 10px);
-            position: relative;
+            width: calc(25% - 10px);
             margin: 2px 9px 2px 1px;
-            height: 220px;
+          }
+          .product-card:hover {
+            cursor: pointer;
+          }
+          .image {
+            height: 280px;
+            border-bottom: solid 1px #dedede;
           }
 
           .campaign-img {
@@ -193,7 +200,7 @@ export default class Landing extends React.Component {
           }
           @media (min-width: 600px) {
             .landing-background {
-              margin-top: 84px;
+              margin-top: 64px;
             }
             .campaign-img {
               transition: all 0.45s;
@@ -225,7 +232,7 @@ export default class Landing extends React.Component {
               color: #fff;
               background-color: rgba(0,0,0,0);
             }
-            .campaign-card {
+            .product-card {
               width: 49%;
               margin-right: 2%;
               height: 190px;
@@ -251,18 +258,12 @@ export default class Landing extends React.Component {
             background-color: #fff;
             color: #000;
           }
-          .campaign-card .details {
-            position: absolute;
-            bottom: 0;
-            left: -1px;
-            width: 96%;
-            background: rgba(0, 0, 0, .4);
+          .product-card .details {
             padding: 5% 0 5% 5%;
           }
-          .details h4 {
-            color: #fff;
-            text-align: center;
-            margin: 5px 0 5px 0;
+          .details h3 {
+            color: #000;
+            margin: 10px 0 10px 0;
           }
           .details div {
             font-size: 13px;
@@ -332,7 +333,7 @@ export default class Landing extends React.Component {
             align-items: center;
             justify-content: space-between;
           }
-          
+
           .campaign-details h3 {
             font-size: 24px;
           }
@@ -357,6 +358,7 @@ export default class Landing extends React.Component {
           }
           .cat-details {
             text-align: center;
+            padding: 0 12px 18px 12px;
           }
           .details-container.inverse {
             margin: 80px -100px 0 0 !important;
@@ -436,42 +438,48 @@ export default class Landing extends React.Component {
             </div>
             <div className="mdc-layout-grid">
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
-                <div className="woman-tee" />
-                <div className="cat-details">
-                  <h3>女士体恤</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                  <Link href="shop?category=2">
-                    <a className="mdc-button action-button">
-                      立即前往
-                      <i className="material-icons">keyboard_arrow_right</i>
-                    </a>
-                  </Link>
+                <div className="mk-card">
+                  <div className="woman-tee" />
+                  <div className="cat-details">
+                    <h3>女士体恤</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                    <Link href="shop?category=2">
+                      <a className="mdc-button action-button">
+                        立即前往
+                        <i className="material-icons">keyboard_arrow_right</i>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
-                <div className="man-tee" />
-                <div className="cat-details">
-                  <h3>男士体恤</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                  <Link href="shop?category=1">
-                    <a className="mdc-button action-button">
-                      立即前往
-                      <i className="material-icons">keyboard_arrow_right</i>
-                    </a>
-                  </Link>
+                <div className="mk-card">
+                  <div className="man-tee" />
+                  <div className="cat-details">
+                    <h3>男士体恤</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                    <Link href="shop?category=1">
+                      <a className="mdc-button action-button">
+                        立即前往
+                        <i className="material-icons">keyboard_arrow_right</i>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
-                <div className="phone-case" />
-                <div className="cat-details">
-                  <h3>手机壳</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                  <Link href="shop?category=4">
-                    <a className="mdc-button action-button">
-                      立即前往
-                      <i className="material-icons">keyboard_arrow_right</i>
-                    </a>
-                  </Link>
+                <div className="mk-card">
+                  <div className="phone-case" />
+                  <div className="cat-details">
+                    <h3>手机壳</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                    <Link href="shop?category=4">
+                      <a className="mdc-button action-button">
+                        立即前往
+                        <i className="material-icons">keyboard_arrow_right</i>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -490,27 +498,28 @@ export default class Landing extends React.Component {
               </Link>
             </div>
             <div className="campaign-list">
-              <Carousel total={5}>
+              <Carousel total={4}>
                 {
                   productStore.getProductsByCategory('all').map(product => (
-                    <div key={product.id} className="mdc-elevation--z1 campaign-card product-card image">
+                    <div key={product.id} className="mk-card product-card">
                       <Link key={product.id} href={`/create?product=${product.id}`}>
-                        <a className="img-wrapper">
-                          <div
-                            className="campaign-img"
-                            style={{
-                              backgroundImage: `url(${product.img})`,
-                            }}
-                          />
-                        </a>
-                      </Link>
-                      <div className="details">
-                        <div className="line1">
-                          <h4>{product.name}</h4>
-                          <span className="rating"><Ratings rating={product.ratings} /></span>
+                        <div>
+                          <div className="image">
+                            <a className="img-wrapper">
+                              <div
+                                className="campaign-img"
+                                style={{
+                                  backgroundImage: `url(${product.img})`,
+                                }}
+                              />
+                            </a>
+                          </div>
+                          <div className="details">
+                            <h3>{product.name}</h3>
+                            <div className="description">{product.description}</div>
+                          </div>
                         </div>
-                        <div className="description">{product.description}</div>
-                      </div>
+                      </Link>
                     </div>
                   ))
                 }

@@ -21,58 +21,6 @@ export default class Cart extends React.Component {
     });
   }
 
-  handleGotoPayment = (address) => {
-    this.setState({
-      step: 1,
-      address,
-      addressEntered: true,
-    });
-  }
-
-  handleGotoReview = () => {
-    this.setState({
-      step: 2,
-      paySuccess: true,
-    });
-  }
-
-  handlePlaceOrder = () => {
-    const order = {
-      ...this.state.address,
-      userId: this.props.identityStore.id,
-      orderItem: this.props.cartStore.cartItems.map(({ size, qty, imgUrl, itemId, price, images, texts }) => ({
-        size, qty, itemId, price, img: imgUrl, images, texts,
-      })),
-    };
-
-    placeOrder(order, () => {
-      this.setState({
-        showSuccessMessage: true,
-      });
-    });
-  }
-
-  goToShipping = (e) => {
-    e.preventDefault();
-    this.setState({
-      step: 0,
-    });
-  }
-
-  goToPayment = (e) => {
-    e.preventDefault();
-    this.setState({
-      step: 1,
-    });
-  }
-
-  goToPlaceOrder = (e) => {
-    e.preventDefault();
-    this.setState({
-      step: 2,
-    });
-  }
-
   handleRemoveCartItem = (e) => {
     this.props.cartStore.removeCartItem(+e.target.getAttribute('data-cart-id'));
   }
@@ -172,7 +120,7 @@ export default class Cart extends React.Component {
           }
         `}</style>
         <div className="container">
-          <div className="mdc-elevation--z1 card-container">
+          <div className="mk-card card-container">
             <h2>购物车</h2>
             {
               cartItems.length ? (
@@ -243,4 +191,3 @@ export default class Cart extends React.Component {
     );
   }
 }
-

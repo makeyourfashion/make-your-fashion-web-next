@@ -57,7 +57,7 @@ export default class OrderForm extends React.Component {
           .add-to-cart-button {
             margin-top: 1.25rem;
           }
-          
+
           .details {
             display: flex;
             justify-content: space-between;

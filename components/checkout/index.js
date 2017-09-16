@@ -163,7 +163,7 @@ export default class Checkout extends React.Component {
         `}</style>
         <div className="container">
           <div className="mdc-layout-grid">
-            <div className="mdc-elevation--z1 yz-card mdc-layout-grid__cell mdc-layout-grid__cell--span-7">
+            <div className="mk-card yz-card mdc-layout-grid__cell mdc-layout-grid__cell--span-7">
               <h2>结账</h2>
               <div className="steps">
                 <a href="/checkout" onClick={this.goToShipping} className={this.state.step === 0 ? 'active-step' : ''}>邮寄地址</a>
@@ -197,7 +197,7 @@ export default class Checkout extends React.Component {
               }
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-5">
-              <div className="mdc-elevation--z1 yz-card">
+              <div className="mk-card yz-card">
                 <h2>总结</h2>
                 {
                   cartItems.map((item) => {
@@ -269,4 +269,3 @@ export default class Checkout extends React.Component {
     );
   }
 }
-

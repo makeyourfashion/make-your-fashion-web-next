@@ -46,7 +46,6 @@ export default class CreateView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.productId !== this.props.productId) {
-      console.log(nextProps.productId);
       // const designDetail = this.productStore.getProduct(nextProps.productId).designDetail;
       // const textDetail = this.productStore.getProduct(nextProps.productId).textDetail;
       // this.designStore = initDesignStore(nextProps.productId, designDetail, textDetail);
@@ -86,12 +85,10 @@ export default class CreateView extends React.Component {
           showDesignPanel: true,
         });
       }
-    } else {
-      if (this.state.showDesignPanel) {
-        this.setState({
-          showDesignPanel: false,
-        });
-      }
+    } else if (this.state.showDesignPanel) {
+      this.setState({
+        showDesignPanel: false,
+      });
     }
   }
 
@@ -117,9 +114,8 @@ export default class CreateView extends React.Component {
   nextStep = () => {
     if (this.viewStore.step === 3) {
       return this.handleAddToCart(false);
-    } else {
-      return this.viewStore.nextStep();
     }
+    return this.viewStore.nextStep();
   }
 
   handleAddToCart = (openModal = true) => {
@@ -219,8 +215,10 @@ export default class CreateView extends React.Component {
               margin-top: 20px;
             }
             .detail-img-list {
-              max-width: 800px;
+              max-width: 840px;
+              padding: 0 18px 6px 18px;
               margin: auto;
+              margin-top: 12px;
             }
             .title {
               margin: 40px 0 10px 0;
@@ -277,7 +275,7 @@ export default class CreateView extends React.Component {
               opacity: 0.01;
               transition: opacity 500ms ease-in;
             }
-            
+
             @media (min-width: 600px) {
               .action-area {
                 display: none;
@@ -376,7 +374,7 @@ export default class CreateView extends React.Component {
           </Modal>
           <div className="container">
             <div className="mdc-layout-grid design-container">
-              
+
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-8 mdc-layout-grid__cell--span-12-tablet">
                 {
                   product ? (
@@ -398,7 +396,7 @@ export default class CreateView extends React.Component {
                   >
                     {
                       this.state.showDesignPanel ? (
-                        <div className="mdc-elevation--z1 design-panel">
+                        <div className="mk-card design-panel">
                           <div className="panel-container-main">
                             <DesignPanel
                               onOrderChange={this.handleOrderChange}
@@ -443,7 +441,7 @@ export default class CreateView extends React.Component {
                 isDetailsVisible
               />
             </Mobile>
-            <div className="detail-img-list">
+            <div className="mk-card detail-img-list">
               <h3 className="title">商品详情：</h3>
               <div className="detail">
                 <OrderForm

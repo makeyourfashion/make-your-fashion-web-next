@@ -117,7 +117,7 @@ export default class LoginView extends React.Component {
           }
         `}</style>
         <div className="container">
-          <div className="mdc-elevation--z1 login-card">
+          <div className="mk-card login-card">
             <div>
               <div>
                 <h2 className="text-center">注册新用户</h2>

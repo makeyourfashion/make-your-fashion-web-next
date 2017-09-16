@@ -74,14 +74,14 @@ export default class HistoryView extends React.Component {
             margin-bottom: 40px;
           }
           button {
-            margin-top: 20px; 
+            margin-top: 20px;
           }
           .mdc-list-item {
             height: inherit;
           }
         `}</style>
         <div className="container">
-          <div className="login-container mdc-elevation--z1 yz-card">
+          <div className="login-container mk-card yz-card">
             <h1>我的个人信息</h1>
             <form onSubmit={this.handleSave}>
               <ul className="mdc-list">

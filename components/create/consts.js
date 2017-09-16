@@ -1,5 +1,5 @@
-let canvasWidth = 100;
-let canvasHeight = 100;
+let canvasWidth = 500;
+let canvasHeight = 500;
 if (typeof window !== 'undefined') {
   if (window.matchMedia('(min-width: 700px)').matches) {
     const maxWidth = window.innerHeight * 0.7;
