@@ -85,10 +85,7 @@ ul {
 .subtitle {
   color: #999;
 }
-.form-field {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+
 .error-msg {
   font-size: 12px;
   line-height: 12px;
@@ -194,4 +191,7 @@ body {
   border: solid 1px #dedede;
   background-color: #fff;
   border-radius: 5px;
+}
+.form-field {
+  margin-bottom: 24px;
 }

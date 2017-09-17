@@ -11,17 +11,19 @@ export default class Shop extends React.Component {
     const productStore = initProductStore();
     await productStore.fetchCategories();
     await productStore.fetchCampaigns();
-    if (query.category) {
+    if (query.campaign) {
+      await productStore.fetchProcutsByCampaign(query.campaign);
+    } else if (query.category) {
       await productStore.fetchProcutsByCategory(query.category);
     } else {
-      await productStore.fetchProcutsByCampaign(query.campaign);
+      await productStore.fetchAllProducts(query.category);
     }
 
     return {
       categories: productStore.categories,
       campaigns: productStore.campaigns,
       products: productStore.products,
-      category: query.category,
+      category: query.category || 'all',
       campaign: query.campaign,
       tag: query.tag,
     };

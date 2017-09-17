@@ -95,6 +95,7 @@ export default class LoginView extends React.Component {
         <style jsx>{`
           h2 {
             padding-bottom: 12px;
+            margin-bottom: 24px;
             border-bottom: solid 1px #dedede;
           }
           .login-card {
@@ -109,12 +110,6 @@ export default class LoginView extends React.Component {
               margin-top: 64px;
             }
           }
-          .create-account-button {
-            margin-top: 20px;
-          }
-          .mdc-list-item {
-            height: inherit;
-          }
         `}</style>
         <div className="container">
           <div className="mk-card login-card">
@@ -122,57 +117,49 @@ export default class LoginView extends React.Component {
               <div>
                 <h2 className="text-center">注册新用户</h2>
                 <form noValidate onSubmit={this.handleCreateAccount}>
-                  <ul className="mdc-list">
-                    <li className="mdc-list-item">
-                      <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">phone</i>
-                      <div className="form-field-wrapper">
-                        <TextInput
-                          label="手机号"
-                          type="tel"
-                          displayError={this.state.phoneError}
-                          onChange={this.handlePhoneChange}
-                          onBlur={this.handlePhoneValidation}
-                          value={this.state.phone}
-                        />
-                      </div>
-                    </li>
-                    <li className="mdc-list-item">
-                      <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">vpn_key</i>
-                      <div className="form-field-wrapper">
-                        <TextInput
-                          label="密码(至少8位)"
-                          displayError={this.state.passwordError}
-                          type="password"
-                          onChange={this.handlePasswordChange}
-                          onBlur={this.handlePasswordValidation}
-                          value={this.state.password}
-                        />
-                      </div>
-                    </li>
-                    <li className="mdc-list-item">
-                      <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">vpn_key</i>
-                      <div className="form-field-wrapper">
-                        <TextInput
-                          label="确认密码"
-                          displayError={this.state.passwordConfirmError}
-                          type="password"
-                          onChange={this.handlePasswordConfirmChange}
-                          onBlur={this.handlePasswordConfirmValidation}
-                          value={this.state.passwordConfirm}
-                        />
-                      </div>
-                    </li>
-                    <li className="mdc-list-item">
-                      <Link href="/login">
-                        <a className="link-button">已经拥有账号？点击登录</a>
-                      </Link>
-                    </li>
-                    <li className="mdc-list-item">
-                      <button type="submit" className="create-account-button mdc-button mdc-button--raised round-button mdc-button--accent button-full-width">
-                        创建账号
-                      </button>
-                    </li>
-                  </ul>
+                  <div className="form-field">
+                    <TextInput
+                      label="手机号"
+                      type="tel"
+                      icon="phone"
+                      displayError={this.state.phoneError}
+                      onChange={this.handlePhoneChange}
+                      onBlur={this.handlePhoneValidation}
+                      value={this.state.phone}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <TextInput
+                      label="密码(至少8位)"
+                      icon="vpn_key"
+                      displayError={this.state.passwordError}
+                      type="password"
+                      onChange={this.handlePasswordChange}
+                      onBlur={this.handlePasswordValidation}
+                      value={this.state.password}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <TextInput
+                      label="确认密码"
+                      icon="vpn_key"
+                      displayError={this.state.passwordConfirmError}
+                      type="password"
+                      onChange={this.handlePasswordConfirmChange}
+                      onBlur={this.handlePasswordConfirmValidation}
+                      value={this.state.passwordConfirm}
+                    />
+                  </div>
+                  <div className="form-field">
+                    <Link href="/login">
+                      <a className="link-button">已经拥有账号？点击登录</a>
+                    </Link>
+                  </div>
+                  <div className="form-field">
+                    <button type="submit" className="mdc-button mdc-button--raised round-button mdc-button--accent button-full-width">
+                      创建账号
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>

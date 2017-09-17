@@ -100,9 +100,7 @@ export default class ShippingDetail extends React.Component {
           h3 {
             border-bottom: 1px solid #dedede;
             padding-bottom: 5px;
-          }
-          button {
-            margin-top: 20px;
+            margin-bottom: 24px;
           }
           .mdc-list-item {
             height: inherit;
@@ -111,50 +109,43 @@ export default class ShippingDetail extends React.Component {
         <div>
           <h3>请输入您的邮寄地址：</h3>
           <form noValidate onSubmit={this.handleNext}>
-            <ul className="mdc-list">
-              <li className="mdc-list-item">
-                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">account_circle</i>
-                <div className="form-field-wrapper">
-                  <TextInput
-                    label="姓名："
-                    displayError={this.state.nameError}
-                    onChange={this.handleNameChange}
-                    onBlur={this.handleNameValidation}
-                    value={this.state.name}
-                  />
-                </div>
-              </li>
-              <li className="mdc-list-item">
-                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">location_city</i>
-                <div className="form-field-wrapper">
-                  <TextInput
-                    label="详细地址："
-                    displayError={this.state.addressError}
-                    onChange={this.handleAddressChange}
-                    onBlur={this.handleAddressValidation}
-                    value={this.state.address}
-                  />
-                </div>
-              </li>
-              <li className="mdc-list-item">
-                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">phone</i>
-                <div className="form-field-wrapper">
-                  <TextInput
-                    label="手机号："
-                    type="tel"
-                    displayError={this.state.phoneError}
-                    onChange={this.handlePhoneChange}
-                    onBlur={this.handlePhoneValidation}
-                    value={this.state.phone}
-                  />
-                </div>
-              </li>
-              <li className="mdc-list-item">
-                <button type="submit" className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                  下一步
-                </button>
-              </li>
-            </ul>
+            <div className="form-field">
+              <TextInput
+                label="姓名："
+                icon="account_circle"
+                displayError={this.state.nameError}
+                onChange={this.handleNameChange}
+                onBlur={this.handleNameValidation}
+                value={this.state.name}
+              />
+            </div>
+            <div className="form-field">
+              <TextInput
+                multiline
+                label="详细地址："
+                icon="location_city"
+                displayError={this.state.addressError}
+                onChange={this.handleAddressChange}
+                onBlur={this.handleAddressValidation}
+                value={this.state.address}
+              />
+            </div>
+            <div className="form-field">
+              <TextInput
+                label="手机号："
+                type="tel"
+                icon="phone"
+                displayError={this.state.phoneError}
+                onChange={this.handlePhoneChange}
+                onBlur={this.handlePhoneValidation}
+                value={this.state.phone}
+              />
+            </div>
+            <div className="form-field">
+              <button type="submit" className="mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                下一步
+              </button>
+            </div>
           </form>
         </div>
       </div>

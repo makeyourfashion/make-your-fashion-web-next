@@ -9,15 +9,24 @@ class SelectField extends React.Component {
     return (
       <div className="select-field-wrapper">
         <style jsx>{`
-            .select-field {
-              max-width: 100%;
-              width: 100% !important;
+            select {
+              width: 100%;
+              appearance: none;
+              background-color: #fff;
               background-image: none;
-              color: #000;
-              margin: 10px 0 10px 0;
-              border: 1px solid #ccc !important;
-              padding: 3px 10px 3px 15px;
-              min-height: 40px;
+              border-radius: 4px;
+              border: 1px solid #bfcbd9;
+              box-sizing: border-box;
+              color: #1f2d3d;
+              font-size: inherit;
+              line-height: 1;
+              outline: 0;
+              padding: 3px 10px;
+              height: 36px;
+              transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+            }
+            select:focus {
+              border-color: #20a0ff;
             }
 
             .select-field-wrapper {
@@ -30,7 +39,7 @@ class SelectField extends React.Component {
               transform: translateY(-50%);
             }
           `}</style>
-        <select className="mdc-select select-field" onChange={this.handleChange} value={this.props.value}>
+        <select onChange={this.handleChange} value={this.props.value}>
           <SelectItem />
           {this.props.children}
         </select>

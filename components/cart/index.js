@@ -112,7 +112,7 @@ export default class Cart extends React.Component {
             color: #ff5a5f;
             border: none;
             font-size: 0.8em;
-            padding-right: 0;
+            padding-left: 0;
             background-color: #fdfdf9;
           }
           .edit-link:hover {
@@ -137,9 +137,6 @@ export default class Cart extends React.Component {
                               <div>
                                 <div className="product-name">{productDetail.name}</div>
                                 <div>
-                                  <Link href={`/create?cart=${item.id}`}>
-                                    <a className="edit-link">编辑</a>
-                                  </Link>
                                   <button data-cart-id={item.id} onClick={this.handleRemoveCartItem} className="edit-link">删除</button>
                                 </div>
                               </div>

@@ -132,14 +132,14 @@ export default class DeskAppBar extends React.Component {
                       }`}
                     >主页</a>
                   </Link>
-                  <Link prefetch href="/shop?category=2">
+                  <Link prefetch href="/shop">
                     <a
                       className={`mdc-tab ${
                         typeof window !== 'undefined' && window.location.pathname.startsWith('/shop') ? 'mdc-tab--active' : ''
                       }`}
                     >购物</a>
                   </Link>
-                  <Link prefetch href="/create?product=1">
+                  <Link prefetch href="/create">
                     <a
                       className={`mdc-tab ${
                         typeof window !== 'undefined' && window.location.pathname.startsWith('/create') ? 'mdc-tab--active' : ''
@@ -157,7 +157,7 @@ export default class DeskAppBar extends React.Component {
                 </nav>
               </div>
             </div>
-            
+
             <div className="mdc-toolbar__section align-center mdc-toolbar__section--align-end" data-badge="1">
               {
                 this.props.identityStore.isLoggedIn ? <MyAccount />
@@ -215,7 +215,7 @@ export default class DeskAppBar extends React.Component {
                 }
               </nav>
             </div>
-            
+
           </nav>
         </aside>
       </div>

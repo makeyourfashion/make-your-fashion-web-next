@@ -12,17 +12,18 @@ export default class Carousel extends React.Component {
     const image = this.container.querySelector('.image');
     const elWidth = image ? image.offsetWidth : 1;
     this.setState({
-      total: totalWidth / elWidth,
+      total: Math.ceil(totalWidth / elWidth),
     });
   }
 
-  componentWillUpdate(nextPorps) {
-    if (this.props.children !== nextPorps.children) {
-      const totalWidth = this.container.offsetWidth;
-      const image = this.container.querySelector('.image');
-      const elWidth = image ? image.offsetWidth : 1;
+  componentDidUpdate() {
+    const totalWidth = this.container.offsetWidth;
+    const image = this.container.querySelector('.image');
+    const elWidth = image ? image.offsetWidth : 1;
+    const total = Math.ceil(totalWidth / elWidth);
+    if (total !== this.state.total) {
       this.setState({
-        total: totalWidth / elWidth,
+        total: Math.ceil(totalWidth / elWidth),
       });
     }
   }

@@ -38,7 +38,7 @@ export default class EditTextPanel extends React.Component {
 
   handleChangeFontSize = (fontSize) => {
     const text = this.props.designStore.selectedText || defaultText;
-    console.log(text)
+    console.log(text);
     this.props.designStore.updateText({
       id: text.id,
       font_size: +fontSize,
@@ -132,6 +132,7 @@ export default class EditTextPanel extends React.Component {
         <div className="form-field">
           <TextInput
             autoFocus
+            icon="text_fields"
             ref={(r) => { this.input = r ? r.inputRef : null; }}
             multiline
             label="文字"

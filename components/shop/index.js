@@ -80,9 +80,13 @@ export default class ShopView extends React.Component {
       </div>
     );
 
-    const headLine = this.props.campaign
-      ? this.props.productStore.getCampaign(this.props.campaign).name
-      : this.props.productStore.getCategory(this.props.category).name;
+    let headLine;
+    if (this.props.campaign) {
+      headLine = this.props.productStore.getCampaign(this.props.campaign).name;
+    } else {
+      const category = this.props.productStore.getCategory(this.props.category);
+      headLine = category ? category.name : null;
+    }
     return (
       <div>
         <style jsx>{`
@@ -134,25 +138,24 @@ export default class ShopView extends React.Component {
               </div>
             </div>
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-              <h3 className="category"><span>"{ headLine }" </span>搜索结果</h3>
+              { headLine ? <h3 className="category"><span>"{ headLine }"</span>搜索结果</h3> : null }
               {
                 (() => {
                   const campaigns = this.props.campaign
                     ? this.props.productStore.getProductsByCampaign(this.props.campaign)
                     : this.props.productStore.getProductsByCategory(this.props.category);
                   if (!campaigns.length) {
-                    return <div className="no-products-alert">暂无此类商品，请选择其他类别</div>
-                  } else {
-                    return (
-                      <div className="product-list">
-                        {
+                    return <div className="no-products-alert">暂无此类商品，请选择其他类别</div>;
+                  }
+                  return (
+                    <div className="product-list">
+                      {
                           campaigns.map(product => (
                             <ProductCard key={product.id} product={product} />
                           ))
                         }
-                      </div>
-                    );
-                  }
+                    </div>
+                  );
                 })()
               }
             </div>

@@ -1,7 +1,5 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import Link from 'next/link';
-import 'isomorphic-fetch';
 import withLayout from '../Layout';
 import ShippingDetail from './ShippingDetail';
 import Payment from './Payment';
@@ -99,7 +97,6 @@ export default class Checkout extends React.Component {
             height: 100%;
             display: flex;
             justify-content: space-between;
-            width: 300px;
             max-width: 100%;
           }
           .cart-image {
@@ -131,10 +128,9 @@ export default class Checkout extends React.Component {
           .summary {
             font-weight: bold;
             margin: auto;
-            max-width: 250px;
           }
           .container {
-            max-width: 1024px;
+            max-width: 960px;
           }
           .steps {
             display: flex;
@@ -153,6 +149,7 @@ export default class Checkout extends React.Component {
             justify-content: space-between;
           }
           .edit-link {
+            padding: 0;
             color: #ff5a5f;
             border: none;
             background-color: #fdfdf9;

@@ -10,7 +10,6 @@ function handleScroll() {
 }
 
 const isDesktop = typeof window === 'object' && window.matchMedia('(min-width: 800px)').matches;
-console.log(isDesktop);
 
 @withLayout @inject('productStore') @observer
 export default class Landing extends React.Component {
@@ -358,7 +357,7 @@ export default class Landing extends React.Component {
           }
           .cat-details {
             text-align: center;
-            padding: 0 12px 18px 12px;
+            padding: 0 12px 24px 12px;
           }
           .details-container.inverse {
             margin: 80px -100px 0 0 !important;
@@ -380,10 +379,15 @@ export default class Landing extends React.Component {
             }
           }
           .cat-details p {
+            margin: 12px 6px 24px 6px;
             color: #676767;
           }
           .mdc-layout-grid > div {
             margin-top: 40px;
+          }
+          .cat-card {
+            background-color: #fff;
+            border-radius: 5px;
           }
         `}</style>
         <div>
@@ -438,7 +442,7 @@ export default class Landing extends React.Component {
             </div>
             <div className="mdc-layout-grid">
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
-                <div className="mk-card">
+                <div className="cat-card">
                   <div className="woman-tee" />
                   <div className="cat-details">
                     <h3>女士体恤</h3>
@@ -453,7 +457,7 @@ export default class Landing extends React.Component {
                 </div>
               </div>
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
-                <div className="mk-card">
+                <div className="cat-card">
                   <div className="man-tee" />
                   <div className="cat-details">
                     <h3>男士体恤</h3>
@@ -468,7 +472,7 @@ export default class Landing extends React.Component {
                 </div>
               </div>
               <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 cat-image">
-                <div className="mk-card">
+                <div className="cat-card">
                   <div className="phone-case" />
                   <div className="cat-details">
                     <h3>手机壳</h3>

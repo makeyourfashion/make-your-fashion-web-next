@@ -7,11 +7,7 @@ let store = null;
 const intialState = { products: {}, categories: [] };
 class ProductStore {
   @observable products = observable.map()
-  @observable categories = observable.map({
-    all: {
-      products: [],
-    },
-  })
+  @observable categories = observable.map()
   @observable campaigns = observable.map()
   @observable isLoading = false
 
@@ -58,8 +54,7 @@ class ProductStore {
   }
 
   @action async fetchAllProducts() {
-    const allProducts = this.categories.get('all');
-    if (allProducts.products.length) {
+    if (this.categories.get('all')) {
       return;
     }
     this.isLoading = true;
@@ -72,7 +67,9 @@ class ProductStore {
 
       this.products.merge(keyBy(products, 'id'));
       const ids = products.map(p => p.id);
-      allProducts.products = ids;
+      this.categories.set('all', {
+        products: ids,
+      });
     } catch (e) {
       // do nothing
     }
@@ -153,8 +150,8 @@ class ProductStore {
   }
 
   getProductsByCategory(id) {
-    const productIds = this.categories.get(id).products;
-    return productIds ? productIds.map(pid => this.products.get(pid)) : [];
+    const productIds = this.categories.get(id);
+    return productIds ? productIds.products.map(pid => this.products.get(pid)) : [];
   }
 
   getProductsByCampaign(id) {

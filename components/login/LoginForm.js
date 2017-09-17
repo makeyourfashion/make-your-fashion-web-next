@@ -2,7 +2,6 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Link from 'next/link';
 import TextInput from '../TextInput';
-// import Checkbox from '../Checkbox';
 import { validatePhone } from '../../utils';
 
 function validatePassword(password) {
@@ -79,56 +78,45 @@ export default class LoginForm extends React.Component {
         <style jsx>{`
           h2 {
             padding-bottom: 12px;
+            margin-bottom: 24px;
             border-bottom: solid 1px #dedede;
-          }
-          .login-button {
-            margin-top: 20px;
-          }
-          .mdc-list-item {
-            height: inherit;
           }
         `}</style>
         <div>
           <h2 className="text-center">登录账户</h2>
           <form noValidate onSubmit={this.handleLogin}>
-            <ul className="mdc-list">
-              <li className="mdc-list-item">
-                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">phone</i>
-                <div className="form-field-wrapper">
-                  <TextInput
-                    label="手机号"
-                    type="tel"
-                    displayError={this.state.phoneError}
-                    onChange={this.handlePhoneChange}
-                    onBlur={this.handlePhoneValidation}
-                    value={this.state.phone}
-                  />
-                </div>
-              </li>
-              <li className="mdc-list-item">
-                <i className="mdc-list-item__start-detail material-icons" aria-hidden="true">vpn_key</i>
-                <div className="form-field-wrapper">
-                  <TextInput
-                    label="密码"
-                    displayError={this.state.passwordError}
-                    type="password"
-                    onChange={this.handlePasswordChange}
-                    onBlur={this.handlePasswordValidation}
-                    value={this.state.password}
-                  />
-                </div>
-              </li>
-              <li className="mdc-list-item">
-                <Link href="/createAccount">
-                  <a className="link-button">还没有帐号？点击注册</a>
-                </Link>
-              </li>
-              <li className="mdc-list-item">
-                <button type="submit" className="login-button mdc-button mdc-button--raised round-button mdc-button--accent button-full-width">
-                  登录
-                </button>
-              </li>
-            </ul>
+            <div className="form-field">
+              <TextInput
+                label="手机号"
+                type="tel"
+                icon="phone"
+                displayError={this.state.phoneError}
+                onChange={this.handlePhoneChange}
+                onBlur={this.handlePhoneValidation}
+                value={this.state.phone}
+              />
+            </div>
+            <div className="form-field">
+              <TextInput
+                label="密码"
+                icon="vpn_key"
+                displayError={this.state.passwordError}
+                type="password"
+                onChange={this.handlePasswordChange}
+                onBlur={this.handlePasswordValidation}
+                value={this.state.password}
+              />
+            </div>
+            <div className="form-field">
+              <Link href="/createAccount">
+                <a className="link-button">还没有帐号？点击注册</a>
+              </Link>
+            </div>
+            <div className="form-field">
+              <button type="submit" className="mdc-button mdc-button--raised round-button mdc-button--accent button-full-width">
+                登录
+              </button>
+            </div>
           </form>
         </div>
       </div>
