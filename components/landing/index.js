@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { inject, observer } from 'mobx-react';
 import withLayout from '../Layout';
 import Carousel from '../Carousel';
-import Ratings from '../Ratings';
 
 function handleScroll() {
   window.scrollTo(0, window.innerHeight - 100);
@@ -73,7 +72,6 @@ export default class Landing extends React.Component {
             margin: 20px 0 30px;
           }
           .landing-background {
-            width: 100%;
             height: 50vh;
             background: url("/static/image/tshirt-247818_1280.jpg") no-repeat scroll center;
             background-size: 100% auto;
@@ -182,7 +180,7 @@ export default class Landing extends React.Component {
           .campaign-img {
             width: 100%;
             height: 100%;
-            background-size: cover;
+            background-size: 100% auto;
             background-repeat: no-repeat;
           }
           .img-wrapper {
@@ -213,6 +211,10 @@ export default class Landing extends React.Component {
           }
 
           @media (max-width: 600px) {
+            .image {
+              height: 200px;
+              border-bottom: solid 1px #dedede;
+            }
             .landing-background {
               height: 100vh;
               background-size: auto 100%;
@@ -234,7 +236,7 @@ export default class Landing extends React.Component {
             .product-card {
               width: 49%;
               margin-right: 2%;
-              height: 190px;
+
             }
           }
 

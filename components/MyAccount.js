@@ -1,33 +1,10 @@
 import React from 'react';
-import Router from 'next/router';
+import Link from 'next/link';
 import { inject, observer } from 'mobx-react';
-import { MDCSimpleMenu } from '@material/menu/dist/mdc.menu';
+import Menu from './Menu';
 
 @inject('identityStore') @observer
 export default class MyAccount extends React.Component {
-  componentDidMount() {
-    this.menu = new MDCSimpleMenu(this.menuDom);
-    document.addEventListener('click', this.handleGotoHistory);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleGotoHistory);
-  }
-
-  handleToggleMenu = () => {
-    const menu = this.menu;
-    if (menu) {
-      menu.open = !menu.open;
-    }
-  }
-
-  handleGotoHistory = (e) => {
-    if (e.target.className.includes('my-account-item')) {
-      e.preventDefault();
-      Router.push(e.target.querySelector('a').getAttribute('href'));
-    }
-  }
-
   logout = async (e) => {
     e.preventDefault();
     await this.props.identityStore.logout();
@@ -35,7 +12,7 @@ export default class MyAccount extends React.Component {
 
   render() {
     return (
-      <div className="mdc-menu-anchor">
+      <div className="myaccount-button">
         <style jsx>{`
           .account-line1 {
             padding: 10px;
@@ -43,50 +20,44 @@ export default class MyAccount extends React.Component {
             display: flex;
             justify-content: space-between;
           }
-          .mdc-list-item {
-            min-width: 200px;
-            margin-left: 10px;
-            text-align: center;
-          }
-
           .myaccount-button {
             margin-right: 5px;
-            padding: 0;
-            color: #000;
-            font-size: 1em;
-            background-color: rgba(255, 255,255,0) !important;
           }
-
+          .account-menu {
+            min-width: 250px;
+          }
           @media (min-width: 600px) {
             .myaccount-button {
               margin-right: 20px;
             }
           }
         `}</style>
-        <button
-          onClick={this.handleToggleMenu}
-          className={`icon-button myaccount-button ${this.props.transparent ? 'transparent' : ''}`}
-        >我的帐户</button>
-        <div className="mdc-simple-menu" ref={(r) => { this.menuDom = r; }}>
-          <div className="account-line1">
-            <div>
-              你好，{
-                this.props.identityStore.name
-              }
+        <Menu label="我的帐户">
+          <div className="account-menu">
+            <div className="account-line1">
+              <div>
+                你好，{
+                  this.props.identityStore.name
+                }
+              </div>
+              <div>
+                <a onClick={this.logout} href="/api/logout">退出</a>
+              </div>
             </div>
-            <div>
-              <a onClick={this.logout} href="/api/logout">退出</a>
-            </div>
+            <ul className="mdc-list mdc-list--dense">
+              <li className="mdc-list-item">
+                <Link href="/account/history">
+                  <a>我的订单</a>
+                </Link>
+              </li>
+              <li className="mdc-list-item">
+                <Link href="/account/details">
+                  <a>我的账号</a>
+                </Link>
+              </li>
+            </ul>
           </div>
-          <ul className="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
-            <li className="mdc-list-item my-account-item" role="menuitem">
-              <a href="/account/history" onClick={this.handleGotoHistory}>我的订单</a>
-            </li>
-            <li className="mdc-list-item my-account-item" role="menuitem">
-              <a href="/account/details" onClick={this.handleGotoHistory}>我的账号</a>
-            </li>
-          </ul>
-        </div>
+        </Menu>
       </div>
     );
   }
