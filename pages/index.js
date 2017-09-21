@@ -7,9 +7,14 @@ import initPictureStore from '../stores/picture';
 import LandingView from '../components/landing';
 
 export default class Landing extends React.Component {
-  static async getInitialProps() {
+  static async getInitialProps({ req }) {
     const productStore = initProductStore();
-    await productStore.fetchCampaigns();
+    if (req) {
+      await productStore.fetchCampaigns();
+    } else {
+      productStore.fetchCampaigns();
+    }
+
     return {
       campaigns: productStore.campaigns,
     };

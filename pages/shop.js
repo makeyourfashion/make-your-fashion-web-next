@@ -6,17 +6,24 @@ import initCartStore from '../stores/cart';
 import ShopView from '../components/shop';
 import initIdentityStore from '../stores/identity';
 
-export default class Shop extends React.Component {
-  static async getInitialProps({ query }) {
-    const productStore = initProductStore();
-    await productStore.fetchCategories();
-    await productStore.fetchCampaigns();
+function fetch(productStore, query) {
+  return productStore.fetchCategories().then(() => productStore.fetchCampaigns().then(() => {
     if (query.campaign) {
-      await productStore.fetchProcutsByCampaign(query.campaign);
+      return productStore.fetchProcutsByCampaign(query.campaign);
     } else if (query.category) {
-      await productStore.fetchProcutsByCategory(query.category);
+      return productStore.fetchProcutsByCategory(query.category);
+    }
+    return productStore.fetchAllProducts(query.category);
+  }));
+}
+
+export default class Shop extends React.Component {
+  static async getInitialProps({ query, req }) {
+    const productStore = initProductStore();
+    if (req) {
+      await fetch(productStore, query);
     } else {
-      await productStore.fetchAllProducts(query.category);
+      fetch(productStore, query);
     }
 
     return {

@@ -41,7 +41,7 @@ export default class SelectQtyAndSize extends React.Component {
         <form noValidate>
           <div className="form-field select-list">
             {
-              product.sizes ? (
+              product && product.sizes ? (
                 <div>
                   <label htmlFor="select-size">
                     <div className="select-size-label">

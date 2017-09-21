@@ -151,7 +151,8 @@ class ProductStore {
 
   getProductsByCategory(id) {
     const productIds = this.categories.get(id);
-    return productIds ? productIds.products.map(pid => this.products.get(pid)) : [];
+    return productIds && productIds.products
+      ? productIds.products.map(pid => this.products.get(pid)) : [];
   }
 
   getProductsByCampaign(id) {

@@ -114,8 +114,7 @@ export default class Design extends React.Component {
     const lineColor = this.props.product.color === 'white' ? '#333' : 'white';
     const images = this.props.designStore.activeImages || [];
     const texts = this.props.designStore.activeTexts || [];
-    const showCallToAction = (!this.props.designStore.design.texts.length)
-      && (!this.props.designStore.design.images.length);
+
     return (
       <div>
         <style jsx>{`

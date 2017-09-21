@@ -26,7 +26,7 @@ export default class Stepper extends React.Component {
             max-width: 1150px;
             margin: auto;
           }
-          
+
           .inactive {
             color: #ccc;
           }

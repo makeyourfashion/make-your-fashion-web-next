@@ -121,8 +121,9 @@ export default class CreateView extends React.Component {
   handleAddToCart = (openModal = true) => {
     const { size, qty } = this.state.order;
     const errors = {};
+    const product = this.getProduct();
 
-    if (this.getProduct().sizes && !size) {
+    if (product && product.sizes && !size) {
       errors.sizeError = '请选择尺码';
     }
     if (!qty) {
@@ -183,6 +184,9 @@ export default class CreateView extends React.Component {
 
   render() {
     const product = this.getProduct();
+    if (!product) {
+      return null;
+    }
     const viewStore = this.viewStore;
     const step = viewStore.step;
 

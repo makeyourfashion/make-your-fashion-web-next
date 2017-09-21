@@ -12,7 +12,12 @@ export default class Create extends React.Component {
     const productStore = initProductStore();
     const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
     const productId = query.product || '1';
-    await productStore.fetchProduct(productId);
+
+    if (req) {
+      await productStore.fetchProduct(productId);
+    } else {
+      productStore.fetchProduct(productId);
+    }
     return {
       products: productStore.products,
       productId,
@@ -35,8 +40,9 @@ export default class Create extends React.Component {
         return;
       }
     }
-    const designDetail = this.productStore.getProduct(this.props.productId).designDetail;
-    const textDetail = this.productStore.getProduct(this.props.productId).textDetail;
+    const product = this.productStore.getProduct(this.props.productId);
+    const designDetail = product ? product.designDetail : undefined;
+    const textDetail = product ? product.textDetail : undefined;
     this.designStore = initDesignStore(this.props.productId, designDetail, textDetail);
   }
 
