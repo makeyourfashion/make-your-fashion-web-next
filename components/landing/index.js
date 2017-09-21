@@ -44,18 +44,6 @@ export default class Landing extends React.Component {
     return (
       <div>
         <style jsx>{`
-          .container {
-            margin: auto;
-          }
-          .initial-screen {
-            display: flex;
-            flex-flow: column;
-            height: 100vh;
-            max-height: 650px;
-          }
-          .header {
-            flex: 0 1 auto;
-          }
           .main-content {
             max-width: 1150px;
             margin: auto;
@@ -63,13 +51,6 @@ export default class Landing extends React.Component {
           }
           .mdc-layout-grid {
             grid-gap: 0;
-          }
-          .cat-label {
-            margin-bottom: 40px;
-            text-align: center;
-          }
-          .cat-label h3 {
-            margin: 20px 0 30px;
           }
           .landing-background {
             height: 50vh;
@@ -100,10 +81,6 @@ export default class Landing extends React.Component {
             background-color: #ccc;
             width: 47%;
             height: 1px;
-          }
-          .border-button {
-            color: #fff;
-            border-color: #fff;
           }
           .split-line .label {
             white-space: nowrap;
@@ -189,12 +166,6 @@ export default class Landing extends React.Component {
             overflow: hidden;
             display: block;
           }
-          .design-img {
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 100%;
-            width: 100%;
-          }
           @media (min-width: 600px) {
             .landing-background {
               margin-top: 64px;
@@ -240,9 +211,6 @@ export default class Landing extends React.Component {
             }
           }
 
-          .campaign-card-content {
-            background: rgba(0, 0, 0, .4);
-          }
           .campaign-title {
             padding-bottom: 5px;
             font-size: 1.3em;
@@ -270,64 +238,16 @@ export default class Landing extends React.Component {
             font-size: 13px;
             color: #ccc;
           }
-          .campaign-list-line1 {
-            max-width: 1150px;
-            width: 100%;
-            left: 50%;
-            transform: translate(-50%, 50%);
-            padding: 5px 10px 5px 10px;
-            background-color: rgba(255,255,255,1);
-            margin: auto;
-            position: absolute;
-            bottom: 0;
-          }
-          .campaign-list-line1 .campaign-card2 {
-            height: 120px;
-            display: inline-block;
-            width: calc(20% - 10px);
-            position: relative;
-            margin: 2px 9px 2px 1px;
-          }
           @media (max-width: 600px) {
-            .campaign-list-line1 {
-              transform: translate(-50%, 0);
-            }
-            .campaign-card2 {
-              height: 70px !important;
-              width: calc(33% - 10px) !important;
-            }
             .categories-container {
               margin-top: 50px;
             }
-          }
-          .campaign-card2 .details {
-            position: absolute;
-            bottom: 0;
-            left: -1px;
-            width: 100%;
-            background: rgba(0, 0, 0, .4);
-            padding: 5% 0 5% 5%;
-            padding: 0;
-          }
-
-          .promotion-bar {
-            text-align: center;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 40px;
-            color: #fff;
           }
           .campaign-title span {
             font-size: 13px;
             color: #9b9b9b;
             padding-left: 10px;
             font-weight: 300;
-          }
-          .rating :global(.ratings-list) {
-            transform: scale(0.8);
-            margin: auto;
           }
           .line1 {
             display: flex;

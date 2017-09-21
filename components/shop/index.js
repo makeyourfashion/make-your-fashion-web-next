@@ -7,6 +7,7 @@ import Mobile from '../Mobile';
 import Desktop from '../Desktop';
 import Footer from '../Footer';
 import Collapsible from '../Collapsible';
+import Loader from '../Loader';
 
 @inject('productStore') @observer
 export default class ShopView extends React.Component {
@@ -141,16 +142,19 @@ export default class ShopView extends React.Component {
               { headLine ? <h3 className="category"><span>"{ headLine }"</span>搜索结果</h3> : null }
               {
                 (() => {
-                  const campaigns = this.props.campaign
+                  const products = this.props.campaign
                     ? this.props.productStore.getProductsByCampaign(this.props.campaign)
                     : this.props.productStore.getProductsByCategory(this.props.category);
-                  if (!campaigns.length) {
+                  if (!products) {
+                    return <Loader />;
+                  }
+                  if (!products.length) {
                     return <div className="no-products-alert">暂无此类商品，请选择其他类别</div>;
                   }
                   return (
                     <div className="product-list">
                       {
-                          campaigns.map(product => (
+                          products.map(product => (
                             <ProductCard key={product.id} product={product} />
                           ))
                         }

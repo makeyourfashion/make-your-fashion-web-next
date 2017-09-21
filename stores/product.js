@@ -152,11 +152,13 @@ class ProductStore {
   getProductsByCategory(id) {
     const productIds = this.categories.get(id);
     return productIds && productIds.products
-      ? productIds.products.map(pid => this.products.get(pid)) : [];
+      ? productIds.products.map(pid => this.products.get(pid)) : null;
   }
 
   getProductsByCampaign(id) {
-    return this.campaigns.get(id).products.map(pid => this.products.get(pid));
+    const productIds = this.campaigns.get(id);
+    return productIds && productIds.products
+      ? productIds.products.map(pid => this.products.get(pid)) : null;
   }
 }
 

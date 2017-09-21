@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Router from 'next/router';
+import Loader from '../Loader';
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -25,10 +26,11 @@ export default class Design extends React.Component {
       image.onload = () => {
         this.setState({
           image,
+        }, () => {
+          this.lineX.hide();
+          this.lineY.hide();
         });
       };
-      this.lineX.hide();
-      this.lineY.hide();
     }
   }
 
@@ -173,8 +175,8 @@ export default class Design extends React.Component {
         <div style={{ height: `${CANVAS_HEIGHT}px` }} id="create-shirt-canvas">
           {
             (() => {
-              if (typeof window === 'undefined') {
-                return null;
+              if (typeof window === 'undefined' || !this.state.image) {
+                return <Loader />;
               }
               const Layer = require('react-konva').Layer;
               const Image = require('react-konva').Image;
@@ -184,6 +186,7 @@ export default class Design extends React.Component {
               const Text = require('./Text').default;
               const Group = require('react-konva').Group;
               const Line = require('react-konva').Line;
+
               return (
                 <Stage
                   x={0} y={0} width={CANVAS_WIDTH} height={CANVAS_WIDTH}

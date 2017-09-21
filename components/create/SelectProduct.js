@@ -12,7 +12,7 @@ export default class SelectProduct extends React.Component {
   async componentDidMount() {
     const productStore = this.props.productStore;
     await productStore.fetchCategories();
-    const catId = productStore.categories.values()[1].id;
+    const catId = productStore.categories.values()[0].id;
     this.setState({
       activeCategory: catId,
     });
@@ -100,7 +100,7 @@ export default class SelectProduct extends React.Component {
         `}</style>
         <div className="category-list">
           {
-            this.props.productStore.categories.values().slice(1).map(cat => (
+            this.props.productStore.categories.values().map(cat => (
               <a
                 className={`product-button ${cat.id === +this.state.activeCategory ? 'active-product' : ''}`}
                 href={cat.id}
