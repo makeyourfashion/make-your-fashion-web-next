@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { inject, observer } from 'mobx-react';
 import withLayout from '../Layout';
 import Carousel from '../Carousel';
+import Loader from '../Loader';
 
 function handleScroll() {
   window.scrollTo(0, window.innerHeight - 100);
@@ -41,6 +42,7 @@ export default class Landing extends React.Component {
 
   render() {
     const { productStore } = this.props;
+    const products = productStore.getProductsByCategory('all');
     return (
       <div>
         <style jsx>{`
@@ -332,7 +334,7 @@ export default class Landing extends React.Component {
               <div className="line" />
             </div>
             {
-              productStore.campaigns.values().map((campaign, index) => (
+              productStore.campaigns && productStore.campaigns.values().map((campaign, index) => (
                 <div key={campaign.id} className="mdc-layout-grid">
                   <div className={`mdc-layout-grid__cell mdc-layout-grid__cell--span-5 cat-image ${index % 2 === 1 && isDesktop ? 'mdc-layout-grid__cell--order-2' : ''}`}>
                     <div
@@ -411,12 +413,6 @@ export default class Landing extends React.Component {
             </div>
           </div>
           <div className="main-content">
-            {/* <div className="line1">
-              <h2 className="campaign-title">近期活动</h2>
-              <Link href="/shop?campaign=1">
-                <a>更多</a>
-              </Link>
-            </div> */}
             <div className="line1">
               <h2 className="campaign-title">热门单品<span>你的专属定制，一件即可定制</span></h2>
               <Link href="/shop?category=1">
@@ -424,32 +420,36 @@ export default class Landing extends React.Component {
               </Link>
             </div>
             <div className="campaign-list">
-              <Carousel total={4}>
-                {
-                  productStore.getProductsByCategory('all').map(product => (
-                    <div key={product.id} className="mk-card product-card">
-                      <Link key={product.id} href={`/create?product=${product.id}`}>
-                        <div>
-                          <div className="image">
-                            <a className="img-wrapper">
-                              <div
-                                className="campaign-img"
-                                style={{
-                                  backgroundImage: `url(${product.img})`,
-                                }}
-                              />
-                            </a>
-                          </div>
-                          <div className="details">
-                            <h3>{product.name}</h3>
-                            <div className="description">{product.description}</div>
-                          </div>
+              {
+                products ? (
+                  <Carousel total={4}>
+                    {
+                      productStore.getProductsByCategory('all').map(product => (
+                        <div key={product.id} className="mk-card product-card">
+                          <Link key={product.id} href={`/create?product=${product.id}`}>
+                            <div>
+                              <div className="image">
+                                <a className="img-wrapper">
+                                  <div
+                                    className="campaign-img"
+                                    style={{
+                                      backgroundImage: `url(${product.img})`,
+                                    }}
+                                  />
+                                </a>
+                              </div>
+                              <div className="details">
+                                <h3>{product.name}</h3>
+                                <div className="description">{product.description}</div>
+                              </div>
+                            </div>
+                          </Link>
                         </div>
-                      </Link>
-                    </div>
-                  ))
-                }
-              </Carousel>
+                      ))
+                    }
+                  </Carousel>
+                ) : <Loader />
+              }
             </div>
           </div>
         </div>
