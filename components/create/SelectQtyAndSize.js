@@ -1,5 +1,5 @@
 import React from 'react';
-import { range } from 'lodash';
+import range from 'lodash/range';
 import { inject, observer } from 'mobx-react';
 import { SelectField, SelectItem } from '../SelectField';
 

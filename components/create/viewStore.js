@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { keys } from 'lodash';
+import keys from 'lodash/keys';
 
 const STEP_NAME = {
   '-1': '开始设计',

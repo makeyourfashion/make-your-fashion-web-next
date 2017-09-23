@@ -1,5 +1,6 @@
 import { observable, action, computed, autorun } from 'mobx';
 import uuid from 'uuid/v4';
+import assign from 'lodash/assign';
 
 let store = null;
 class DesignStore {
@@ -66,13 +67,13 @@ class DesignStore {
   }
 
   @action updateImage(image) {
-    Object.assign(this.getImage(image.id), image);
+    assign(this.getImage(image.id), image);
     window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 
   @action updateText(text) {
     if (text.id) {
-      Object.assign(this.getText(text.id), text);
+      assign(this.getText(text.id), text);
       window.localStorage.setItem('design', JSON.stringify(this.design));
     } else {
       this.addText(text);

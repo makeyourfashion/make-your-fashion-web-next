@@ -1,7 +1,8 @@
 import React from 'react';
 import { inject, observer, Provider } from 'mobx-react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { isEmpty, range } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import range from 'lodash/range';
 import Router from 'next/router';
 import withLayout from '../Layout';
 import Design from './Design';

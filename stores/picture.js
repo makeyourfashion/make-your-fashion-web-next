@@ -1,5 +1,5 @@
 import { action, observable, computed } from 'mobx';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import 'isomorphic-fetch';
 
 let store = null;
@@ -23,9 +23,8 @@ class PictureStore {
     const ids = this.tags.get(tagId).designs;
     if (ids) {
       return ids.map(id => this.designs.get(id));
-    } else {
-      return [];
     }
+    return [];
   }
 
   getPicture(id) {

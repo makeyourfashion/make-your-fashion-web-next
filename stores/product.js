@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import 'isomorphic-fetch';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { HOST } from '../utils';
 
 let store = null;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { autorun } from 'mobx';
+import values from 'lodash/values';
 import { inject, observer } from 'mobx-react';
 import TextInput from '../TextInput';
 import { validatePhone } from '../../utils';
@@ -74,7 +75,7 @@ export default class ShippingDetail extends React.Component {
     errors.addressError = this.state.address ? '' : '请输入详细地址';
     errors.phoneError = validatePhone(this.state.phone);
 
-    if (Object.values(errors).filter(v => v).length) {
+    if (values(errors).filter(v => v).length) {
       this.setState({
         ...errors,
       });
