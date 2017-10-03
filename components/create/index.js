@@ -102,9 +102,6 @@ export default class CreateView extends React.Component {
       this.setState({
         editable: false,
       });
-      if (!e.target.closest('.edit-text-panel')) {
-        this.props.designStore.activeTextId = null;
-      }
     }
   }
 

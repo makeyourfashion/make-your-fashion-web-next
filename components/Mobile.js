@@ -1,5 +1,7 @@
 import React from 'react';
 
+const notMobile = typeof window === 'object' && window.screen.width > 600;
+
 function Mobile({ children }) {
   return (
     <div className="mobile-breakpoint">
@@ -10,7 +12,7 @@ function Mobile({ children }) {
           }
         }
       `}</style>
-      { children }
+      { notMobile ? null : children }
     </div>
   );
 }

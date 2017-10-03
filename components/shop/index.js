@@ -43,8 +43,14 @@ export default class ShopView extends React.Component {
               font-size: 1.1em;
             }
           }
+          @media (min-width: 960px) {
+            .tag-list {
+              position: fixed;
+            }
+          }
+
         `}</style>
-        <div className="mdc-list-group">
+        <div className="mdc-list-group tag-list">
           <h3 className="mdc-list-group__subheader">热门主题</h3>
           <ul className="mdc-list mdc-list--dense">
             {

@@ -49,7 +49,6 @@ export default class SelectQtyAndSize extends React.Component {
                       <a href="#size-chart">尺码表</a>
                     </div>
                     <SelectField
-                      id="select-size"
                       value={this.props.order.size}
                       onChange={this.handleSelectSize}
                     >

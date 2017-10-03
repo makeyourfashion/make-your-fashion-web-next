@@ -6,40 +6,26 @@ import initIdentityStore from '../stores/identity';
 import CheckoutView from '../components/checkout';
 import initProductStore from '../stores/product';
 
-export default class Landing extends React.Component {
-  static async getInitialProps() {
-    const identityStore = initIdentityStore();
-    await identityStore.initSession();
-    const { id, phone, name, address, email } = identityStore;
-    return {
-      id,
-      phone,
-      name,
-      address,
-      email,
-    };
+export default class Checkout extends React.Component {
+  state = {
+    auth: false,
   }
 
-  constructor(props) {
-    super(props);
-    const { id, phone, name, address, email } = this.props;
-    this.identityStore = initIdentityStore([], {
-      id,
-      phone,
-      name,
-      address,
-      email,
+  async componentDidMount() {
+    await this.identityStore.initSession();
+    if (!this.identityStore.isLoggedIn) {
+      Router.push(`/login?redirect=${encodeURIComponent('/admin/designs')}`);
+      return;
+    }
+    this.setState({
+      auth: true,
     });
   }
 
-  componentDidMount() {
-    if (!this.identityStore.isLoggedIn) {
-      Router.push(`/login?redirect=${encodeURIComponent('/checkout')}`);
-    }
-  }
+  identityStore = initIdentityStore([]);
 
   render() {
-    return (
+    return this.state.auth ? (
       <div>
         <Provider
           cartStore={initCartStore()}
@@ -49,6 +35,6 @@ export default class Landing extends React.Component {
           <CheckoutView />
         </Provider>
       </div>
-    );
+    ) : null;
   }
 }

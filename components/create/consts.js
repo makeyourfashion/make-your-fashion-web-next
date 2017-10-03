@@ -22,6 +22,13 @@ const fontList = [
   'Arial',
   'Courier New',
   'Lucida Console',
+  'Helvetica Neue',
+  'Helvetica',
+  'PingFang SC',
+  'Hiragino Sans GB',
+  'Microsoft YaHei',
+  'sans-serif',
+  '宋体',
 ];
 
 const COLORS = ['#000', '#fff', '#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'];

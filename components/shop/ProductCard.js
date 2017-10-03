@@ -41,8 +41,6 @@ export default class ProductCard extends React.Component {
           @media (max-width: 599px) {
             .product-card {
               width: 45%;
-              margin-right: 2.5%;
-              margin-left: 2.5%;
             }
           }
         `}</style>

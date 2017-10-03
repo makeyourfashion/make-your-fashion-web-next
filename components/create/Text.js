@@ -117,6 +117,7 @@ export default class Text extends React.Component {
   }
 
   render() {
+    const { lineColor } = this.props;
     const { text, x, y, font_size, font_family, color, width, align, bold, italic } = this.props.text;
     const adjFontSize = getAdjFontSize(font_size);
     const canvasWidth = toCanvasWidth(width);
@@ -131,6 +132,12 @@ export default class Text extends React.Component {
         onDragEnd={this.handleDragEnd}
         rotation={this.props.text.rotation}
       >
+        <Rect
+          strokeWidth={1}
+          ref={(r) => { this.rect = r; }}
+          stroke={lineColor}
+          dash={[10, 5]}
+        />
         <Group
           x={canvasWidth - 10}
           y={-10}
@@ -143,7 +150,7 @@ export default class Text extends React.Component {
           <Rect
             strokeWidth={1}
             fill="white"
-            stroke="grey"
+            stroke={lineColor}
             height={20}
             width={20}
           />
@@ -166,7 +173,7 @@ export default class Text extends React.Component {
           <Rect
             strokeWidth={1}
             fill="white"
-            stroke="grey"
+            stroke={lineColor}
             height={20}
             width={20}
           />
@@ -176,12 +183,6 @@ export default class Text extends React.Component {
             image={this.state.rotateImg}
           />
         </Group>
-        <Rect
-          strokeWidth={1}
-          ref={(r) => { this.rect = r; }}
-          stroke="white"
-          dash={[10, 5]}
-        />
         <KonvaText
           onMouseDown={this.handleClick}
           onTouchStart={this.handleClick}

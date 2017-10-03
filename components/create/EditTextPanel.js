@@ -38,7 +38,6 @@ export default class EditTextPanel extends React.Component {
 
   handleChangeFontSize = (fontSize) => {
     const text = this.props.designStore.selectedText || defaultText;
-    console.log(text);
     this.props.designStore.updateText({
       id: text.id,
       font_size: +fontSize,
@@ -98,6 +97,12 @@ export default class EditTextPanel extends React.Component {
     });
   }
 
+  handleAddNewText = (e) => {
+    e.preventDefault();
+    this.props.designStore.activeTextId = null;
+    this.input.focus();
+  }
+
   render() {
     const text = this.props.designStore.selectedText || defaultText;
 
@@ -133,44 +138,48 @@ export default class EditTextPanel extends React.Component {
           <TextInput
             autoFocus
             icon="text_fields"
-            ref={(r) => { this.input = r ? r.inputRef : null; }}
+            ref={(r) => { this.input = r; }}
             multiline
             label="文字"
             value={text.text}
             onChange={this.handleChangeText}
           />
         </div>
+        {
+          this.props.designStore.selectedText ? (
+            <div className="form-field">
+              <button onClick={this.handleAddNewText} className="mdc-button--raised mdc-button">
+                加入更多文字
+              </button>
+            </div>
+          ) : null
+        }
         <div className="form-field select-list">
           <div>
-            <label htmlFor="align-select">
-              字号：
-              <SelectField
-                value={text.font_size}
-                onChange={this.handleChangeFontSize}
-              >
-                {
-                  range(30, 46).map(n =>
-                    <SelectItem key={n} value={n}>{n}</SelectItem>,
-                  )
-                }
-              </SelectField>
-            </label>
+            <SelectField
+              label={'字号：'}
+              value={text.font_size}
+              onChange={this.handleChangeFontSize}
+            >
+              {
+                range(30, 46).map(n =>
+                  <SelectItem key={n} value={n}>{n}</SelectItem>,
+                )
+              }
+            </SelectField>
           </div>
           <div>
-            <label htmlFor="align-select">
-              字体：
-              <SelectField
-                style={{ font_family: text.font_family }}
-                value={text.font_family}
-                onChange={this.handleChangeFont}
-              >
-                {
-                  fontList.map(n =>
-                    <SelectItem key={n} value={n}><span style={{ fontFamily: n }}>{n}</span></SelectItem>,
-                  )
-                }
-              </SelectField>
-            </label>
+            <SelectField
+              label={'字体：'}
+              value={<span style={{ fontFamily: text.font_family }}>{text.font_family}</span>}
+              onChange={this.handleChangeFont}
+            >
+              {
+                fontList.map(n =>
+                  <SelectItem key={n} value={n}><span style={{ fontFamily: n }}>{n}</span></SelectItem>,
+                )
+              }
+            </SelectField>
           </div>
         </div>
         <div className="select-list form-field">

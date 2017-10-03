@@ -11,7 +11,7 @@ body {
   /* background-color: #fdfdf9; */
 }
 
-body, h1, input, select, textarea, div, span, a, h2, h3, h4, h5, h6 {
+body, h1, input, select, textarea, div, a, h2, h3, h4, h5, h6 {
   font-family: PingFang SC, Microsoft YaHei, Helvetica Neue For Number,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,sans-serif !important;
 }
 button {

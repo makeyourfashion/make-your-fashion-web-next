@@ -54,10 +54,6 @@ export default class OrderForm extends React.Component {
           .select-list div:not(:last-child) {
             margin-right: 5%;
           }
-          .add-to-cart-button {
-            margin-top: 1.25rem;
-          }
-
           .details {
             display: flex;
             justify-content: space-between;

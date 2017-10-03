@@ -1,17 +1,53 @@
 import React from 'react';
+import { func } from 'prop-types';
+import ClickOutside from 'react-click-outside';
 
-class SelectField extends React.Component {
-  handleChange = (event) => {
-    this.props.onChange(event.target.value);
+class SelectFieldComponent extends React.Component {
+  state = {
+    open: false,
+  }
+
+  getChildContext() {
+    return {
+      onSelect: this.handleSelect,
+    };
+  }
+
+  handleClickOutside = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  handleClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  handleSelect = (value) => {
+    this.props.onChange(value);
+    this.setState({
+      open: false,
+    });
   }
 
   render() {
+    const { label, children, value } = this.props;
+    const open = this.state.open;
     return (
-      <div className="select-field-wrapper">
-        <style jsx>{`
-            select {
+      <div>
+        <div>{label}</div>
+        <div className="menu-wrapper">
+          <style jsx>{`
+            .link-button {
+              color: #000;
+            }
+            .menu-wrapper {
+              position: relative;
+            }
+            .select {
               width: 100%;
-              appearance: none;
               background-color: #fff;
               background-image: none;
               border-radius: 4px;
@@ -21,52 +57,84 @@ class SelectField extends React.Component {
               font-size: inherit;
               line-height: 1;
               outline: 0;
+              transition: border-color .2s cubic-bezier(.645,.045,.355,1);
               padding: 3px 10px;
               height: 36px;
-              transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+              display: flex;
+              align-items: center;
             }
-            select:focus {
+            .select.open {
               border-color: #20a0ff;
             }
-
-            .select-field-wrapper {
-              position: relative;
-            }
-            .icon-arrow {
+            .icon {
               position: absolute;
               right: 10px;
               top: 50%;
-              transform: translateY(-50%);
+              transition: transform 0.3s ease-in-out;
+              transform: rotate(0deg) translateY(-50%);
+            }
+            .icon.open {
+              transform:  translateY(-50%) rotate(180deg);
+              transition: transform 0.3s ease-in-out;
+            }
+            .menu-items {
+              border: 1px solid #20a0ff;
+              background-color: rgba(255,255,255,1);
+              position: absolute;
+              left: 0;
+              top: 42px;
+              width: 99%;
+              z-index: 2001;
             }
           `}</style>
-        <select onChange={this.handleChange} value={this.props.value}>
-          <SelectItem />
-          {this.props.children}
-        </select>
-        <span className="icon-arrow">
-          <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ display: 'block', fill: 'rgb(72, 72, 72)', height: '16px', width: '16px' }}>
-            <path fillRule="evenodd" d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
-          </svg>
-        </span>
+          <div className={`select ${this.state.open ? 'open' : ''}`} onClick={this.handleClick}>
+            {value}
+          </div>
+          <div className={`icon ${this.state.open ? 'open' : ''}`}><i className="material-icons">keyboard_arrow_down</i></div>
+          {
+            open ? (
+              <div className="mk-card menu-items">
+                <ul>
+                  {children}
+                </ul>
+              </div>
+            ) : null
+          }
+        </div>
       </div>
     );
   }
 }
 
-function SelectItem({ children, value }) {
+SelectFieldComponent.childContextTypes = {
+  onSelect: func,
+};
+
+function handleClick(e, context) {
+  const value = e.target.closest('li').getAttribute('data-value');
+  context.onSelect(value);
+}
+
+function SelectItem({ children, value }, context) {
   return (
-    <option className="mdc-list-item list-item" id={value} aria-disabled="true">
+    <li onClick={e => handleClick(e, context)} data-value={value}>
       <style jsx>{`
-        .list-item {
-           min-width: 100px;
+        li {
+          padding: 8px 10px;
+        }
+        li: hover {
+          cursor: pointer;
         }
       `}</style>
       {children}
-    </option>
+    </li>
   );
 }
 
-export {
-  SelectField,
-  SelectItem,
+SelectItem.contextTypes = {
+  onSelect: func,
 };
+
+const SelectField = ClickOutside(SelectFieldComponent);
+
+export { SelectField, SelectItem };

@@ -233,6 +233,7 @@ export default class Design extends React.Component {
                             editible={this.props.editable}
                             onChangeLayer={this.handlLayerChange}
                             text={text}
+                            lineColor={lineColor}
                           />
                         ))
                       }

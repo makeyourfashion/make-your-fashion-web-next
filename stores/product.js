@@ -26,7 +26,10 @@ class ProductStore {
       const res = await fetch(`${HOST}api/categories`, {
         credentials: 'same-origin',
       });
-      const categories = (await res.json()).categories;
+      const categories = (await res.json()).categories.map(cat => ({
+        ...cat,
+        products: [],
+      }));
       this.categories.merge(keyBy(categories, 'id'));
     } catch (e) {
       // do nothing

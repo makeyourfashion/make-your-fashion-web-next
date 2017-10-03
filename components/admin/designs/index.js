@@ -1,18 +1,11 @@
 import React from 'react';
 import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
-import Router from 'next/router';
 import withLayout from '../../Layout';
 import Snackbar from '../../Snackbar';
 
 @withLayout @inject('identityStore', 'pictureStore') @observer
 export default class Designs extends React.Component {
-  componentDidMount() {
-    if (!this.props.identityStore.isLoggedIn) {
-      Router.push(`/login?redirect=${encodeURIComponent('/admin/designs')}`);
-    }
-  }
-
   @observable images = [
     {
       imgUrl: 'http://www.ufunk.net/wp-content/uploads/2016/08/Xavier-Portela-Tokyo-1.jpg',
