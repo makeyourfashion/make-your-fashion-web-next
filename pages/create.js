@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
+import { Head } from 'next/document';
 import initProductStore from '../stores/product';
 import initCartStore from '../stores/cart';
 import CreateView from '../components/create';

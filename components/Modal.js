@@ -21,6 +21,7 @@ export default class Modal extends React.Component {
             .mdc-dialog__surface {
               min-width: 100%;
               min-height: 100vh;
+              z-index: 10;
             }
           }
         `}</style>

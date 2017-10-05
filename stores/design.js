@@ -19,17 +19,17 @@ class DesignStore {
       if (images.length || texts.length) {
         this.design.images = images;
         this.design.texts = texts;
-        window.localStorage.setItem('design', JSON.stringify(this.design));
+        // window.localStorage.setItem('design', JSON.stringify(this.design));
       } else {
-        const designJson = window.localStorage.getItem('design');
-        if (designJson) {
-          const originalDesign = JSON.parse(designJson);
-          if (originalDesign.productId === this.design.productId) {
-            this.design = originalDesign;
-          } else {
-            window.localStorage.setItem('design', JSON.stringify(this.design));
-          }
-        }
+        // const designJson = window.localStorage.getItem('design');
+        // if (designJson) {
+        //   const originalDesign = JSON.parse(designJson);
+        //   if (originalDesign.productId === this.design.productId) {
+        //     this.design = originalDesign;
+        //   } else {
+        //     // window.localStorage.setItem('design', JSON.stringify(this.design));
+        //   }
+        // }
       }
     }
     autorun(() => {
@@ -68,13 +68,13 @@ class DesignStore {
 
   @action updateImage(image) {
     assign(this.getImage(image.id), image);
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    // window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 
   @action updateText(text) {
     if (text.id) {
       assign(this.getText(text.id), text);
-      window.localStorage.setItem('design', JSON.stringify(this.design));
+      // window.localStorage.setItem('design', JSON.stringify(this.design));
     } else {
       this.addText(text);
     }
@@ -82,12 +82,12 @@ class DesignStore {
 
   @action removePicture(id) {
     this.design.images = this.design.images.filter(image => image.id !== id);
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    // window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 
   @action removeText(id) {
     this.design.texts = this.design.texts.filter(text => text.id !== id);
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    // window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 
   @action addImage(imageId, img_url) {
@@ -105,7 +105,7 @@ class DesignStore {
       pic_id: this.activeImageId,
     };
     this.design.images.push(newImage);
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    // window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 
   @action addText(text) {
@@ -128,7 +128,7 @@ class DesignStore {
       this.design.texts.push(newText);
       this.activeTextId = newText.id;
       this.showEditText = new Date().getTime();
-      window.localStorage.setItem('design', JSON.stringify(this.design));
+      // window.localStorage.setItem('design', JSON.stringify(this.design));
     }
   }
 
@@ -138,7 +138,7 @@ class DesignStore {
       images: [],
       texts: [],
     };
-    window.localStorage.setItem('design', JSON.stringify(this.design));
+    // window.localStorage.setItem('design', JSON.stringify(this.design));
   }
 }
 
