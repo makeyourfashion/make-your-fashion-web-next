@@ -179,18 +179,18 @@ export default class MobileDesignPanel extends React.Component {
                 加入购物车
               </button>
             </div>
-            <div>
-              <Modal onAccept={this.handleToggleMobileOpen} title="添加文字" open={this.state.tabIndex === 1 && this.state.isMobileOpen}>
-                <EditTextPanel />
-              </Modal>
-              <Modal onAccept={this.handleToggleMobileOpen} title="选择图案" open={this.state.tabIndex === 2 && this.state.isMobileOpen}>
-                <SelectPicture onSelect={this.props.onSelect} />
-              </Modal>
-              <Modal onAccept={this.handleToggleMobileOpen} title="选择产品" open={this.state.tabIndex === 3 && this.state.isMobileOpen}>
-                <SelectProduct />
-              </Modal>
-            </div>
           </div>
+        </div>
+        <div>
+          <Modal onAccept={this.handleToggleMobileOpen} title="添加文字" open={this.state.tabIndex === 1 && this.state.isMobileOpen}>
+            <EditTextPanel />
+          </Modal>
+          <Modal onAccept={this.handleToggleMobileOpen} title="选择图案" open={this.state.tabIndex === 2 && this.state.isMobileOpen}>
+            <SelectPicture onSelect={this.props.onSelect} />
+          </Modal>
+          <Modal onAccept={this.handleToggleMobileOpen} title="选择产品" open={this.state.tabIndex === 3 && this.state.isMobileOpen}>
+            <SelectProduct />
+          </Modal>
         </div>
       </div>
     );
