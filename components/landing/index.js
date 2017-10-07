@@ -55,7 +55,7 @@ export default class Landing extends React.Component {
             grid-gap: 0;
           }
           .landing-background {
-            height: 50vh;
+            height: 450px;
             background: url("/static/image/tshirt-247818_1280.jpg") no-repeat scroll center;
             background-size: 100% auto;
             margin: auto;
@@ -187,6 +187,9 @@ export default class Landing extends React.Component {
             .image {
               height: 200px;
               border-bottom: solid 1px #dedede;
+            }
+            .landing-background {
+              background-size: auto 100%;
             }
             .woman-tee, .man-tee {
               background-size: auto 100%;
