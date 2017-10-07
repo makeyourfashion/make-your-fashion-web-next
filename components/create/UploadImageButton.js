@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import fx from 'glfx';
 import Modal from '../Modal';
 import TagButton from '../TagButton';
+import { removeBackground } from '../../services/image';
 
 @inject('designStore') @observer
 export default class UploadImageButton extends React.Component {
@@ -100,6 +101,15 @@ export default class UploadImageButton extends React.Component {
       image: canvas.toDataURL(),
     });
   }
+  handleRemoveBackground = async () => {
+    this.setState({
+      eff: 'no-bg',
+    });
+    const file = await removeBackground(this.state.originalImage);
+    this.setState({
+      image: file,
+    });
+  }
 
   handleReset = () => {
     this.setState({
@@ -166,6 +176,7 @@ export default class UploadImageButton extends React.Component {
               <TagButton isActive={this.state.eff === 'eff3'} onClick={this.handleEff3}>效果3</TagButton>
               <TagButton isActive={this.state.eff === 'eff4'} onClick={this.handleEff4}>效果4</TagButton>
               <TagButton isActive={this.state.eff === 'eff5'} onClick={this.handleEff5}>效果5</TagButton>
+              <TagButton isActive={this.state.eff === 'no-bg'} onClick={this.handleRemoveBackground}>去除背景</TagButton>
             </div>
           </div>
         </Modal>

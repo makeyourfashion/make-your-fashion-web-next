@@ -73,10 +73,6 @@ export default class SelectProduct extends React.Component {
             .category-list {
               margin: 10px 0 10px;
             }
-            .campaign-card {
-              height: 70px;
-              width: 19%;
-            }
           }
           .img-wrapper {
             height: 100%;

@@ -61,7 +61,7 @@ export default class SelectPicture extends React.Component {
               overflow: auto;
               white-space: nowrap !important;
             }
-            .line1 :global(div) {
+            .line1 > :global(div) {
               margin: 5px;
             }
           }

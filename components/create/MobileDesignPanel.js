@@ -1,26 +1,12 @@
 import React from 'react';
-import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import SelectPicture from './SelectPicture';
 import EditTextPanel from './EditTextPanel';
 import SelectProduct from './SelectProduct';
+import Modal from '../Modal';
 
 @inject('designStore') @observer
 export default class MobileDesignPanel extends React.Component {
-  constructor(props) {
-    super(props);
-    let currentEditText;
-    autorun(() => {
-      if (this.props.designStore.showEditText !== currentEditText) {
-        currentEditText = this.props.designStore.showEditText;
-        this.openTab();
-        this.setState({
-          tabIndex: 1,
-        });
-      }
-    });
-  }
-
   state = {
     tabIndex: this.props.tabId || 0,
     isMobileOpen: false,
@@ -60,8 +46,12 @@ export default class MobileDesignPanel extends React.Component {
     return (
       <div>
         <style jsx>{`
+          .full-height {
+            height: 100vh;
+            overflow: auto;
+          }
           .m-design-panel {
-            max-height: 45%;
+            z-index: 12;
             overflow: auto;
             position: fixed;
             bottom: 0;
@@ -70,7 +60,6 @@ export default class MobileDesignPanel extends React.Component {
             font-size: 12px;
             background-color: rgba(255, 255, 255, 1);
             border-top: solid 1px #ccc;
-            max-height: 40%;
           }
           .m-design-panel > :global(div) {
             width: calc(100% - 10px);
@@ -82,15 +71,12 @@ export default class MobileDesignPanel extends React.Component {
             width: 100%;
             position: relative;
           }
-          .mdc-tab {  
+          .mdc-tab {
             min-width: 0;
           }
           .mdc-tab-bar {
             width: 100%;
             max-width: 600px;
-          }
-          .main-content {
-            margin-top: 20px;
           }
           nav {
             display: flex;
@@ -159,70 +145,52 @@ export default class MobileDesignPanel extends React.Component {
             .m-design-panel .line1 h3 {
               margin: 0;
             }
-            .m-design-panel .category-list {
-              display: block !important;
-              overflow: auto !important;
-              white-space: nowrap !important;
-            }
             .m-design-panel .category-button {
               margin-right: 0 !important;
             }
             .m-design-panel .picture-list {
               margin-top: 10px !important;
-              display: block !important;
               overflow: auto !important;
-              white-space: nowrap !important;
             }
-            .m-design-panel .line1 :global(div) {
+            .m-design-panel .line1 > :global(div) {
               margin: 5px;
             }
           }
         `}</style>
         <div className="m-design-panel">
-          {
-            !this.state.isMobileOpen ? (
-              <div>
-                <div
-                  className="details-text-tab tab-with-finish-button"
-                >
-                  <nav>
-                    <a className="bottom-button" href="3" onClick={this.handleTabClick}>产品</a>
-                    <a className="bottom-button" href="2" onClick={this.handleTabClick}>
-                      图片
-                    </a>
-                    <a className="bottom-button" href="1" onClick={this.handleTabClick}>
-                      文字
-                    </a>
-                  </nav>
-                </div>
-                <div className="mobile-button">
-                  <button onClick={this.props.onAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
-                    加入购物车
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <button onTouchStart={this.handleToggleMobileOpen} className="close-button icon-button">&#10006;</button>
-                <div className="main-content">
-                  {
-                    (() => {
-                      if (this.state.tabIndex === 1) {
-                        return <EditTextPanel />;
-                      }
-                      if (this.state.tabIndex === 2) {
-                        return <SelectPicture onSelect={this.props.onSelect} />;
-                      }
-                      if (this.state.tabIndex === 3) {
-                        return <SelectProduct />;
-                      }
-                      return null;
-                    })()
-                  }
-                </div>
-              </div>
-            )
-          }
+          <div>
+            <div
+              className="details-text-tab tab-with-finish-button"
+            >
+              <nav>
+                <a className="bottom-button" href="3" onClick={this.handleTabClick}>
+                  产品
+                </a>
+                <a className="bottom-button" href="2" onClick={this.handleTabClick}>
+                  图片
+                </a>
+                <a className="bottom-button" href="1" onClick={this.handleTabClick}>
+                  文字
+                </a>
+              </nav>
+            </div>
+            <div className="mobile-button">
+              <button onClick={this.props.onAddToCart} className="add-to-cart-button mdc-button mdc-button--raised mdc-button--accent button-full-width">
+                加入购物车
+              </button>
+            </div>
+            <div>
+              <Modal onAccept={this.handleToggleMobileOpen} title="添加文字" open={this.state.tabIndex === 1 && this.state.isMobileOpen}>
+                <EditTextPanel />
+              </Modal>
+              <Modal onAccept={this.handleToggleMobileOpen} title="选择图案" open={this.state.tabIndex === 2 && this.state.isMobileOpen}>
+                <SelectPicture onSelect={this.props.onSelect} />
+              </Modal>
+              <Modal onAccept={this.handleToggleMobileOpen} title="选择产品" open={this.state.tabIndex === 3 && this.state.isMobileOpen}>
+                <SelectProduct />
+              </Modal>
+            </div>
+          </div>
         </div>
       </div>
     );
