@@ -47,7 +47,6 @@ const ModalWindoComponent = ClickOutside(ModalWindow);
 export default function ({ open, ...props }) {
   return open ? (
     <aside
-      ref={(r) => { this.modalDom = r; }}
       className="mdc-dialog mdc-dialog--open"
       role="alertdialog"
       aria-labelledby="mdc-dialog-with-list-label"
