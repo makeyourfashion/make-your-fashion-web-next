@@ -10,7 +10,8 @@ class ModalWindow extends React.Component {
       <div className="mdc-dialog__surface">
         <style jsx>{`
           .modal-body {
-            max-height: 80%;
+            max-height: 60%;
+            overflow: auto;
           }
           @media (max-width: 599px) {
             .mdc-dialog__surface {
