@@ -188,10 +188,6 @@ export default class Landing extends React.Component {
               height: 200px;
               border-bottom: solid 1px #dedede;
             }
-            .landing-background {
-              height: 100vh;
-              background-size: auto 100%;
-            }
             .woman-tee, .man-tee {
               background-size: auto 100%;
             }
