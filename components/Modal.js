@@ -1,11 +1,10 @@
 import React from 'react';
+import { unstable_renderSubtreeIntoContainer, unmountComponentAtNode } from 'react-dom';
 import ClickOutside from 'react-click-outside';
 
-class ModalWindow extends React.Component {
+class ModalWindowComponent extends React.Component {
   handleClickOutside = () => {
-    if (window.screen.width > 600) {
-      this.props.onClose();
-    }
+    this.props.onClose();
   }
   render() {
     return (
@@ -45,18 +44,46 @@ class ModalWindow extends React.Component {
   }
 }
 
-const ModalWindoComponent = ClickOutside(ModalWindow);
+const ModalWindow = ClickOutside(ModalWindowComponent);
 
-export default function ({ open, ...props }) {
+class Modal extends React.Component {
+  render() {
+    return null;
+  }
+
+  componentDidMount() {
+    this.node = document.createElement('div');
+    document.body.appendChild(this.node);
+    this.renderPortal();
+  }
+
+  componentDidUpdate() {
+    this.renderPortal();
+  }
+
+  componentWillUnmount() {
+    unmountComponentAtNode(this.node);
+    document.body.removeChild(this.node);
+  }
+
+  renderPortal() {
+    const props = this.props;
+    unstable_renderSubtreeIntoContainer(this, (
+      <aside
+        className="mdc-dialog mdc-dialog--open"
+        role="alertdialog"
+        aria-labelledby="mdc-dialog-with-list-label"
+        aria-describedby="mdc-dialog-with-list-description"
+      >
+        <ModalWindow {...props} />
+        <div className="mdc-dialog__backdrop" />
+      </aside>
+    ), this.node);
+  }
+}
+
+export default function ({ open, children, ...props }) {
   return open ? (
-    <aside
-      className="mdc-dialog mdc-dialog--open"
-      role="alertdialog"
-      aria-labelledby="mdc-dialog-with-list-label"
-      aria-describedby="mdc-dialog-with-list-description"
-    >
-      <ModalWindoComponent {...props} />
-      <div className="mdc-dialog__backdrop" />
-    </aside>
+    <Modal {...props} >{children}</Modal>
   ) : null;
 }
