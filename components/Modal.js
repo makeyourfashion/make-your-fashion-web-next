@@ -3,7 +3,9 @@ import ClickOutside from 'react-click-outside';
 
 class ModalWindow extends React.Component {
   handleClickOutside = () => {
-    this.props.onClose();
+    if (window.screen.width > 600) {
+      this.props.onClose();
+    }
   }
   render() {
     return (
