@@ -327,49 +327,43 @@ export default class CreateView extends React.Component {
               {
                 product.sizes ? (
                   <div>
-                    <label htmlFor="select-size">
-                      选择尺码：
-                      <SelectField
-                        id="select-size"
-                        value={this.state.order.size}
-                        onChange={(value) => {
-                          this.handleOrderChange({
-                            ...this.state.order,
-                            size: value,
-                          });
-                        }}
-                      >
-                        {
-                          product.sizes.split(',').map(n =>
-                            <SelectItem key={n} value={n}>{n}</SelectItem>,
-                          )
-                        }
-                      </SelectField>
-                    </label>
+                    <SelectField
+                      label="选择尺码："
+                      value={this.state.order.size}
+                      onChange={(value) => {
+                        this.handleOrderChange({
+                          ...this.state.order,
+                          size: value,
+                        });
+                      }}
+                    >
+                      {
+                        product.sizes.split(',').map(n =>
+                          <SelectItem key={n} value={n}>{n}</SelectItem>,
+                        )
+                      }
+                    </SelectField>
                     <div className="error-msg">{this.state.order.sizeError}</div>
                   </div>
                 ) : null
               }
               <div>
-                <label htmlFor="select-size">
-                  选择数量：
-                  <SelectField
-                    id="select-size"
-                    value={this.state.order.qty}
-                    onChange={(value) => {
-                      this.handleOrderChange({
-                        ...this.state.order,
-                        qty: value,
-                      });
-                    }}
-                  >
-                    {
-                      range(1, 12).map(n =>
-                        <SelectItem key={n} value={n}>{n}</SelectItem>,
-                      )
-                    }
-                  </SelectField>
-                </label>
+                <SelectField
+                  label="选择数量："
+                  value={this.state.order.qty}
+                  onChange={(value) => {
+                    this.handleOrderChange({
+                      ...this.state.order,
+                      qty: value,
+                    });
+                  }}
+                >
+                  {
+                    range(1, 12).map(n =>
+                      <SelectItem key={n} value={n}>{n}</SelectItem>,
+                    )
+                  }
+                </SelectField>
                 <div className="error-msg">{this.state.order.qtyError}</div>
               </div>
             </div>

@@ -1,14 +1,33 @@
 import React from 'react';
 
 export default class TextInput extends React.Component {
+  state = {
+    focus: false,
+  }
   focus() {
     this.input.focus();
   }
+  handleFocus = () => {
+    this.setState({
+      focus: true,
+    });
+    this.props.onFocus && this.props.onFocus();
+  }
+  handleBlur = () => {
+    this.setState({
+      focus: false,
+    });
+    this.props.onBlur && this.props.onBlur();
+  }
   render() {
-    const { icon, onChange, value, type = 'text', displayError, multiline, label = '', ...props } = this.props;
+    const { icon, onChange, onFocus, onBlur, value, type = 'text', displayError, multiline, label = '', ...props } = this.props;
     return (
       <div>
         <style jsx>{`
+          .input-border {
+            border: 2px solid #dedede;
+            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+          }
           .input-wrapper {
             position: relative;
           }
@@ -17,14 +36,13 @@ export default class TextInput extends React.Component {
             appearance: none;
             background-color: #fff;
             background-image: none;
-            border-radius: 4px;
-            border: 1px solid #bfcbd9;
+            border: none
             box-sizing: border-box;
             color: #1f2d3d;
             font-size: inherit;
             line-height: 1;
             outline: 0;
-            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+            box-shadow: 0 0 0 30px white inset;
           }
           input {
             padding: 3px 10px;
@@ -35,8 +53,8 @@ export default class TextInput extends React.Component {
           input {
             height: 36px;
           }
-          textarea:focus, input:focus {
-            border-color: #20a0ff;
+          .focus {
+            border-color: #000;
           }
           .icon {
             position: absolute;
@@ -47,45 +65,51 @@ export default class TextInput extends React.Component {
             transform: translateY(-50%);
             vertical-align: middle;
           }
-          .input-padding {
-            padding-left: 56px;
-          }
           .icon-multi {
             height: 58px;
           }
           .material-icons {
             font-size: 20px;
           }
+          .label {
+            padding: 6px 10px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #ccc;
+          }
+          .focus .label {
+            color: #212121;
+          }
         `}</style>
-        <div className="input-wrapper">
-          {
-            icon ? <div className={`icon ${multiline ? 'icon-multi' : ''}`}><i className="material-icons">{icon}</i></div> : null
-          }
-          {
-            multiline ? (
-              <textarea
-                ref={(r) => { this.input = r; }}
-                className={icon ? 'input-padding' : null}
-                placeholder={label}
-                rows="4"
-                cols="30"
-                onChange={onChange}
-                value={value}
-                type={type || 'text'}
-                {...props}
-              />
-            ) : (
-              <input
-                ref={(r) => { this.input = r; }}
-                className={icon ? 'input-padding' : null}
-                value={value}
-                type={type}
-                onChange={onChange}
-                placeholder={label}
-                {...props}
-              />
-            )
-          }
+        <div className={`input-border ${this.state.focus ? 'focus' : ''}`}>
+          <div className="label">{label}</div>
+          <div className="input-wrapper">
+            {
+              multiline ? (
+                <textarea
+                  ref={(r) => { this.input = r; }}
+                  rows="4"
+                  cols="30"
+                  onFocus={this.handleFocus}
+                  onBlur={this.handleBlur}
+                  onChange={onChange}
+                  value={value}
+                  type={type || 'text'}
+                  {...props}
+                />
+              ) : (
+                <input
+                  ref={(r) => { this.input = r; }}
+                  value={value}
+                  type={type}
+                  onFocus={this.handleFocus}
+                  onBlur={this.handleBlur}
+                  onChange={onChange}
+                  {...props}
+                />
+              )
+            }
+          </div>
         </div>
         {
           displayError ? (

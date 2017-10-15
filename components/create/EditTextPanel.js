@@ -148,7 +148,7 @@ export default class EditTextPanel extends React.Component {
         {
           this.props.designStore.selectedText ? (
             <div className="form-field">
-              <button onClick={this.handleAddNewText} className="mdc-button--raised mdc-button">
+              <button onClick={this.handleAddNewText} className="link-button">
                 加入更多文字
               </button>
             </div>

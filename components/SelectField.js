@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { func, string, oneOf, number } from 'prop-types';
 import ClickOutside from 'react-click-outside';
 
 class SelectFieldComponent extends React.Component {
@@ -10,6 +10,7 @@ class SelectFieldComponent extends React.Component {
   getChildContext() {
     return {
       onSelect: this.handleSelect,
+      value: this.props.value,
     };
   }
 
@@ -36,64 +37,84 @@ class SelectFieldComponent extends React.Component {
     const { label, children, value } = this.props;
     const open = this.state.open;
     return (
-      <div>
-        <div>{label}</div>
+      <div
+        className={`select-border ${this.state.open ? 'open' : ''}`}
+        onClick={this.handleClick}
+        role="listbox"
+        tabIndex="0"
+      >
+        <style jsx>{`
+          .select-border {
+            border: 2px solid #dedede;
+            background-color: #fff;
+            max-height: 100%;
+          }
+          .select-border:focus {
+            border-color: #000;
+          }
+          .select-border.open {
+            border-color: #000;
+          }
+          .label {
+            padding: 6px 10px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #ccc;
+          }
+          .select-border:focus .label {
+            color: #212121;
+          }
+          .link-button {
+            color: #000;
+          }
+          .menu-wrapper {
+            position: relative;
+          }
+          .select {
+            width: 100%;
+            box-sizing: border-box;
+            color: #1f2d3d;
+            font-size: inherit;
+            line-height: 1;
+            outline: 0;
+            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+            padding: 3px 10px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+          }
+          .icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transition: transform 0.3s ease-in-out;
+            transform: rotate(0deg) translateY(-50%);
+          }
+          .icon.open {
+            transform:  translateY(-50%) rotate(180deg);
+            transition: transform 0.3s ease-in-out;
+          }
+          .menu-items {
+            border: 1px solid #000;
+            background-color: rgba(255,255,255,1);
+            position: absolute;
+            left: -2px;
+            top: 42px;
+            width: 100%;
+            z-index: 2001;
+            border-radius: 0;
+            border-width: 2px;
+          }
+        `}</style>
+        <div className="label">{label}</div>
         <div className="menu-wrapper">
-          <style jsx>{`
-            .link-button {
-              color: #000;
-            }
-            .menu-wrapper {
-              position: relative;
-            }
-            .select {
-              width: 100%;
-              background-color: #fff;
-              background-image: none;
-              border-radius: 4px;
-              border: 1px solid #bfcbd9;
-              box-sizing: border-box;
-              color: #1f2d3d;
-              font-size: inherit;
-              line-height: 1;
-              outline: 0;
-              transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-              padding: 3px 10px;
-              height: 36px;
-              display: flex;
-              align-items: center;
-            }
-            .select.open {
-              border-color: #20a0ff;
-            }
-            .icon {
-              position: absolute;
-              right: 10px;
-              top: 50%;
-              transition: transform 0.3s ease-in-out;
-              transform: rotate(0deg) translateY(-50%);
-            }
-            .icon.open {
-              transform:  translateY(-50%) rotate(180deg);
-              transition: transform 0.3s ease-in-out;
-            }
-            .menu-items {
-              border: 1px solid #20a0ff;
-              background-color: rgba(255,255,255,1);
-              position: absolute;
-              left: 0;
-              top: 42px;
-              width: 99%;
-              z-index: 2001;
-            }
-          `}</style>
-          <div className={`select ${this.state.open ? 'open' : ''}`} onClick={this.handleClick}>
+          <div className="select">
             {value}
           </div>
           <div className={`icon ${this.state.open ? 'open' : ''}`}><i className="material-icons">keyboard_arrow_down</i></div>
           {
             open ? (
-              <div className="mk-card menu-items">
+              <div className="menu-items">
                 <ul>
                   {children}
                 </ul>
@@ -108,6 +129,7 @@ class SelectFieldComponent extends React.Component {
 
 SelectFieldComponent.childContextTypes = {
   onSelect: func,
+  value: oneOf(string, number),
 };
 
 function handleClick(e, context) {
@@ -117,10 +139,19 @@ function handleClick(e, context) {
 
 function SelectItem({ children, value }, context) {
   return (
-    <li onClick={e => handleClick(e, context)} data-value={value}>
+    <li
+      onClick={e => handleClick(e, context)}
+      data-value={value}
+      role="option"
+      aria-selected={value == context.value}
+      className={value == context.value ? 'active' : ''}
+    >
       <style jsx>{`
         li {
           padding: 8px 10px;
+        }
+        li.active {
+          background-color: #dedede;
         }
         li: hover {
           cursor: pointer;
@@ -133,6 +164,7 @@ function SelectItem({ children, value }, context) {
 
 SelectItem.contextTypes = {
   onSelect: func,
+  value: oneOf(string, number),
 };
 
 const SelectField = ClickOutside(SelectFieldComponent);

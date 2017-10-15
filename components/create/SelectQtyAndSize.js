@@ -31,11 +31,7 @@ export default class SelectQtyAndSize extends React.Component {
             margin: 20px 0 20px;
           }
           .select-size-label {
-            display: flex;
-            justify-content: space-between;
-          }
-          .select-size-label a {
-            color: #000;
+            text-align: right;
           }
         `}</style>
         <form noValidate>
@@ -43,41 +39,36 @@ export default class SelectQtyAndSize extends React.Component {
             {
               product && product.sizes ? (
                 <div>
-                  <label htmlFor="select-size">
-                    <div className="select-size-label">
-                      <div>选择尺码：</div>
-                      <a href="#size-chart">尺码表</a>
-                    </div>
-                    <SelectField
-                      value={this.props.order.size}
-                      onChange={this.handleSelectSize}
-                    >
-                      {
-                        product.sizes.split(',').map(n =>
-                          <SelectItem key={n} value={n}>{n}</SelectItem>,
-                        )
-                      }
-                    </SelectField>
-                  </label>
+                  <div className="select-size-label">
+                    <a className="link-button" href="#size-chart">尺码表</a>
+                  </div>
+                  <SelectField
+                    value={this.props.order.size}
+                    label="选择尺码："
+                    onChange={this.handleSelectSize}
+                  >
+                    {
+                      product.sizes.split(',').map(n =>
+                        <SelectItem key={n} value={n}>{n}</SelectItem>,
+                      )
+                    }
+                  </SelectField>
                   <div className="error-msg">{this.props.order.sizeError}</div>
                 </div>
               ) : null
             }
             <div>
-              <label htmlFor="select-size">
-                选择数量：
-                <SelectField
-                  id="select-size"
-                  value={this.props.order.qty}
-                  onChange={this.handleSelectQty}
-                >
-                  {
-                    range(1, 12).map(n =>
-                      <SelectItem key={n} value={n}>{n}</SelectItem>,
-                    )
-                  }
-                </SelectField>
-              </label>
+              <SelectField
+                label="选择数量："
+                value={this.props.order.qty}
+                onChange={this.handleSelectQty}
+              >
+                {
+                  range(1, 12).map(n =>
+                    <SelectItem key={n} value={n}>{n}</SelectItem>,
+                  )
+                }
+              </SelectField>
               <div className="error-msg">{this.props.order.qtyError}</div>
             </div>
           </div>

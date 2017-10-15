@@ -145,6 +145,10 @@ export default class UploadImageButton extends React.Component {
               background-color: #000;
               color: #fff;
             }
+            .preview-img {
+              max-height: 300px;
+              overflow: auto;
+            }
           }
           .buttons {
             margin-top: 12px;
@@ -153,7 +157,7 @@ export default class UploadImageButton extends React.Component {
             margin-top: 12px;
           }
         `}</style>
-        <input className="input-hiddden" type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
+        <input accept="image/*" className="input-hiddden" type="file" ref={(r) => { this.fileInput = r; }} onChange={this.uploadImage} />
         <button
           onClick={this.handleOpenFileUploadDialog}
           className="upload-button"
@@ -168,7 +172,9 @@ export default class UploadImageButton extends React.Component {
         >
           <div className="modal-content">
             <img style={{ display: 'none' }} width={500} height={500} ref={(r) => { this.imageDom = r; }} alt="上传图片" src={this.state.originalImage} />
-            <img width={400} height={400} alt="上传图片" src={this.state.image} />
+            <div className="preview-img">
+              <img width={350} alt="上传图片" src={this.state.image} />
+            </div>
             <div className="buttons">
               <TagButton isActive={this.state.eff === 'origin'} onClick={this.handleReset}>原图</TagButton>
               <TagButton isActive={this.state.eff === 'eff1'} onClick={this.handleEff1}>效果1</TagButton>

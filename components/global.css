@@ -162,9 +162,9 @@ body {
 }
 
 .link-button {
-  color: #4285f4;
+  color: #ff5a5f;
   line-height: 36px;
-  padding: 6px 0;
+  padding: 0;
   border: none;
   background-color: inherit;
   cursor: pointer;
