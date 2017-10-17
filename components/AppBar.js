@@ -153,6 +153,10 @@ export default class DeskAppBar extends React.Component {
                       }`}
                     >销售</a>
                   </Link>
+                  <a
+                    href="//59.110.141.38:8883/"
+                    className="mdc-tab"
+                  >Show Case</a>
                   <span className="mdc-tab-bar__indicator" />
                 </nav>
               </div>
@@ -203,6 +207,10 @@ export default class DeskAppBar extends React.Component {
                     }`}
                   >销售</a>
                 </Link>
+                <a
+                  href="//59.110.141.38:8883/"
+                  className="mdc-list-item"
+                >Show Case</a>
               </nav>
               <div className="mdc-temporary-drawer__toolbar-spacer" />
               <nav className="mdc-list">
